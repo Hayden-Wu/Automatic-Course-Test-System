@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Automatic_Course_Test_System
 {
-    public partial class Form1 : Form
+    public partial class Sign_in : Form
     {
-        public Form1()
+        public Sign_in()
         {
             InitializeComponent();
         }
