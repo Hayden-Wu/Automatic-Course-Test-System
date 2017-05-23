@@ -1,6 +1,7 @@
 Automatic-Course-Test-System
 ============================
 界面结构：
+----------------------------
 Sign_in 登陆
   User 用户
     Test 测试
