@@ -66,6 +66,18 @@
     <Compile Include="Registered.Designer.cs">
       <DependentUpon>Registered.cs</DependentUpon>
     </Compile>
+    <Compile Include="Specific_Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Specific_Test.Designer.cs">
+      <DependentUpon>Specific_Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test.Designer.cs">
+      <DependentUpon>Test.cs</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +101,12 @@
     </Compile>
     <EmbeddedResource Include="Registered.resx">
       <DependentUpon>Registered.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Specific_Test.resx">
+      <DependentUpon>Specific_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test.resx">
+      <DependentUpon>Test.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User.resx">
       <DependentUpon>User.cs</DependentUpon>
