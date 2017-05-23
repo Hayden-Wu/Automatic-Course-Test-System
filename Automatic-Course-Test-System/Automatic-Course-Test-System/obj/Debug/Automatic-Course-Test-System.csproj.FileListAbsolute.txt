@@ -1,0 +1,9 @@
+C:\Users\Haydn\Source\Repos\Automatic-Course-Test-System\Automatic-Course-Test-System\Automatic-Course-Test-System\bin\Debug\Automatic-Course-Test-System.exe.config
+C:\Users\Haydn\Source\Repos\Automatic-Course-Test-System\Automatic-Course-Test-System\Automatic-Course-Test-System\bin\Debug\Automatic-Course-Test-System.exe
+C:\Users\Haydn\Source\Repos\Automatic-Course-Test-System\Automatic-Course-Test-System\Automatic-Course-Test-System\bin\Debug\Automatic-Course-Test-System.pdb
+C:\Users\Haydn\Source\Repos\Automatic-Course-Test-System\Automatic-Course-Test-System\Automatic-Course-Test-System\obj\Debug\Automatic-Course-Test-System.csprojResolveAssemblyReference.cache
+C:\Users\Haydn\Source\Repos\Automatic-Course-Test-System\Automatic-Course-Test-System\Automatic-Course-Test-System\obj\Debug\Automatic_Course_Test_System.Form1.resources
+C:\Users\Haydn\Source\Repos\Automatic-Course-Test-System\Automatic-Course-Test-System\Automatic-Course-Test-System\obj\Debug\Automatic_Course_Test_System.Properties.Resources.resources
+C:\Users\Haydn\Source\Repos\Automatic-Course-Test-System\Automatic-Course-Test-System\Automatic-Course-Test-System\obj\Debug\Automatic-Course-Test-System.csproj.GenerateResource.Cache
+C:\Users\Haydn\Source\Repos\Automatic-Course-Test-System\Automatic-Course-Test-System\Automatic-Course-Test-System\obj\Debug\Automatic-Course-Test-System.exe
+C:\Users\Haydn\Source\Repos\Automatic-Course-Test-System\Automatic-Course-Test-System\Automatic-Course-Test-System\obj\Debug\Automatic-Course-Test-System.pdb
