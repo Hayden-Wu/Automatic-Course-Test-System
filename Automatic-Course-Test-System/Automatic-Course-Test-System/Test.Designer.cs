@@ -100,7 +100,7 @@
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
             this.Name = "Test";
-            this.Text = "Test";
+            this.Text = "课程自动测试系统";
             this.ResumeLayout(false);
             this.PerformLayout();
 
