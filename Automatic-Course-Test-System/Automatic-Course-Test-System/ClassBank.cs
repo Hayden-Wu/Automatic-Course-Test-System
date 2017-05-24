@@ -257,7 +257,7 @@ namespace Automatic_Course_Test_System
         private string subject;
         private string test;
         private string testnumber;
-        private string choice_answerA;
+        private string choice_answer;
         private string answer;
 
         public Class_Upload()
@@ -315,16 +315,16 @@ namespace Automatic_Course_Test_System
             }
         }
 
-        public string Choice_answerA
+        public string Choice_answer
         {
             get
             {
-                return choice_answerA;
+                return choice_answer;
             }
 
             set
             {
-                choice_answerA = value;
+                choice_answer = value;
             }
         }
 
