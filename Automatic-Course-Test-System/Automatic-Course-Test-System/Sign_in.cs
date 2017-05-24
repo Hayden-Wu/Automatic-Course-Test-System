@@ -33,7 +33,7 @@ namespace Automatic_Course_Test_System
         {
             zhanghao = textBox1.Text;
             mima = textBox2.Text;
-            string html = "";
+            string html="";
             try
             {
                 string getWeatherUrl = "http://" + Httpadd.Add + ":8080/pro/load.jsp?name=" + zhanghao + "&passward=" + mima;
@@ -45,7 +45,7 @@ namespace Automatic_Course_Test_System
                 html = sr.ReadToEnd();
                 sr.Close();
                 stream.Close();
-
+                
             }
             catch
             {
@@ -53,7 +53,7 @@ namespace Automatic_Course_Test_System
             }
 
 
-            if (html == "1")
+            if ( html == "1")
             {
                 User f = new User();
                 this.Hide();
@@ -69,7 +69,7 @@ namespace Automatic_Course_Test_System
 
         private void textBox2_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if(e.KeyCode==Keys.Enter)
             {
                 button1.PerformClick();
             }
