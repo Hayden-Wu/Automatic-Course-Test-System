@@ -98,8 +98,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Server_Operational.ashx" />
     <None Include="Properties\PublishProfiles\server.pubxml" />
+    <Content Include="Server_Sign.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -112,8 +112,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Server_Operational.ashx.cs">
-      <DependentUpon>Server_Operational.ashx</DependentUpon>
+    <Compile Include="Server_Sign.ashx.cs">
+      <DependentUpon>Server_Sign.ashx</DependentUpon>
     </Compile>
   </ItemGroup>
   <PropertyGroup>

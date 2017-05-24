@@ -6,10 +6,12 @@ using System.Web;
 namespace Automatic_Course_Test_System_Server
 {
     /// <summary>
-    /// Server_Operational 的摘要说明
+    /// Server_Sign 的摘要说明
     /// </summary>
-    public class Server_Operational : IHttpHandler
+    public class Server_Sign : IHttpHandler
     {
+
+        HttpContext httpContext;
 
         public void ProcessRequest(HttpContext context)
         {
@@ -25,6 +27,13 @@ namespace Automatic_Course_Test_System_Server
 
             httpContext.Response.AppendHeader("Pragma", "No-Cache");
             httpContext.Response.ContentType = "text/plain";
+
+            string action = httpContext.Request.QueryString["action"];
+            string username = httpContext.Request.QueryString["username"];
+            string passward = httpContext.Request.QueryString["passward"];
+
+            if (action == "sign")
+                Sign(username, password);
         }
 
         public bool IsReusable
@@ -34,5 +43,8 @@ namespace Automatic_Course_Test_System_Server
                 return false;
             }
         }
+
+        protected void Sign(string username, string password)
+        { }
     }
 }
