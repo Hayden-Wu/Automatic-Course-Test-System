@@ -40,6 +40,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "考试";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -49,6 +50,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "查询";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // User
             // 
@@ -59,6 +61,7 @@
             this.Controls.Add(this.button1);
             this.Name = "User";
             this.Text = "课程自动测试系统";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.User_FormClosed);
             this.ResumeLayout(false);
 
         }
