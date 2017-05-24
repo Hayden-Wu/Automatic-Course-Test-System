@@ -5,6 +5,27 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automatic-Course-Test-System", "Automatic-Course-Test-System\Automatic-Course-Test-System.csproj", "{5BEC404B-A889-41DD-88CB-384CA29CD088}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite1(1)", "..\..\..\..\Documents\Visual Studio 2015\WebSites\WebSite1\", "{FA894486-714E-4FED-A777-AE00EE3DBE5E}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_10294"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\Documents\Visual Studio 2015\WebSites\WebSite1\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_10294\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_10294"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\Documents\Visual Studio 2015\WebSites\WebSite1\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_10294\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "10294"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +36,10 @@ Global
 		{5BEC404B-A889-41DD-88CB-384CA29CD088}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BEC404B-A889-41DD-88CB-384CA29CD088}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BEC404B-A889-41DD-88CB-384CA29CD088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA894486-714E-4FED-A777-AE00EE3DBE5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA894486-714E-4FED-A777-AE00EE3DBE5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA894486-714E-4FED-A777-AE00EE3DBE5E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA894486-714E-4FED-A777-AE00EE3DBE5E}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
