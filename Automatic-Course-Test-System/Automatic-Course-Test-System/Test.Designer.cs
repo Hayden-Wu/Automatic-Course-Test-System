@@ -101,6 +101,7 @@
             this.Controls.Add(this.comboBox1);
             this.Name = "Test";
             this.Text = "课程自动测试系统";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Test_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

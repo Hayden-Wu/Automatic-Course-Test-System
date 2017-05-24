@@ -35,6 +35,31 @@ namespace Automatic_Course_Test_System
             {
                 MessageBox.Show("用户名或密码错误");
                 textBox2.Select();
+                textBox2.Clear();
+            }
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode==Keys.Enter)
+            {
+                button1.PerformClick();
+            }
+        }
+
+        private void Sign_in_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1.PerformClick();
+            }
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1.PerformClick();
             }
         }
     }

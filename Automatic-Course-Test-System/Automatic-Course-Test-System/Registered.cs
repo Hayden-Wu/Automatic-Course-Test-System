@@ -34,12 +34,40 @@ namespace Automatic_Course_Test_System
             else if(textBox2.Text!=textBox3.Text)
             {
                 MessageBox.Show("请输入相同密码");
-                textBox3.Select();
+                textBox2.Select();
+                textBox2.Clear();
+                textBox3.Clear();
             }
             else
             {
                 MessageBox.Show("注册失败");
                 textBox1.Select();
+                textBox2.Clear();
+                textBox3.Clear();
+            }
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1.PerformClick();
+            }
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1.PerformClick();
+            }
+        }
+
+        private void textBox3_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1.PerformClick();
             }
         }
     }
