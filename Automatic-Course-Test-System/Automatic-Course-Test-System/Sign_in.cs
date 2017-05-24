@@ -7,12 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
+using System.IO;
 
 namespace Automatic_Course_Test_System
 {
 
     public partial class Sign_in : Form
     {
+        private string zhanghao;
+        private string mima;
         public Sign_in()
         {
             InitializeComponent();
@@ -27,7 +31,29 @@ namespace Automatic_Course_Test_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "test" && textBox2.Text == "test")
+            zhanghao = textBox1.Text;
+            mima = textBox2.Text;
+            string html = "";
+            try
+            {
+                string getWeatherUrl = "http://" + Httpadd.Add + ":8080/pro/load.jsp?name=" + zhanghao + "&passward=" + mima;
+                WebRequest webReq = WebRequest.Create(getWeatherUrl);
+                webReq.Timeout = 2000;
+                WebResponse webResp = webReq.GetResponse();
+                Stream stream = webResp.GetResponseStream();
+                StreamReader sr = new StreamReader(stream, Encoding.GetEncoding("GBK"));
+                html = sr.ReadToEnd();
+                sr.Close();
+                stream.Close();
+
+            }
+            catch
+            {
+                MessageBox.Show("链接失败");
+            }
+
+
+            if (html == "1")
             {
                 User f = new User();
                 this.Hide();
@@ -43,7 +69,7 @@ namespace Automatic_Course_Test_System
 
         private void textBox2_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode==Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 button1.PerformClick();
             }
