@@ -52,6 +52,7 @@
     <Compile Include="Administrator.Designer.cs">
       <DependentUpon>Administrator.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClassBank.cs" />
     <Compile Include="CreateQuestionBank.cs">
       <SubType>Form</SubType>
     </Compile>
