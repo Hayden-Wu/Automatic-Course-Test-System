@@ -7,6 +7,9 @@
 >>>>Specific_Test 具体测试
 >>>>>Results 结果
 
+>>>Inquiry 查询
+>>>>Results 结果
+
 >>Administrator 管理员
 
 >>Registered 注册
