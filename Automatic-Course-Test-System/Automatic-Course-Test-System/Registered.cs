@@ -12,16 +12,22 @@ namespace Automatic_Course_Test_System
 {
     public partial class Registered : Form
     {
-        public Registered()
+        private Form FatherForm = null;
+
+        public Registered(Form Sign_in)
         {
             InitializeComponent();
+
+            this.FatherForm = Sign_in;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Sign_in f = new Sign_in();
+            if (this.FatherForm != null)
+            {
+                this.FatherForm.Visible = true;
+            }
             this.Close();
-            f.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
