@@ -1,6 +1,6 @@
 ﻿namespace Automatic_Course_Test_System
 {
-    partial class Administrator
+    partial class Examinee
     {
         /// <summary>
         /// Required designer variable.
@@ -34,30 +34,30 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(37, 99);
+            this.button1.Location = new System.Drawing.Point(36, 143);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
-            this.button1.Text = "题库";
+            this.button1.Text = "按课程查询";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(161, 99);
+            this.button2.Location = new System.Drawing.Point(162, 143);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
-            this.button2.Text = "考生";
+            this.button2.Text = "按考生查询";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // Administrator
+            // Examinee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "Administrator";
+            this.Name = "Examinee";
             this.Text = "课程自动测试系统";
             this.ResumeLayout(false);
 

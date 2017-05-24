@@ -52,11 +52,53 @@
     <Compile Include="Administrator.Designer.cs">
       <DependentUpon>Administrator.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreateQuestionBank.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateQuestionBank.Designer.cs">
+      <DependentUpon>CreateQuestionBank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Examinee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Examinee.Designer.cs">
+      <DependentUpon>Examinee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExamineeInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExamineeInformation.Designer.cs">
+      <DependentUpon>ExamineeInformation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Inquiry.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Inquiry.Designer.cs">
       <DependentUpon>Inquiry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InquiryByExaminee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InquiryByExaminee.Designer.cs">
+      <DependentUpon>InquiryByExaminee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InquiryByTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InquiryByTest.Designer.cs">
+      <DependentUpon>InquiryByTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionBank.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuestionBank.Designer.cs">
+      <DependentUpon>QuestionBank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionBankInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuestionBankInformation.Designer.cs">
+      <DependentUpon>QuestionBankInformation.cs</DependentUpon>
     </Compile>
     <Compile Include="Results.cs">
       <SubType>Form</SubType>
@@ -99,8 +141,29 @@
     <EmbeddedResource Include="Administrator.resx">
       <DependentUpon>Administrator.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CreateQuestionBank.resx">
+      <DependentUpon>CreateQuestionBank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Examinee.resx">
+      <DependentUpon>Examinee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExamineeInformation.resx">
+      <DependentUpon>ExamineeInformation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Inquiry.resx">
       <DependentUpon>Inquiry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InquiryByExaminee.resx">
+      <DependentUpon>InquiryByExaminee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InquiryByTest.resx">
+      <DependentUpon>InquiryByTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuestionBank.resx">
+      <DependentUpon>QuestionBank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuestionBankInformation.resx">
+      <DependentUpon>QuestionBankInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Results.resx">
       <DependentUpon>Results.cs</DependentUpon>
