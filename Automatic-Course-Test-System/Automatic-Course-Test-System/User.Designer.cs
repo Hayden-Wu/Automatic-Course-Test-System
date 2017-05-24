@@ -61,7 +61,7 @@
             this.Controls.Add(this.button1);
             this.Name = "User";
             this.Text = "课程自动测试系统";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.User_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.User_FormClosing);
             this.ResumeLayout(false);
 
         }

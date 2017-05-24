@@ -12,16 +12,22 @@ namespace Automatic_Course_Test_System
 {
     public partial class Registered : Form
     {
-        public Registered()
+        private Form FatherForm = null;
+        private int Close = -1;
+        public Registered(Form Sign_in)
         {
             InitializeComponent();
+
+            this.FatherForm = Sign_in;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Sign_in f = new Sign_in();
+            if (this.FatherForm != null)
+            {
+                this.FatherForm.Visible = true;
+            }
             this.Close();
-            f.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -29,6 +35,10 @@ namespace Automatic_Course_Test_System
             if (textBox1.Text != "" && textBox2.Text != "" && (textBox2.Text == textBox3.Text))
             {
                 MessageBox.Show("注册成功");
+                if (this.FatherForm != null)
+                {
+                    this.FatherForm.Visible = true;
+                }
                 this.Close();
             }
             else if(textBox2.Text!=textBox3.Text)
@@ -69,6 +79,12 @@ namespace Automatic_Course_Test_System
             {
                 button1.PerformClick();
             }
+        }
+
+        private void Registered_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Close == 1)
+                Application.Exit();
         }
     }
 }

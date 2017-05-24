@@ -12,6 +12,7 @@ namespace Automatic_Course_Test_System
 {
     public partial class User : Form
     {
+        private bool Close = true;
         public User()
         {
             InitializeComponent();
@@ -19,21 +20,24 @@ namespace Automatic_Course_Test_System
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Close = false;
             Test f = new Test();
             f.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Close = false;
             Inquiry f = new Inquiry();
             f.Show();
-            this.Hide();
+            this.Close();
         }
 
-        private void User_FormClosed(object sender, FormClosedEventArgs e)
+        private void User_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            if (Close == true)
+                Application.Exit();
         }
     }
 }

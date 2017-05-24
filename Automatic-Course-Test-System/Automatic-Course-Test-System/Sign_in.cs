@@ -24,8 +24,9 @@ namespace Automatic_Course_Test_System
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Registered f = new Registered();
+            Registered f = new Registered(this);
             f.Show();
+            this.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
