@@ -17,6 +17,7 @@ namespace Automatic_Course_Test_System
     {
         private string zhanghao;
         private string mima;
+
         public Sign_in()
         {
             InitializeComponent();
