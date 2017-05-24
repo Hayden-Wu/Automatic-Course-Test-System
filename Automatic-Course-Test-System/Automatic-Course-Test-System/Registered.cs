@@ -13,7 +13,7 @@ namespace Automatic_Course_Test_System
     public partial class Registered : Form
     {
         private Form FatherForm = null;
-        private int Close = -1;
+        private bool Close = true;
         public Registered(Form Sign_in)
         {
             InitializeComponent();
@@ -83,7 +83,7 @@ namespace Automatic_Course_Test_System
 
         private void Registered_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Close == 1)
+            if (Close == true)
                 Application.Exit();
         }
     }

@@ -202,6 +202,7 @@
             this.button4.TabIndex = 11;
             this.button4.Text = "提交";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // Specific_Test
             // 
@@ -222,6 +223,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "Specific_Test";
             this.Text = "课程自动测试系统";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Specific_Test_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

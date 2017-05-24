@@ -12,14 +12,26 @@ namespace Automatic_Course_Test_System
 {
     public partial class Inquiry : Form
     {
-        public Inquiry()
+        private bool Close = true;
+        private Form FatherForm = null;
+        public Inquiry(Form Sign_in)
         {
             InitializeComponent();
+            FatherForm = Sign_in;
         }
 
-        private void Inquiry_FormClosed(object sender, FormClosedEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Close = false;
+            Results f = new Results(FatherForm);
+            f.Show();
+            this.Close();
+        }
+
+        private void Inquiry_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Close == true)
+                Application.Exit();
         }
     }
 }

@@ -21,17 +21,17 @@ namespace Automatic_Course_Test_System
         private void button1_Click(object sender, EventArgs e)
         {
             Close = false;
-            Test f = new Test();
+            Test f = new Test(this);
             f.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Close = false;
-            Inquiry f = new Inquiry();
+            Inquiry f = new Inquiry(this);
             f.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void User_FormClosing(object sender, FormClosingEventArgs e)
