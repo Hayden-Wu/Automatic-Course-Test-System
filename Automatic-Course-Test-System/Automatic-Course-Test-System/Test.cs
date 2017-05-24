@@ -12,14 +12,26 @@ namespace Automatic_Course_Test_System
 {
     public partial class Test : Form
     {
-        public Test()
+        private Form FatherForm = null;
+        private bool Close = true;
+        public Test(Form Sign_in)
         {
             InitializeComponent();
+            this.FatherForm = Sign_in;
         }
 
-        private void Test_FormClosed(object sender, FormClosedEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Close = false;
+            Specific_Test f = new Specific_Test(FatherForm);
+            f.Show();
+            this.Close();
+        }
+
+        private void Test_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Close == true)
+                Application.Exit();
         }
     }
 }
