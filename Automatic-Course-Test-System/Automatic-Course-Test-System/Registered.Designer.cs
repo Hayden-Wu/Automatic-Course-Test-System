@@ -138,6 +138,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Registered";
             this.Text = "课程自动测试系统";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Registered_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
