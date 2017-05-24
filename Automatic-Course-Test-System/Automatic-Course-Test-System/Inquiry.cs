@@ -16,5 +16,10 @@ namespace Automatic_Course_Test_System
         {
             InitializeComponent();
         }
+
+        private void Inquiry_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

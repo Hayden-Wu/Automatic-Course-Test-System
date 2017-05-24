@@ -101,6 +101,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Inquiry";
             this.Text = "课程自动测试系统";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Inquiry_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
