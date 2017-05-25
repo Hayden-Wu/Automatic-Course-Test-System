@@ -30,7 +30,7 @@ namespace Automatic_Course_Test_System_Server
 
             string action = httpContext.Request.QueryString["action"];
             string username = httpContext.Request.QueryString["username"];
-            string passward = httpContext.Request.QueryString["passward"];
+            string password = httpContext.Request.QueryString["password"];
 
             if (action == "sign")
                 Sign(username, password);
@@ -45,6 +45,17 @@ namespace Automatic_Course_Test_System_Server
         }
 
         protected void Sign(string username, string password)
-        { }
+        {
+            int login = 0;
+            if (username == "123456" && password == "123456")
+            {
+                login = 1;
+            }
+            else if (username == "admin" && password == "admin")
+            {
+                login = 2;
+            }
+            httpContext.Response.Write(login);
+        }
     }
 }
