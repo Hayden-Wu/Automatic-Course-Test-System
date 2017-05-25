@@ -20,11 +20,16 @@ namespace Automatic_Course_Test_System
         private Form FatherForm = null;
         private bool Close = true;
         private string score;
+        private int num = 0;
+        private int nownum = 0;
+        List<Class_Upload> anwser = new List<Class_Upload>();
         public Specific_Test(Form Sign_in)
         {
             InitializeComponent();
             this.FatherForm = Sign_in;
             Close = true;
+           
+            
         }
         public void gettest(string c,string k,string z)
         {
@@ -83,6 +88,75 @@ namespace Automatic_Course_Test_System
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (nownum == num)
+            {
+                Class_Upload c = new Class_Upload();
+                if (radioButton1.Checked)
+                {
+                    c.Choice_answer = "A";
+                }
+                else if (radioButton2.Checked)
+                {
+                    c.Choice_answer = "B";
+                }
+                else if (radioButton3.Checked)
+                {
+                    c.Choice_answer = "C";
+                }
+                else if (radioButton4.Checked)
+                {
+                    c.Choice_answer = "D";
+                }
+                else
+                {
+                    c.Answer = textBox2.Text;
+                }
+                
+                c.Subject = ceshiming;
+                c.Test = kaoshiming;
+                c.Testnumber = Convert.ToString(num);
+                num++;
+                nownum++;
+                anwser.Add(c);
+            }
+            else
+            {
+                Class_Upload c = new Class_Upload();
+                if (radioButton1.Checked)
+                {
+                    c.Choice_answer = "A";
+                }
+                else if (radioButton2.Checked)
+                {
+                    c.Choice_answer = "B";
+                }
+                else if (radioButton3.Checked)
+                {
+                    c.Choice_answer = "C";
+                }
+                else if (radioButton4.Checked)
+                {
+                    c.Choice_answer = "D";
+                }
+                else
+                {
+                    c.Answer = textBox2.Text;
+                }
+                anwser[num].copyto(c);
+                num++;
+            }
+
+            //显示题目
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            num--;
+            //显示题目
         }
     }
 }
