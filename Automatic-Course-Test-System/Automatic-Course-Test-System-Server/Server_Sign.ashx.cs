@@ -45,6 +45,17 @@ namespace Automatic_Course_Test_System_Server
         }
 
         protected void Sign(string username, string password)
-        { }
+        {
+            int login = 0;
+            if (username == "123456" && password == "123456")
+            {
+                login = 1;
+            }
+            else if (username == "admin" && password == "admin")
+            {
+                login = 2;
+            }
+            httpContext.Response.Write(login);
+        }
     }
 }
