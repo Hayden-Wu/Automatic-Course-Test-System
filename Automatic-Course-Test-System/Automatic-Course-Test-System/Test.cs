@@ -24,6 +24,7 @@ namespace Automatic_Course_Test_System
         {
             Close = false;
             Specific_Test f = new Specific_Test(FatherForm);
+            f.gettest(comboBox1.Text,comboBox2.Text);
             f.Show();
             this.Close();
         }
