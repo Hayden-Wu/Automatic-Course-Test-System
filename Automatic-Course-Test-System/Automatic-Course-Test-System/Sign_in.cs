@@ -48,8 +48,8 @@ namespace Automatic_Course_Test_System
                 //stream.Close();
 
                 Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl =encoding.GetBytes( "http://60.186.67.74:80/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://60.186.67.74:80/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima);
+                byte[] getWeatherUrl =encoding.GetBytes("http://169.254.0.52:81/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://169.254.0.52:81/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima);
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
 
