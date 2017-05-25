@@ -12,6 +12,10 @@ namespace Automatic_Course_Test_System
 {
     public partial class Inquiry : Form
     {
+        private string kemu="";
+        private string ceshi = "";
+        private string score = "";
+        private string zhanghao="";
         private bool Close = true;
         private Form FatherForm = null;
         public Inquiry(Form Sign_in)
@@ -19,11 +23,18 @@ namespace Automatic_Course_Test_System
             InitializeComponent();
             FatherForm = Sign_in;
         }
-
+        public void getmessage(string z)
+        {
+            zhanghao = z;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
+            kemu = comboBox1.Text;
+            ceshi = comboBox2.Text;
+            //查询成绩
             Close = false;
             Results f = new Results(FatherForm);
+            f.getscore(kemu, ceshi, score);
             f.Show();
             this.Close();
         }

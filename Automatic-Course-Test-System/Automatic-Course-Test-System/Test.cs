@@ -12,6 +12,7 @@ namespace Automatic_Course_Test_System
 {
     public partial class Test : Form
     {
+        private string zhanghao = "";
         private Form FatherForm = null;
         private bool Close = true;
         public Test(Form Sign_in)
@@ -33,6 +34,10 @@ namespace Automatic_Course_Test_System
         {
             if (Close == true)
                 Application.Exit();
+        }
+        public void getmessage(string z)
+        {
+            zhanghao = z;
         }
     }
 }

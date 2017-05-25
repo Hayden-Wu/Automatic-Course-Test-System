@@ -18,6 +18,7 @@ namespace Automatic_Course_Test_System
         private string kaoshiming;
         private Form FatherForm = null;
         private bool Close = true;
+        private string score;
         public Specific_Test(Form Sign_in)
         {
             InitializeComponent();
@@ -30,15 +31,27 @@ namespace Automatic_Course_Test_System
             string html = "";
             try
             {
-                string getWeatherUrl = "http://60.186.67.74/Server_Operational?action=sign&ceshi=" + ceshiming + "&kaoshi=" + kaoshiming;
-                WebRequest webReq = WebRequest.Create(getWeatherUrl);
+                Encoding encoding = Encoding.GetEncoding("utf-8");
+                byte[] getWeatherUrl = encoding.GetBytes("http://169.254.0.52:81/Server_Sign.ashx?action=test&kemu=" + ceshiming + "&kaoshi=" + kaoshiming);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://169.254.0.52:81/Server_Sign.ashx?action=test&kemu=" + ceshiming + "&kaoshi=" + kaoshiming);
+                webReq.Method = "post";
+                webReq.ContentType = "text/xml";
+
+                Stream outstream = webReq.GetRequestStream();
+                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                outstream.Flush();
+                outstream.Close();
+
                 webReq.Timeout = 2000;
-                WebResponse webResp = webReq.GetResponse();
+                HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
                 Stream stream = webResp.GetResponseStream();
-                StreamReader sr = new StreamReader(stream, Encoding.GetEncoding("GBK"));
+                StreamReader sr = new StreamReader(stream, encoding);
                 html = sr.ReadToEnd();
                 sr.Close();
                 stream.Close();
+
+
+              
 
             }
             catch
@@ -50,10 +63,10 @@ namespace Automatic_Course_Test_System
         {
             Close = false;
             Results f = new Results(FatherForm);
-           //提交
+            //提交
 
             //接受成绩
-
+            f.getscore(ceshiming, kaoshiming, score);
             f.Show();
             this.Close();
         }

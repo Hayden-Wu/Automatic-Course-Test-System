@@ -15,9 +15,9 @@ namespace Automatic_Course_Test_System
 
     public partial class Sign_in : Form
     {
-        private string zhanghao;
-        private string mima;
-
+        private string zhanghao="";
+        private string mima="";
+        
         public Sign_in()
         {
             InitializeComponent();
@@ -37,15 +37,7 @@ namespace Automatic_Course_Test_System
             string html="";
             try
             {
-                //string getWeatherUrl = "http://60.186.67.74:80/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima;
-                //WebRequest webReq = WebRequest.Create(getWeatherUrl);
-                //webReq.Timeout = 2000;
-                //WebResponse webResp = webReq.GetResponse();
-                //Stream stream = webResp.GetResponseStream();
-                //StreamReader sr = new StreamReader(stream, Encoding.GetEncoding("GBK"));
-                //html = sr.ReadToEnd();
-                //sr.Close();
-                //stream.Close();
+                
 
                 Encoding encoding = Encoding.GetEncoding("utf-8");
                 byte[] getWeatherUrl =encoding.GetBytes("http://169.254.0.52:81/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima);
@@ -75,6 +67,7 @@ namespace Automatic_Course_Test_System
             if ( html == "1")
             {
                 User f = new User();
+                f.getmessage(zhanghao);
                 this.Hide();
                 f.Show();
             }
