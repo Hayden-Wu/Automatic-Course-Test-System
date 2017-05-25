@@ -18,6 +18,7 @@ namespace Automatic_Course_Test_System
         {
             InitializeComponent();
             FatherForm = Sign_in;
+            Close = true;
         }
         public void getscore(string kemu,string test,string score)
         {

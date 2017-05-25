@@ -71,6 +71,13 @@ namespace Automatic_Course_Test_System
                 this.Hide();
                 f.Show();
             }
+            else if(html =="2")
+            {
+                Administrator f = new Administrator();
+                f.getmessage(zhanghao);
+                this.Hide();
+                f.Show();
+            }
             else
             {
                 MessageBox.Show("用户名或密码错误");

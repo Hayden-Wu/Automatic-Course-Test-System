@@ -39,16 +39,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Font = new System.Drawing.Font("楷体", 24F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(75, 23);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(147, 33);
             this.label1.TabIndex = 0;
             this.label1.Text = "新建题库";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 41);
+            this.label2.Location = new System.Drawing.Point(50, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 1;
@@ -57,7 +58,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 84);
+            this.label3.Location = new System.Drawing.Point(50, 128);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 12);
             this.label3.TabIndex = 2;
@@ -66,7 +67,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(87, 38);
+            this.comboBox1.Location = new System.Drawing.Point(120, 82);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 20);
             this.comboBox1.TabIndex = 3;
@@ -74,19 +75,20 @@
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(87, 84);
+            this.comboBox2.Location = new System.Drawing.Point(120, 128);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 20);
             this.comboBox2.TabIndex = 4;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(96, 156);
+            this.button1.Location = new System.Drawing.Point(105, 187);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 5;
             this.button1.Text = "创建";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // CreateQuestionBank
             // 
@@ -101,6 +103,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CreateQuestionBank";
             this.Text = "课程自动测试系统";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateQuestionBank_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

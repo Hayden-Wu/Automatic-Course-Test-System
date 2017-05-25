@@ -19,6 +19,7 @@ namespace Automatic_Course_Test_System
         {
             InitializeComponent();
             this.FatherForm = Sign_in;
+            Close = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
