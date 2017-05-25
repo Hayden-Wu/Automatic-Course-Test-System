@@ -37,7 +37,7 @@ namespace Automatic_Course_Test_System
             string html="";
             try
             {
-                string getWeatherUrl = "http://60.186.67.74/Server_Operational?action=sign&username=" + zhanghao + "&passward=" + mima;
+                string getWeatherUrl = "http://60.186.67.74/Server_Operational?action=sign&username=" + zhanghao + "&password=" + mima;
                 WebRequest webReq = WebRequest.Create(getWeatherUrl);
                 webReq.Timeout = 2000;
                 WebResponse webResp = webReq.GetResponse();

@@ -30,7 +30,7 @@ namespace Automatic_Course_Test_System_Server
 
             string action = httpContext.Request.QueryString["action"];
             string username = httpContext.Request.QueryString["username"];
-            string passward = httpContext.Request.QueryString["passward"];
+            string password = httpContext.Request.QueryString["password"];
 
             if (action == "sign")
                 Sign(username, password);
