@@ -87,6 +87,7 @@
             this.button1.TabIndex = 5;
             this.button1.Text = "查询";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // InquiryByExaminee
             // 
@@ -101,6 +102,7 @@
             this.Controls.Add(this.label1);
             this.Name = "InquiryByExaminee";
             this.Text = "课程自动测试系统";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InquiryByExaminee_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

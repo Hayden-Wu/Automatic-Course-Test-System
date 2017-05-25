@@ -26,5 +26,31 @@ namespace Automatic_Course_Test_System
         {
             zhanghao = z;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            InquiryByTest f = new InquiryByTest(FatherForm,this);
+            f.Show();
+            f.getmessage(zhanghao);
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            InquiryByExaminee f = new InquiryByExaminee(FatherForm,this);
+            f.Show();
+            f.getmessage(zhanghao);
+            this.Hide();
+        }
+
+        private void Examinee_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(Close == true)
+            {
+                Application.Exit();
+            }
+        }
     }
 }

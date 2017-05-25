@@ -12,9 +12,37 @@ namespace Automatic_Course_Test_System
 {
     public partial class InquiryByExaminee : Form
     {
-        public InquiryByExaminee()
+        private bool Close = true;
+        private string zhanghao = null;
+        private Form FatherForm = null;
+        private Form ChildForm = null;
+        public InquiryByExaminee(Form Admin,Form Examinee)
         {
             InitializeComponent();
+            FatherForm = Admin;
+            ChildForm = Examinee;
+            Close = true;
+        }
+        public void getmessage(string z)
+        {
+            zhanghao = z;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            ExamineeInformation f = new ExamineeInformation(FatherForm,ChildForm);
+            f.Show();
+            f.getmessage(zhanghao);
+            this.Close();
+        }
+
+        private void InquiryByExaminee_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(Close==true)
+            {
+                Application.Exit();
+            }
         }
     }
 }
