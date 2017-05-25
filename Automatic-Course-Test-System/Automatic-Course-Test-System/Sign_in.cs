@@ -40,8 +40,8 @@ namespace Automatic_Course_Test_System
                 
 
                 Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl =encoding.GetBytes("http://1725r3a792.iask.in:33661/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:33661/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima);
+                byte[] getWeatherUrl =encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima);
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
 
@@ -67,6 +67,13 @@ namespace Automatic_Course_Test_System
             if ( html == "1")
             {
                 User f = new User();
+                f.getmessage(zhanghao);
+                this.Hide();
+                f.Show();
+            }
+            else if(html =="2")
+            {
+                Administrator f = new Administrator();
                 f.getmessage(zhanghao);
                 this.Hide();
                 f.Show();

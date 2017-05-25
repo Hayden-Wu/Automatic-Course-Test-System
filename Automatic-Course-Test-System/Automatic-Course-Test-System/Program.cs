@@ -18,5 +18,6 @@ namespace Automatic_Course_Test_System
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Sign_in());
         }
+        
     }
 }

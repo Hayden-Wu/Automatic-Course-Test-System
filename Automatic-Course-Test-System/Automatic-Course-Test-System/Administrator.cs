@@ -12,9 +12,14 @@ namespace Automatic_Course_Test_System
 {
     public partial class Administrator : Form
     {
+        private string zhanghao;
         public Administrator()
         {
             InitializeComponent();
+        }
+        public void getmessage(string z)
+        {
+            zhanghao = z;
         }
     }
 }
