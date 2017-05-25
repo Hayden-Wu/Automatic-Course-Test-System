@@ -12,14 +12,14 @@ namespace Automatic_Course_Test_System
 {
     public partial class QuestionBank : Form
     {
-        private bool Close = true;
         private Form FatherForm = null;
+        private bool Close = true;
         private string zhanghao = null;
         public QuestionBank(Form Admin)
         {
             InitializeComponent();
-            FatherForm = Admin;
             Close = true;
+            FatherForm = Admin;
         }
         public void getmessage(string z)
         {

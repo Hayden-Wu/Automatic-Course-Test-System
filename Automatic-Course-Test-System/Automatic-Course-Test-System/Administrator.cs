@@ -32,20 +32,18 @@ namespace Automatic_Course_Test_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Close = false;
             QuestionBank f = new QuestionBank(this);
             f.getmessage(zhanghao);
             f.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Close = false;
             Examinee f = new Examinee(this);
             f.getmessage(zhanghao);
             f.Show();
-            this.Close();
+            this.Hide();
         }
     }
 }

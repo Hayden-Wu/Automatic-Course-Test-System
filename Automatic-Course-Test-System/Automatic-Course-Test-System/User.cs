@@ -22,7 +22,6 @@ namespace Automatic_Course_Test_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Close = false;
             Test f = new Test(this);
             f.getmessage(zhanghao);
             f.Show();
@@ -31,7 +30,6 @@ namespace Automatic_Course_Test_System
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Close = false;
             Inquiry f = new Inquiry(this);
             f.getmessage(zhanghao);
             f.Show();
