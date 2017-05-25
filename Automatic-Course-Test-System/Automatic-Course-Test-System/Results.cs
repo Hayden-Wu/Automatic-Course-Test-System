@@ -19,7 +19,12 @@ namespace Automatic_Course_Test_System
             InitializeComponent();
             FatherForm = Sign_in;
         }
-
+        public void getscore(string kemu,string test,string score)
+        {
+            textBox1.Text = kemu;
+            textBox2.Text = test;
+            textBox3.Text = score;
+        }
         private void Results_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Close == true)

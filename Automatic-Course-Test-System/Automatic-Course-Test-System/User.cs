@@ -12,6 +12,7 @@ namespace Automatic_Course_Test_System
 {
     public partial class User : Form
     {
+        private string zhanghao;
         private bool Close = true;
         public User()
         {
@@ -22,6 +23,7 @@ namespace Automatic_Course_Test_System
         {
             Close = false;
             Test f = new Test(this);
+            f.getmessage(zhanghao);
             f.Show();
             this.Hide();
         }
@@ -38,6 +40,10 @@ namespace Automatic_Course_Test_System
         {
             if (Close == true)
                 Application.Exit();
+        }
+        public void getmessage(string z)
+        {
+            zhanghao = z;
         }
     }
 }

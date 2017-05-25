@@ -15,9 +15,9 @@ namespace Automatic_Course_Test_System
 
     public partial class Sign_in : Form
     {
-        private string zhanghao;
-        private string mima;
-
+        private string zhanghao="";
+        private string mima="";
+        
         public Sign_in()
         {
             InitializeComponent();
@@ -37,16 +37,26 @@ namespace Automatic_Course_Test_System
             string html="";
             try
             {
-                string getWeatherUrl = "http://1725r3a792.iask.in/Server_Operational?action=sign&username=" + zhanghao + "&password=" + mima;
-                WebRequest webReq = WebRequest.Create(getWeatherUrl);
+                
+
+                Encoding encoding = Encoding.GetEncoding("utf-8");
+                byte[] getWeatherUrl =encoding.GetBytes("http://169.254.0.52:81/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://169.254.0.52:81/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima);
+                webReq.Method = "post";
+                webReq.ContentType = "text/xml";
+
+                Stream outstream = webReq.GetRequestStream();
+                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                outstream.Flush();
+                outstream.Close();
+
                 webReq.Timeout = 2000;
-                WebResponse webResp = webReq.GetResponse();
+                HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
                 Stream stream = webResp.GetResponseStream();
-                StreamReader sr = new StreamReader(stream, Encoding.GetEncoding("GBK"));
+                StreamReader sr = new StreamReader(stream, encoding);
                 html = sr.ReadToEnd();
                 sr.Close();
                 stream.Close();
-                
             }
             catch
             {
@@ -57,6 +67,7 @@ namespace Automatic_Course_Test_System
             if ( html == "1")
             {
                 User f = new User();
+                f.getmessage(zhanghao);
                 this.Hide();
                 f.Show();
             }
