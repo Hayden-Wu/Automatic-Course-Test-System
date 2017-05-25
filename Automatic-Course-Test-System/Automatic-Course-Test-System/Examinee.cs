@@ -12,9 +12,19 @@ namespace Automatic_Course_Test_System
 {
     public partial class Examinee : Form
     {
-        public Examinee()
+        private bool Close = true;
+        private Form FatherForm = null;
+        private string zhanghao = null;
+        public Examinee(Form Admin)
         {
             InitializeComponent();
+            FatherForm = Admin;
+            Close = true;
+        }
+
+        public void getmessage(string z)
+        {
+            zhanghao = z;
         }
     }
 }

@@ -22,6 +22,7 @@ namespace Automatic_Course_Test_System
         {
             InitializeComponent();
             FatherForm = Sign_in;
+            Close = true;
         }
         public void getmessage(string z)
         {

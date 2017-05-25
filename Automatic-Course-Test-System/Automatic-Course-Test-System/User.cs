@@ -17,6 +17,7 @@ namespace Automatic_Course_Test_System
         public User()
         {
             InitializeComponent();
+            Close = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
