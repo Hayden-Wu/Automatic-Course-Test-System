@@ -15,6 +15,7 @@ namespace Automatic_Course_Test_System
     public partial class Specific_Test : Form
     {
         private string ceshiming;
+        private string zhanghao;
         private string kaoshiming;
         private Form FatherForm = null;
         private bool Close = true;
@@ -24,10 +25,11 @@ namespace Automatic_Course_Test_System
             InitializeComponent();
             this.FatherForm = Sign_in;
         }
-        public void gettest(string c,string k)
+        public void gettest(string c,string k,string z)
         {
             ceshiming = c;
             kaoshiming = k;
+            zhanghao = z;
             string html = "";
             try
             {

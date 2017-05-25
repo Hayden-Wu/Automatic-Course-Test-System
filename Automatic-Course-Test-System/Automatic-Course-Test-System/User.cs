@@ -32,6 +32,7 @@ namespace Automatic_Course_Test_System
         {
             Close = false;
             Inquiry f = new Inquiry(this);
+            f.getmessage(zhanghao);
             f.Show();
             this.Hide();
         }
