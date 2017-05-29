@@ -50,25 +50,21 @@ namespace Automatic_Course_Test_System_Server
         protected void Sign(string username, string password)
         {
             int login = 0;
-            //if (username == "123456" && password == "123456")
-            //{
-            //    login = 1;
-            //}
-            //else if (username == "admin" && password == "admin")
-            //{
-            //    login = 2;
-            //}
 
+            //SqlConnectionStringBuilder constr = new SqlConnectionStringBuilder();
+            //constr.DataSource = @"(local)";
+            //constr.IntegratedSecurity = true;
+            //constr.InitialCatalog = "CourseTest";
             string constr = "server=.;database=CourseTest;Integrated Security=SSPI";
-            SqlConnection conn = new SqlConnection(constr);
-            conn.Open();
-
-            string sqlstr = "select type from CourseTestUser "
-                    + "where username = '" + username
-                    + "' and password = '" + password + "'";
-
             try
             {
+                //SqlConnection conn = new SqlConnection(constr.ConnectionString);
+                SqlConnection conn = new SqlConnection(constr);
+                conn.Open();
+                string sqlstr = "select type from CourseTestUser "
+                    + "where username = '" + username.Trim()
+                    + "' and password = '" + password.Trim() + "'";
+
 
                 SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
                 DataSet ds = new DataSet();
@@ -82,7 +78,7 @@ namespace Automatic_Course_Test_System_Server
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
                 login = 0;
             }
