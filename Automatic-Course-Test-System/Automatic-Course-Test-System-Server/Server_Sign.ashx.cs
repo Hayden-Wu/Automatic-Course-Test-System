@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+
 
 namespace Automatic_Course_Test_System_Server
 {
@@ -47,14 +50,47 @@ namespace Automatic_Course_Test_System_Server
         protected void Sign(string username, string password)
         {
             int login = 0;
-            if (username == "123456" && password == "123456")
+            //if (username == "123456" && password == "123456")
+            //{
+            //    login = 1;
+            //}
+            //else if (username == "admin" && password == "admin")
+            //{
+            //    login = 2;
+            //}
+
+            string constr = "server=.;database=CourseTest;Integrated Security=SSPI";
+            SqlConnection conn = new SqlConnection(constr);
+            conn.Open();
+
+            string sqlstr = "select type from CourseTestUser "
+                    + "where username = '" + username
+                    + "' and password = '" + password + "'";
+
+            try
             {
-                login = 1;
+
+                SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
+                DataSet ds = new DataSet();
+                SD.Fill(ds);
+
+                conn.Close();
+
+                if (ds.Tables[0].Rows[0][0].ToString() != null)
+                {
+                    login = Int32.Parse(ds.Tables[0].Rows[0][0].ToString());
+                }
+
             }
-            else if (username == "admin" && password == "admin")
+            catch
             {
-                login = 2;
+                login = 0;
             }
+            finally
+            { }
+            //SqlCommand SC = new SqlCommand(sqlstr, conn);
+            //object judge = SC.ExecuteScalar();
+
             httpContext.Response.Write(login);
         }
     }

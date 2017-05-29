@@ -36,7 +36,7 @@ namespace Automatic_Course_Test_System
             QuestionBank f = new QuestionBank(this);
             f.getmessage(zhanghao);
             f.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -45,7 +45,7 @@ namespace Automatic_Course_Test_System
             Examinee f = new Examinee(this);
             f.getmessage(zhanghao);
             f.Show();
-            this.Close();
+            this.Hide();
         }
     }
 }
