@@ -99,6 +99,7 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "返回上一级";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -108,6 +109,7 @@
             this.button2.TabIndex = 7;
             this.button2.Text = "返回主页";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // ExamineeInformation
             // 
@@ -124,6 +126,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ExamineeInformation";
             this.Text = "课程自动测试系统";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExamineeInformation_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
