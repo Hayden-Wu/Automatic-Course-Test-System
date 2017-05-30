@@ -18,6 +18,7 @@ namespace Automatic_Course_Test_System
         private string zhanghao = "";
         private Form FatherForm = null;
         private bool Close = true;
+        //private bool XiaLa = false;
         string html = "";
         public Test(Form Sign_in)
         {
@@ -26,7 +27,12 @@ namespace Automatic_Course_Test_System
             Close = true;
 
             test();
-            specifictest();
+            string testvalue = comboBox1.Text.Trim();
+
+            comboBox2.DisplayMember = "";
+            comboBox2.ValueMember = "specifictest";
+            specifictest(testvalue);
+            //XiaLa = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -103,9 +109,9 @@ namespace Automatic_Course_Test_System
             }
         }
 
-        private void specifictest()
+        private void specifictest(string testvalue)
         {
-            string test = comboBox1.Text.Trim();
+            string test = testvalue.Trim();
 
             Encoding encoding = Encoding.GetEncoding("utf-8");
             byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=specific_test&test=" + test);
@@ -154,10 +160,16 @@ namespace Automatic_Course_Test_System
                     dt.Rows.Add(dr);
                 }
 
-                comboBox2.DisplayMember = "";
-                comboBox2.ValueMember = "specifictest";
+                //comboBox2.DisplayMember = "";
+                //comboBox2.ValueMember = "specifictest";
                 comboBox2.DataSource = dt;
             }
+        }
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            string testvalue = comboBox1.SelectedValue.ToString().Trim();
+            specifictest(testvalue);
         }
     }
 }
