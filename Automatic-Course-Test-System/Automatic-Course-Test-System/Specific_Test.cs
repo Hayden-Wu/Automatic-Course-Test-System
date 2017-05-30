@@ -29,7 +29,7 @@ namespace Automatic_Course_Test_System
             InitializeComponent();
             this.FatherForm = Sign_in;
             Close = true;
-           
+            
             
         }
         public void gettest(string c,string k,string z)
