@@ -100,6 +100,7 @@
     </Content>
     <Content Include="Server_Sign.ashx" />
     <None Include="Properties\PublishProfiles\server.pubxml" />
+    <Content Include="Server_Test.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -111,9 +112,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassBank.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server_Sign.ashx.cs">
       <DependentUpon>Server_Sign.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Server_Test.ashx.cs">
+      <DependentUpon>Server_Test.ashx</DependentUpon>
     </Compile>
   </ItemGroup>
   <PropertyGroup>

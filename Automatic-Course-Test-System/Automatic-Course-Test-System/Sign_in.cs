@@ -37,8 +37,6 @@ namespace Automatic_Course_Test_System
             string html="";
             try
             {
-                
-
                 Encoding encoding = Encoding.GetEncoding("utf-8");
                 byte[] getWeatherUrl =encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima);
                 HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=sign&username=" + zhanghao + "&password=" + mima);
