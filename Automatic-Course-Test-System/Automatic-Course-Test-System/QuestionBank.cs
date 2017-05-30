@@ -15,6 +15,7 @@ namespace Automatic_Course_Test_System
         private Form FatherForm = null;
         private bool Close = true;
         private string zhanghao = null;
+
         public QuestionBank(Form Admin)
         {
             InitializeComponent();

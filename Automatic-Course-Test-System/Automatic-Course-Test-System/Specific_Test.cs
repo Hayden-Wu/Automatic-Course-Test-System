@@ -14,7 +14,7 @@ namespace Automatic_Course_Test_System
 {
     public partial class Specific_Test : Form
     {
-        private List<Class_Test> ctest = new List<Class_Test>;
+        private List<Class_Test> ctest = new List<Class_Test>();
         private string ceshiming;
         private string zhanghao;
         private string kaoshiming;
@@ -41,8 +41,8 @@ namespace Automatic_Course_Test_System
             try
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes("http://169.254.0.52:81/Server_Sign.ashx?action=test&kemu=" + ceshiming + "&kaoshi=" + kaoshiming);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://169.254.0.52:81/Server_Sign.ashx?action=test&kemu=" + ceshiming + "&kaoshi=" + kaoshiming);
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=test&kemu=" + ceshiming + "&kaoshi=" + kaoshiming);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=test&kemu=" + ceshiming + "&kaoshi=" + kaoshiming);
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
 

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+
 
 namespace Automatic_Course_Test_System_Server
 {
@@ -47,14 +50,43 @@ namespace Automatic_Course_Test_System_Server
         protected void Sign(string username, string password)
         {
             int login = 0;
-            if (username == "123456" && password == "123456")
+
+            //SqlConnectionStringBuilder constr = new SqlConnectionStringBuilder();
+            //constr.DataSource = @"(local)";
+            //constr.IntegratedSecurity = true;
+            //constr.InitialCatalog = "CourseTest";
+            string constr = "server=.;database=CourseTest;Integrated Security=SSPI";
+            try
             {
-                login = 1;
+                //SqlConnection conn = new SqlConnection(constr.ConnectionString);
+                SqlConnection conn = new SqlConnection(constr);
+                conn.Open();
+                string sqlstr = "select type from CourseTestUser "
+                    + "where username = '" + username.Trim()
+                    + "' and password = '" + password.Trim() + "'";
+
+
+                SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
+                DataSet ds = new DataSet();
+                SD.Fill(ds);
+
+                conn.Close();
+
+                if (ds.Tables[0].Rows[0][0].ToString() != null)
+                {
+                    login = Int32.Parse(ds.Tables[0].Rows[0][0].ToString());
+                }
+
             }
-            else if (username == "admin" && password == "admin")
+            catch(Exception ex)
             {
-                login = 2;
+                login = 0;
             }
+            finally
+            { }
+            //SqlCommand SC = new SqlCommand(sqlstr, conn);
+            //object judge = SC.ExecuteScalar();
+
             httpContext.Response.Write(login);
         }
     }
