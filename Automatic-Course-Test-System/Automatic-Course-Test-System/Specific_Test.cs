@@ -29,7 +29,7 @@ namespace Automatic_Course_Test_System
             InitializeComponent();
             this.FatherForm = Sign_in;
             Close = true;
-           
+            
             
         }
         public void gettest(string c,string k,string z)
@@ -58,9 +58,28 @@ namespace Automatic_Course_Test_System
                 html = sr.ReadToEnd();
                 sr.Close();
                 stream.Close();
+                jiexi(html);
+                textBox1.Text = ctest[0].Question;
+                if(ctest[0].Type==1)
+                {
 
+                    textBox2.Hide();
+                    radioButton1.Text += ctest[0].Choice_answerA;
+                    radioButton2.Text += ctest[0].Choice_answerB;
+                    radioButton3.Text += ctest[0].Choice_answerC;
+                    radioButton4.Text += ctest[0].Choice_answerD;
+                }
+                else
+                {
+                    radioButton1.Hide();
+                    radioButton2.Hide();
+                    radioButton3.Hide();
+                    radioButton4.Hide();
+                    textBox2.Show();
+                    
+                }
 
-              
+               
 
             }
             catch
@@ -147,17 +166,116 @@ namespace Automatic_Course_Test_System
                 {
                     c.Answer = textBox2.Text;
                 }
+                c.Subject = ceshiming;
+                c.Test = kaoshiming;
+                c.Testnumber = Convert.ToString(num);
                 anwser[num].copyto(c);
                 num++;
+                
             }
-
+            if(num==ctest.Count)
+            {
+                MessageBox.Show("已完成所有试题，请交卷！");
+                return ;
+            }
+            label2.Text = "第" + (num + 1) + "题目";
             //显示题目
+            textBox1.Text = ctest[num].Question;
+            if (ctest[num].Type == 1)
+            {
+                radioButton1.Show();
+                radioButton2.Show();
+                radioButton3.Show();
+                radioButton4.Show();
+                textBox2.Hide();
+                radioButton1.Text = ctest[num].Choice_answerA;
+                radioButton2.Text = ctest[num].Choice_answerB;
+                radioButton3.Text = ctest[num].Choice_answerC;
+                radioButton4.Text = ctest[num].Choice_answerD;
+            }
+            else
+            {
+                radioButton1.Hide();
+                radioButton2.Hide();
+                radioButton3.Hide();
+                radioButton4.Hide();
+                textBox2.Show();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Class_Upload c = new Class_Upload();
+            if (radioButton1.Checked)
+            {
+                c.Choice_answer = "A";
+            }
+            else if (radioButton2.Checked)
+            {
+                c.Choice_answer = "B";
+            }
+            else if (radioButton3.Checked)
+            {
+                c.Choice_answer = "C";
+            }
+            else if (radioButton4.Checked)
+            {
+                c.Choice_answer = "D";
+            }
+            else if(c.Test!="")
+            {
+                c.Answer = textBox2.Text;
+            }
+            else
+            {
+                MessageBox.Show("请填写答案");
+            }
+            c.Subject = ceshiming;
+            c.Test = kaoshiming;
+            c.Testnumber = Convert.ToString(num);
+            anwser[num].copyto(c);
+           
             num--;
+            label2.Text = "第" + (num + 1) + "题目";
             //显示题目
+            textBox1.Text = ctest[num].Question;
+            if (ctest[num].Type == 1)
+            {
+                radioButton1.Show();
+                radioButton2.Show();
+                radioButton3.Show();
+                radioButton4.Show();
+                textBox2.Hide();
+                radioButton1.Text = ctest[num].Choice_answerA;
+                radioButton2.Text = ctest[num].Choice_answerB;
+                radioButton3.Text = ctest[num].Choice_answerC;
+                radioButton4.Text = ctest[num].Choice_answerD;
+                if(anwser[num].Choice_answer=="A")
+                {
+                    radioButton1.Checked = true;
+                }
+                else if(anwser[num].Choice_answer == "B")
+                {
+                    radioButton2.Checked = true;
+                }
+                else if (anwser[num].Choice_answer == "C")
+                {
+                    radioButton3.Checked = true;
+                }
+                else if (anwser[num].Choice_answer == "D")
+                {
+                    radioButton4.Checked = true;
+                }
+            }
+            else
+            {
+                radioButton1.Hide();
+                radioButton2.Hide();
+                radioButton3.Hide();
+                radioButton4.Hide();
+                textBox2.Show();
+                textBox2.Text = anwser[num].Answer;
+            }
         }
         public void jiexi(string x)
         {
