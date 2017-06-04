@@ -37,6 +37,7 @@ namespace Automatic_Course_Test_System
         }
         public void gettest(string c, string k,string z)
         {
+            
             ceshiming = c;
             kaoshiming = k;
             zhanghao = z;
@@ -127,24 +128,49 @@ namespace Automatic_Course_Test_System
             c.Testnumber = Convert.ToString(num);
             anwser.Add(c);
             }
-            string str= "";
-            for (int i = 0; i < anwser.Count; i++)
+            string str = "";
+            for (int i = 0; i < anwser.Count; ++i)
             {
-
                 if (int.Parse(dt.Rows[i]["type"].ToString()) == 1)
                 {
-                    str=str+(i+anwser[i].Choice_answer);
-                   
+                    str = str + (i+1) + "=" + anwser[i].Choice_answer + "&";
                 }
                 else
                 {
-                    str =str + i + anwser[i].Answer;
+                    str = str + (i+1) + "=" + anwser[i].Answer + "&";
                 }
-
-
+                
             }
-            
-            //接受成绩
+            str=str.Remove(str.Length-1, 1);
+            MessageBox.Show(str);
+
+            string html = "";
+            try
+            {
+                Encoding encoding = Encoding.GetEncoding("utf-8");
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=answer&specifictest=" + kaoshiming+"&" + str);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=answer&specifictest=" + kaoshiming + "&" + str);
+                webReq.Method = "post";
+                webReq.ContentType = "text/xml";
+
+                Stream outstream = webReq.GetRequestStream();
+                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                outstream.Flush();
+                outstream.Close();
+
+                webReq.Timeout = 2000;
+                HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+                Stream stream = webResp.GetResponseStream();
+                StreamReader sr = new StreamReader(stream, encoding);
+                html = sr.ReadToEnd();
+                sr.Close();
+                stream.Close();
+                score = html;
+
+
+
+
+                //接受成绩
             f.getscore(ceshiming, kaoshiming, score);
             f.Show();
             this.Close();
@@ -305,7 +331,7 @@ namespace Automatic_Course_Test_System
                 radioButton4.Hide();
                 textBox2.Show();
             }
-            MessageBox.Show(Convert.ToString(anwser.Count));
+          //  MessageBox.Show(Convert.ToString(anwser.Count));
         }
 
         private void button1_Click(object sender, EventArgs e)
