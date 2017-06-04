@@ -27,6 +27,7 @@ namespace Automatic_Course_Test_System
         private int nownum = 0;
         List<Class_Upload> anwser = new List<Class_Upload>();
         DataTable dt = new DataTable();
+        DataTable dtnum = new DataTable();
         public Specific_Test(Form Sign_in)
         {
             InitializeComponent();
@@ -64,6 +65,12 @@ namespace Automatic_Course_Test_System
                 stream.Close();
 
                 jiexi(html);
+
+                DataGridViewCellStyle dgvcs = new DataGridViewCellStyle();
+                dgvcs.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dataGridView1.DefaultCellStyle = dgvcs;
+                dataGridView1.DataSource = dtnum;
+                
 
                 label1.Text = kaoshiming + "考试";
                 label2.Text = "第" + dt.Rows[0]["testnumber"].ToString() +"题";
@@ -148,7 +155,7 @@ namespace Automatic_Course_Test_System
             try
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=answer&specifictest=" + kaoshiming+"&" + str);
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=answer&specifictest=" + kaoshiming + "&" + str);
                 HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=answer&specifictest=" + kaoshiming + "&" + str);
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
@@ -166,7 +173,11 @@ namespace Automatic_Course_Test_System
                 sr.Close();
                 stream.Close();
                 score = html;
-
+            }
+            catch
+            {
+                MessageBox.Show("链接失败");
+            }
 
 
 
@@ -439,18 +450,25 @@ namespace Automatic_Course_Test_System
                 XmlNodeList nodelist = doc.DocumentElement.GetElementsByTagName("information");
 
                 dt = null;
-                dt = DataTableColumn();
+                dt = DataTableColumn(); //具体题目表
 
-                for(int i = 0; i < nodelist.Count; ++i)
+                //题数表
+                DataColumn dc1 = new DataColumn("testnumber", typeof(string));
+                dtnum.Columns.Add(dc1);
+
+                for (int i = 0; i < nodelist.Count; ++i)
                 {
                     DataRow dr = dt.NewRow();
+                    DataRow drnum = dtnum.NewRow();
                     XmlNode node = nodelist[i];
                     dr[dt.Columns[0].ColumnName] = node.Attributes["testnumber"].InnerText;
-                    for(int j = 1; j < dt.Columns.Count; ++j)
+                    drnum["testnumber"] = "第" + node.Attributes["testnumber"].InnerText + "题";
+                    for (int j = 1; j < dt.Columns.Count; ++j)
                     {
-                        dr[dt.Columns[j].ColumnName] = node.ChildNodes[j - 1].InnerText;
+                        dr[dt.Columns[j].ColumnName] = node.ChildNodes[j - 1].InnerText.Trim();
                     }
                     dt.Rows.Add(dr);
+                    dtnum.Rows.Add(drnum);
                 }
                 zongshu = nodelist.Count;
 
