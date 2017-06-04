@@ -57,7 +57,7 @@ namespace Automatic_Course_Test_System
 
     class Class_Test
     {
-        private string subject;
+        //private string subject;
         private string test;
         private string testnumber;
         private string question;
@@ -70,18 +70,18 @@ namespace Automatic_Course_Test_System
         public Class_Test()
         { }
 
-        public string Subject
-        {
-            get
-            {
-                return subject;
-            }
+        //public string Subject
+        //{
+        //    get
+        //    {
+        //        return subject;
+        //    }
 
-            set
-            {
-                subject = value;
-            }
-        }
+        //    set
+        //    {
+        //        subject = value;
+        //    }
+        //}
 
         public string Test
         {

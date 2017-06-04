@@ -37,9 +37,11 @@ namespace Automatic_Course_Test_System
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string testvalue = comboBox1.SelectedValue.ToString().Trim();
+            string specifictestvalue = comboBox2.SelectedValue.ToString().Trim();
             Close = false;
             Specific_Test f = new Specific_Test(FatherForm);
-            f.gettest(comboBox1.Text,comboBox2.Text,zhanghao);
+            f.gettest(testvalue, specifictestvalue, zhanghao);
             f.Show();
             this.Close();
         }
