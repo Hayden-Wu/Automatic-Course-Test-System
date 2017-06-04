@@ -22,6 +22,7 @@ namespace Automatic_Course_Test_System
         private Form FatherForm = null;
         private bool Close = true;
         private string score;
+        private int zongshu;
         private int num = 0;
         private int nownum = 0;
         List<Class_Upload> anwser = new List<Class_Upload>();
@@ -71,10 +72,10 @@ namespace Automatic_Course_Test_System
                 {
 
                     textBox2.Hide();
-                    radioButton1.Text = "A" + dt.Rows[0]["choiceanswerA"].ToString();
-                    radioButton2.Text = "B" + dt.Rows[0]["choiceanswerB"].ToString();
-                    radioButton3.Text = "C" + dt.Rows[0]["choiceanswerC"].ToString();
-                    radioButton4.Text = "D" + dt.Rows[0]["choiceanswerD"].ToString();
+                    radioButton1.Text = "A." + dt.Rows[0]["choiceanswerA"].ToString();
+                    radioButton2.Text = "B." + dt.Rows[0]["choiceanswerB"].ToString();
+                    radioButton3.Text = "C." + dt.Rows[0]["choiceanswerC"].ToString();
+                    radioButton4.Text = "D." + dt.Rows[0]["choiceanswerD"].ToString();
                 }
                 else
                 {
@@ -96,7 +97,48 @@ namespace Automatic_Course_Test_System
             Close = false;
             Results f = new Results(FatherForm);
             //提交
+            if (num == anwser.Count)
+            {
+                Class_Upload c = new Class_Upload();
+                if (radioButton1.Checked)
+                {
+                    c.Choice_answer = "A";
+                }
+                else if (radioButton2.Checked)
+                {
+                    c.Choice_answer = "B";
+                }
+                else if (radioButton3.Checked)
+                {
+                    c.Choice_answer = "C";
+                }
+                else if (radioButton4.Checked)
+                {
+                    c.Choice_answer = "D";
+                }
+                else
+                {
+                    c.Answer = textBox2.Text;
+                }
+           
 
+            c.Subject = ceshiming;
+            c.Test = kaoshiming;
+            c.Testnumber = Convert.ToString(num);
+            anwser.Add(c);
+            }
+            string str= "";
+            for (int i = 0; i < anwser.Count; i++)
+            {
+
+
+
+                MessageBox.Show(anwser[i].Choice_answer);
+                MessageBox.Show(anwser[i].Answer);
+
+
+            }
+            
             //接受成绩
             f.getscore(ceshiming, kaoshiming, score);
             f.Show();
@@ -111,7 +153,12 @@ namespace Automatic_Course_Test_System
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (nownum == num)
+            if (num+1 == zongshu)
+            {
+                MessageBox.Show("已完成所有试题，请交卷！");
+                return;
+            }
+            if (nownum == num&&num==anwser.Count)
             {
                 Class_Upload c = new Class_Upload();
                 if (radioButton1.Checked)
@@ -141,6 +188,7 @@ namespace Automatic_Course_Test_System
                 num++;
                 nownum++;
                 anwser.Add(c);
+               // MessageBox.Show(anwser[num - 1].Choice_answer);
             }
             else
             {
@@ -172,34 +220,87 @@ namespace Automatic_Course_Test_System
                 num++;
                 
             }
-            if(num==ctest.Count)
-            {
-                MessageBox.Show("已完成所有试题，请交卷！");
-                return ;
-            }
+            
             label2.Text = "第" + (num + 1) + "题目";
             //显示题目
-            textBox1.Text = ctest[num].Question;
-            if (ctest[num].Type == 1)
+            textBox1.Text = dt.Rows[num]["question"].ToString();
+            if (dt.Rows[num]["type"].ToString() == "1")
             {
+                // radioButton1
+                //MessageBox.Show(Convert.ToString( anwser.Count));
+                //MessageBox.Show(Convert.ToString(num));
+                if (anwser.Count<=num)
+                {
+                    radioButton1.Checked = false;
+                    radioButton2.Checked = false;
+                    radioButton3.Checked = false;
+                    radioButton4.Checked = false;
+                }
+                else
+                {
+                    if (anwser[num].Choice_answer == "A")
+                    {
+                        radioButton1.Checked = false;
+                        radioButton2.Checked = false;
+                        radioButton3.Checked = false;
+                        radioButton4.Checked = false;
+                        radioButton1.Checked = true;
+                    }
+                    else if (anwser[num].Choice_answer == "B")
+                    {
+                        radioButton1.Checked = false;
+                        radioButton2.Checked = false;
+                        radioButton3.Checked = false;
+                        radioButton4.Checked = false;
+                        radioButton2.Checked = true;
+                    }
+                    else if (anwser[num].Choice_answer == "C")
+                    {
+                        radioButton1.Checked = false;
+                        radioButton2.Checked = false;
+                        radioButton3.Checked = false;
+                        radioButton4.Checked = false;
+                        radioButton3.Checked = true;
+                    }
+                    else if (anwser[num].Choice_answer == "D")
+                    {
+                        radioButton1.Checked = false;
+                        radioButton2.Checked = false;
+                        radioButton3.Checked = false;
+                        radioButton4.Checked = false;
+                        radioButton4.Checked = true;
+                    }
+                    else
+                    {
+                        radioButton1.Checked = false;
+                        radioButton2.Checked = false;
+                        radioButton3.Checked = false;
+                        radioButton4.Checked = false;
+                    }
+                }
                 radioButton1.Show();
                 radioButton2.Show();
                 radioButton3.Show();
                 radioButton4.Show();
                 textBox2.Hide();
-                radioButton1.Text = ctest[num].Choice_answerA;
-                radioButton2.Text = ctest[num].Choice_answerB;
-                radioButton3.Text = ctest[num].Choice_answerC;
-                radioButton4.Text = ctest[num].Choice_answerD;
+                radioButton1.Text = "A." + dt.Rows[num]["choiceanswerA"].ToString();
+                radioButton2.Text = "B." + dt.Rows[num]["choiceanswerB"].ToString();
+                radioButton3.Text = "C." + dt.Rows[num]["choiceanswerC"].ToString();
+                radioButton4.Text = "D." + dt.Rows[num]["choiceanswerD"].ToString();
             }
             else
             {
+                radioButton1.Checked = false;
+                radioButton2.Checked = false;
+                radioButton3.Checked = false;
+                radioButton4.Checked = false;
                 radioButton1.Hide();
                 radioButton2.Hide();
                 radioButton3.Hide();
                 radioButton4.Hide();
                 textBox2.Show();
             }
+            MessageBox.Show(Convert.ToString(anwser.Count));
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -232,24 +333,31 @@ namespace Automatic_Course_Test_System
             c.Subject = ceshiming;
             c.Test = kaoshiming;
             c.Testnumber = Convert.ToString(num);
-            anwser[num].copyto(c);
+            if (num == nownum && num == anwser.Count)
+            {
+                anwser.Add(c);
+            }
+            else
+            {
+                anwser[num].copyto(c);
+            }
            
             num--;
             label2.Text = "第" + (num + 1) + "题目";
             //显示题目
-            textBox1.Text = ctest[num].Question;
-            if (ctest[num].Type == 1)
+            textBox1.Text = dt.Rows[num]["question"].ToString();
+            if (dt.Rows[num]["type"].ToString() == "1")
             {
                 radioButton1.Show();
                 radioButton2.Show();
                 radioButton3.Show();
                 radioButton4.Show();
                 textBox2.Hide();
-                radioButton1.Text = ctest[num].Choice_answerA;
-                radioButton2.Text = ctest[num].Choice_answerB;
-                radioButton3.Text = ctest[num].Choice_answerC;
-                radioButton4.Text = ctest[num].Choice_answerD;
-                if(anwser[num].Choice_answer=="A")
+                radioButton1.Text = "A."+dt.Rows[num]["choiceanswerA"].ToString();
+                radioButton2.Text = "B."+dt.Rows[num]["choiceanswerB"].ToString();
+                radioButton3.Text = "C."+dt.Rows[num]["choiceanswerC"].ToString();
+                radioButton4.Text = "D."+dt.Rows[num]["choiceanswerD"].ToString();
+                if (anwser[num].Choice_answer=="A")
                 {
                     radioButton1.Checked = true;
                 }
@@ -268,12 +376,17 @@ namespace Automatic_Course_Test_System
             }
             else
             {
+                radioButton1.Checked = false;
+                radioButton2.Checked = false;
+                radioButton3.Checked = false;
+                radioButton4.Checked = false;
                 radioButton1.Hide();
                 radioButton2.Hide();
                 radioButton3.Hide();
                 radioButton4.Hide();
-                textBox2.Show();
+                
                 textBox2.Text = anwser[num].Answer;
+                textBox2.Show();
             }
         }
         public void jiexi(string x)
@@ -308,8 +421,9 @@ namespace Automatic_Course_Test_System
                     }
                     dt.Rows.Add(dr);
                 }
+                zongshu = nodelist.Count;
 
-                num = nodelist.Count;
+
             }
         }
 
