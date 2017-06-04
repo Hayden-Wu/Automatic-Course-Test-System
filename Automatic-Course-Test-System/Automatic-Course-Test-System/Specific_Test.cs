@@ -131,10 +131,15 @@ namespace Automatic_Course_Test_System
             for (int i = 0; i < anwser.Count; i++)
             {
 
-
-
-                MessageBox.Show(anwser[i].Choice_answer);
-                MessageBox.Show(anwser[i].Answer);
+                if (int.Parse(dt.Rows[i]["type"].ToString()) == 1)
+                {
+                    str=str+(i+anwser[i].Choice_answer);
+                   
+                }
+                else
+                {
+                    str =str + i + anwser[i].Answer;
+                }
 
 
             }
