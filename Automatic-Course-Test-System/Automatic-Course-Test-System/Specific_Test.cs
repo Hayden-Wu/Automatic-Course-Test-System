@@ -153,8 +153,8 @@ namespace Automatic_Course_Test_System
             try
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=answer&specifictest=" + kaoshiming + "&" + str);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=answer&specifictest=" + kaoshiming + "&" + str);
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=answer&zhanghao="+zhanghao+"&specifictest=" + kaoshiming + "&" + str);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=answer&zhanghao=" + zhanghao + "&specifictest=" + kaoshiming + "&" + str);
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
 
@@ -318,11 +318,19 @@ namespace Automatic_Course_Test_System
                 groupBox1.Hide();
                 textBox2.Show();
             }
-          //  MessageBox.Show(Convert.ToString(anwser.Count));
+            //  MessageBox.Show(Convert.ToString(anwser.Count));
+            dataGridView1.Focus();
+            dataGridView1.CurrentCell = dataGridView1.Rows[num].Cells[0];
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if(num==0)
+            {
+                MessageBox.Show("已是第一题");
+                return;
+            }
             Class_Upload c = new Class_Upload();
             if (radioButton1.Checked)
             {
@@ -400,6 +408,8 @@ namespace Automatic_Course_Test_System
                 textBox2.Text = anwser[num].Answer;
                 textBox2.Show();
             }
+            dataGridView1.Focus();
+            dataGridView1.CurrentCell = dataGridView1.Rows[num].Cells[0];
         }
         public void jiexi(string x)
         {
@@ -457,6 +467,115 @@ namespace Automatic_Course_Test_System
             dt.Columns.Add("choiceanswerC");
             dt.Columns.Add("choiceanswerD");
             return dt;
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            string str="";
+            str = dataGridView1.CurrentRow.Cells[0].ToString();
+            str = str.Remove(0, str.Length - 3);
+            str = str.Remove(1, 2);
+            if (Convert.ToInt32( str) > nownum)
+            {
+                MessageBox.Show("请按顺序答题！");
+                return;
+            }
+            Class_Upload c = new Class_Upload();
+            if (radioButton1.Checked)
+            {
+                c.Choice_answer = "A";
+            }
+            else if (radioButton2.Checked)
+            {
+                c.Choice_answer = "B";
+            }
+            else if (radioButton3.Checked)
+            {
+                c.Choice_answer = "C";
+            }
+            else if (radioButton4.Checked)
+            {
+                c.Choice_answer = "D";
+            }
+            else if (c.Test != "")
+            {
+                c.Answer = textBox2.Text;
+            }
+            else
+            {
+                MessageBox.Show("请填写答案");
+            }
+            c.Subject = ceshiming;
+            c.Test = kaoshiming;
+            c.Testnumber = Convert.ToString(num);
+            if (num == nownum && num == anwser.Count)
+            {
+                anwser.Add(c);
+            }
+            else
+            {
+                anwser[num].copyto(c);
+            }
+            
+            num = Convert.ToInt32(str);
+           
+            label2.Text = "第" + (num + 1) + "题目";
+            //显示题目
+            textBox1.Text = dt.Rows[num]["question"].ToString();
+            if (dt.Rows[num]["type"].ToString() == "1")
+            {
+                // radioButton1
+                //MessageBox.Show(Convert.ToString( anwser.Count));
+                //MessageBox.Show(Convert.ToString(num));
+                if (anwser.Count <= num)
+                {
+                    radioButton1.Checked = false;
+                    radioButton2.Checked = false;
+                    radioButton3.Checked = false;
+                    radioButton4.Checked = false;
+                }
+                else
+                {
+                    if (anwser[num].Choice_answer == "A")
+                    {
+                        radioButton1.Checked = true;
+                    }
+                    else if (anwser[num].Choice_answer == "B")
+                    {
+                        radioButton2.Checked = true;
+                    }
+                    else if (anwser[num].Choice_answer == "C")
+                    {
+                        radioButton3.Checked = true;
+                    }
+                    else if (anwser[num].Choice_answer == "D")
+                    {
+                        radioButton4.Checked = true;
+                    }
+                    else
+                    {
+                        radioButton1.Checked = false;
+                        radioButton2.Checked = false;
+                        radioButton3.Checked = false;
+                        radioButton4.Checked = false;
+                    }
+                }
+                groupBox1.Show();
+                textBox2.Hide();
+                radioButton1.Text = "A." + dt.Rows[num]["choiceanswerA"].ToString();
+                radioButton2.Text = "B." + dt.Rows[num]["choiceanswerB"].ToString();
+                radioButton3.Text = "C." + dt.Rows[num]["choiceanswerC"].ToString();
+                radioButton4.Text = "D." + dt.Rows[num]["choiceanswerD"].ToString();
+            }
+            else
+            {
+                radioButton1.Checked = false;
+                radioButton2.Checked = false;
+                radioButton3.Checked = false;
+                radioButton4.Checked = false;
+                groupBox1.Hide();
+                textBox2.Show();
+            }
         }
     }
 }
