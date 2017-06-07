@@ -115,6 +115,7 @@
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "简答题";
             this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // radioButton1
             // 
@@ -126,6 +127,7 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "选择题";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -255,7 +257,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.textBox6);
-            this.groupBox3.Location = new System.Drawing.Point(364, 145);
+            this.groupBox3.Location = new System.Drawing.Point(157, 145);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(200, 78);
             this.groupBox3.TabIndex = 6;
