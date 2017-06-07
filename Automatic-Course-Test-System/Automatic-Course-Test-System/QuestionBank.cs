@@ -56,7 +56,7 @@ namespace Automatic_Course_Test_System
         private void button1_Click(object sender, EventArgs e)
         {
             string KeMu = comboBox1.SelectedValue.ToString().Trim();
-            string CeYan = comboBox2.SelectedValue.ToString().Trim();ToString();
+            string CeYan = comboBox2.SelectedValue.ToString().Trim();
             Close = false;
             QuestionBankInformation f = new QuestionBankInformation(FatherForm);
             f.getmessage_bank(zhanghao,KeMu,CeYan);
