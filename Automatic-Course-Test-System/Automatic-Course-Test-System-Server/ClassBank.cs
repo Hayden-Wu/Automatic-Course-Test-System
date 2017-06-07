@@ -144,4 +144,68 @@ namespace Automatic_Course_Test_System_Server
             }
         }
     }
+
+    public class Class_answer
+    {
+        private int testnumber;
+        private int type;
+        private string choiceanswer;
+        private string answer;
+
+        public Class_answer()
+        {
+        }
+
+        public int Testnumber
+        {
+            get
+            {
+                return testnumber;
+            }
+
+            set
+            {
+                testnumber = value;
+            }
+        }
+
+        public int Type
+        {
+            get
+            {
+                return type;
+            }
+
+            set
+            {
+                type = value;
+            }
+        }
+
+        public string Choiceanswer
+        {
+            get
+            {
+                return choiceanswer;
+            }
+
+            set
+            {
+                choiceanswer = value;
+            }
+        }
+
+        public string Answer
+        {
+            get
+            {
+                return answer;
+            }
+
+            set
+            {
+                answer = value;
+            }
+        }
+    }
 }
