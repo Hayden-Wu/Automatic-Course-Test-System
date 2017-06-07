@@ -179,7 +179,51 @@ namespace Automatic_Course_Test_System
 
         private void button2_Click(object sender, EventArgs e)
         {
+            delete();
+        }
 
+        /// <summary>
+        /// 删除科目操作，传递“科目”设为test，“测验”设为sprcifictest
+        /// 调用Server_QuestionBank的delete函数
+        /// 删除成功返回值为1，否则为删除失败
+        /// </summary>
+        void delete()
+        {
+            string KeMu = comboBox1.Text.Trim();
+            string CeYan = comboBox2.Text.Trim();
+            try
+            {
+                Encoding encoding = Encoding.GetEncoding("utf-8");
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_QuestionBank.ashx?action=delete&test=" + KeMu + "&specifictest=" + CeYan);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_QuestionBank.ashx?action=sign&delete=" + KeMu + "&specifictest=" + CeYan);
+                webReq.Method = "post";
+                webReq.ContentType = "text/xml";
+
+                Stream outstream = webReq.GetRequestStream();
+                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                outstream.Flush();
+                outstream.Close();
+
+                webReq.Timeout = 2000;
+                HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+                Stream stream = webResp.GetResponseStream();
+                StreamReader sr = new StreamReader(stream, encoding);
+                html = sr.ReadToEnd();
+                sr.Close();
+                stream.Close();
+            }
+            catch
+            {
+                MessageBox.Show("链接失败");
+            }
+            if(html == "1")
+            {
+                MessageBox.Show("删除成功");
+            }
+            else
+            {
+                MessageBox.Show("删除失败");
+            }
         }
     }
 }
