@@ -146,7 +146,7 @@ namespace Automatic_Course_Test_System
                 
             }
             str=str.Remove(str.Length-1, 1);
-            MessageBox.Show(str);
+            //MessageBox.Show(str);
 
             string html = "";
             try
