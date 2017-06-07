@@ -80,6 +80,7 @@ namespace Automatic_Course_Test_System
                 {
 
                     textBox2.Hide();
+                    groupBox1.Show();
                     radioButton1.Text = "A." + dt.Rows[0]["choiceanswerA"].ToString();
                     radioButton2.Text = "B." + dt.Rows[0]["choiceanswerB"].ToString();
                     radioButton3.Text = "C." + dt.Rows[0]["choiceanswerC"].ToString();
@@ -87,10 +88,7 @@ namespace Automatic_Course_Test_System
                 }
                 else
                 {
-                    radioButton1.Hide();
-                    radioButton2.Hide();
-                    radioButton3.Hide();
-                    radioButton4.Hide();
+                    groupBox1.Hide();
                     textBox2.Show();
 
                 }
@@ -282,34 +280,18 @@ namespace Automatic_Course_Test_System
                 {
                     if (anwser[num].Choice_answer == "A")
                     {
-                        radioButton1.Checked = false;
-                        radioButton2.Checked = false;
-                        radioButton3.Checked = false;
-                        radioButton4.Checked = false;
                         radioButton1.Checked = true;
                     }
                     else if (anwser[num].Choice_answer == "B")
                     {
-                        radioButton1.Checked = false;
-                        radioButton2.Checked = false;
-                        radioButton3.Checked = false;
-                        radioButton4.Checked = false;
                         radioButton2.Checked = true;
                     }
                     else if (anwser[num].Choice_answer == "C")
                     {
-                        radioButton1.Checked = false;
-                        radioButton2.Checked = false;
-                        radioButton3.Checked = false;
-                        radioButton4.Checked = false;
                         radioButton3.Checked = true;
                     }
                     else if (anwser[num].Choice_answer == "D")
                     {
-                        radioButton1.Checked = false;
-                        radioButton2.Checked = false;
-                        radioButton3.Checked = false;
-                        radioButton4.Checked = false;
                         radioButton4.Checked = true;
                     }
                     else
@@ -320,10 +302,7 @@ namespace Automatic_Course_Test_System
                         radioButton4.Checked = false;
                     }
                 }
-                radioButton1.Show();
-                radioButton2.Show();
-                radioButton3.Show();
-                radioButton4.Show();
+                groupBox1.Show();
                 textBox2.Hide();
                 radioButton1.Text = "A." + dt.Rows[num]["choiceanswerA"].ToString();
                 radioButton2.Text = "B." + dt.Rows[num]["choiceanswerB"].ToString();
@@ -336,10 +315,7 @@ namespace Automatic_Course_Test_System
                 radioButton2.Checked = false;
                 radioButton3.Checked = false;
                 radioButton4.Checked = false;
-                radioButton1.Hide();
-                radioButton2.Hide();
-                radioButton3.Hide();
-                radioButton4.Hide();
+                groupBox1.Hide();
                 textBox2.Show();
             }
           //  MessageBox.Show(Convert.ToString(anwser.Count));
@@ -390,10 +366,7 @@ namespace Automatic_Course_Test_System
             textBox1.Text = dt.Rows[num]["question"].ToString();
             if (dt.Rows[num]["type"].ToString() == "1")
             {
-                radioButton1.Show();
-                radioButton2.Show();
-                radioButton3.Show();
-                radioButton4.Show();
+                groupBox1.Show();
                 textBox2.Hide();
                 radioButton1.Text = "A."+dt.Rows[num]["choiceanswerA"].ToString();
                 radioButton2.Text = "B."+dt.Rows[num]["choiceanswerB"].ToString();
@@ -422,10 +395,7 @@ namespace Automatic_Course_Test_System
                 radioButton2.Checked = false;
                 radioButton3.Checked = false;
                 radioButton4.Checked = false;
-                radioButton1.Hide();
-                radioButton2.Hide();
-                radioButton3.Hide();
-                radioButton4.Hide();
+                groupBox1.Hide();
                 
                 textBox2.Text = anwser[num].Answer;
                 textBox2.Show();
