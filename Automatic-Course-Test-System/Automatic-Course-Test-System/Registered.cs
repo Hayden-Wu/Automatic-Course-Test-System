@@ -42,7 +42,11 @@ namespace Automatic_Course_Test_System
             }
             this.Close();
         }
-
+        /// <summary>
+        /// 注册按钮，“用户名”对应username，“密码”对应password，“班级”对应class
+        /// 调用Sever_Registered的register函数
+        /// 注册成功返回1，用户名重复返回2
+        /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
             zhanghao = textBox1.Text.Trim();
@@ -55,8 +59,8 @@ namespace Automatic_Course_Test_System
                 try
                 {
                     Encoding encoding = Encoding.GetEncoding("utf-8");
-                    byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Registered.ashx?action=sign&username=" + zhanghao + "&password=" + mima + "&class=" + banji);
-                    HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Registered.ashx?action=sign&username=" + zhanghao + "&password=" + mima + "&class=" + banji);
+                    byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Registered.ashx?action=register&username=" + zhanghao + "&password=" + mima + "&class=" + banji);
+                    HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Registered.ashx?action=register&username=" + zhanghao + "&password=" + mima + "&class=" + banji);
                     webReq.Method = "post";
                     webReq.ContentType = "text/xml";
 
@@ -137,7 +141,10 @@ namespace Automatic_Course_Test_System
             if (Close == true)
                 Application.Exit();
         }
-
+        /// <summary>
+        /// 将班级加入下拉框中
+        /// 调用Server_Registered的class函数
+        /// </summary>
         private void test()
         {
             Encoding encoding = Encoding.GetEncoding("utf-8");
