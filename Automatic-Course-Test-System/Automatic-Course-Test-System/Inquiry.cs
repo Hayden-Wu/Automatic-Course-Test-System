@@ -47,8 +47,8 @@ namespace Automatic_Course_Test_System
             try
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=score&zhanghao=" + zhanghao + "&kemu"+kemu+"&specifictest=" + ceshi);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=score&zhanghao=" + zhanghao + "&kemu" + kemu + "&specifictest=" + ceshi);
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=score&zhanghao=" + zhanghao +"&specifictest=" + ceshi);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=score&zhanghao=" + zhanghao   + "&specifictest=" + ceshi);
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
 
