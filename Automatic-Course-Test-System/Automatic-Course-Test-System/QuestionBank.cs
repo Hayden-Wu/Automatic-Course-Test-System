@@ -183,7 +183,7 @@ namespace Automatic_Course_Test_System
         }
 
         /// <summary>
-        /// 删除科目操作，传递“科目”设为test，“测验”设为sprcifictest
+        /// 删除科目操作，“科目”设为test，“测验”设为sprcifictest
         /// 调用Server_QuestionBank的delete函数
         /// 删除成功返回值为1，否则为删除失败
         /// </summary>
