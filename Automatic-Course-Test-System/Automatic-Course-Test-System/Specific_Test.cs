@@ -25,6 +25,7 @@ namespace Automatic_Course_Test_System
         private int zongshu;
         private int num = 0;
         private int nownum = 0;
+        private string s = "";
         List<Class_Upload> anwser = new List<Class_Upload>();
         DataTable dt = new DataTable();
         DataTable dtnum = new DataTable();
@@ -33,8 +34,6 @@ namespace Automatic_Course_Test_System
             InitializeComponent();
             this.FatherForm = Sign_in;
             Close = true;
-            
-            
         }
         public void gettest(string c, string k,string z)
         {
@@ -196,6 +195,24 @@ namespace Automatic_Course_Test_System
             if (num+1 == zongshu)
             {
                 MessageBox.Show("已完成所有试题，请交卷！");
+                if (dt.Rows[num]["type"].ToString() != "1" && textBox2.Text != "")
+                {
+                    s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                    s = s.Remove(1, s.Length - 1);
+                    if (s != "√")
+                    {
+                        dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
+                    }
+                }
+                else if (dt.Rows[num]["type"].ToString() == "1" && (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked))
+                {
+                    s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                    s = s.Remove(1, s.Length - 1);
+                    if (s != "√")
+                    {
+                        dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
+                    }
+                }
                 return;
             }
             if (nownum == num&&num==anwser.Count)
@@ -204,30 +221,55 @@ namespace Automatic_Course_Test_System
                 if (radioButton1.Checked)
                 {
                     c.Choice_answer = "A";
+                   
                 }
                 else if (radioButton2.Checked)
                 {
                     c.Choice_answer = "B";
+                   
                 }
                 else if (radioButton3.Checked)
                 {
                     c.Choice_answer = "C";
+                    
                 }
                 else if (radioButton4.Checked)
                 {
                     c.Choice_answer = "D";
+                   
                 }
-                else
+                else if(dt.Rows[num]["type"].ToString()!="1")
                 {
                     c.Answer = textBox2.Text;
+                   
                 }
-                
+
+                if (dt.Rows[num]["type"].ToString() != "1" && textBox2.Text != "")
+                {
+                    s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                    s = s.Remove(1, s.Length - 1);
+                    if (s != "√")
+                    {
+                        dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
+                    }
+                }
+                else if (dt.Rows[num]["type"].ToString() == "1" && (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked))
+                {
+                    s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                    s = s.Remove(1, s.Length - 1);
+                    if (s != "√")
+                    {
+                        dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
+                    }
+                }
+
                 c.Subject = ceshiming;
                 c.Test = kaoshiming;
                 c.Testnumber = Convert.ToString(num);
                 num++;
                 nownum++;
                 anwser.Add(c);
+
                // MessageBox.Show(anwser[num - 1].Choice_answer);
             }
             else
@@ -253,6 +295,26 @@ namespace Automatic_Course_Test_System
                 {
                     c.Answer = textBox2.Text;
                 }
+
+                if (dt.Rows[num]["type"].ToString() != "1" && textBox2.Text != "")
+                {
+                    s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                    s = s.Remove(1, s.Length - 1);
+                    if (s != "√")
+                    {
+                        dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
+                    }
+                }
+                else if (dt.Rows[num]["type"].ToString() == "1" && (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked))
+                {
+                    s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                    s = s.Remove(1, s.Length - 1);
+                    if (s != "√")
+                    {
+                        dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
+                    }
+                }
+
                 //c.Subject = ceshiming;
                 c.Test = kaoshiming;
                 c.Testnumber = Convert.ToString(num);
@@ -335,39 +397,63 @@ namespace Automatic_Course_Test_System
             if (radioButton1.Checked)
             {
                 c.Choice_answer = "A";
+               
             }
             else if (radioButton2.Checked)
             {
                 c.Choice_answer = "B";
+               
             }
             else if (radioButton3.Checked)
             {
                 c.Choice_answer = "C";
+               
             }
             else if (radioButton4.Checked)
             {
                 c.Choice_answer = "D";
+               
             }
-            else if(c.Test!="")
+            else if(dt.Rows[num]["type"].ToString() != "1")
             {
                 c.Answer = textBox2.Text;
+                
             }
-            else
-            {
-                MessageBox.Show("请填写答案");
-            }
+            
             c.Subject = ceshiming;
             c.Test = kaoshiming;
             c.Testnumber = Convert.ToString(num);
             if (num == nownum && num == anwser.Count)
             {
                 anwser.Add(c);
+               
+                
             }
             else
             {
+                
                 anwser[num].copyto(c);
             }
-           
+
+            if (dt.Rows[num]["type"].ToString() != "1" && textBox2.Text != "")
+            {
+                s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                s = s.Remove(1, s.Length - 1);
+                if (s != "√")
+                {
+                    dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
+                }
+            }
+            else if (dt.Rows[num]["type"].ToString() == "1" && (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked))
+            {
+                s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                s = s.Remove(1, s.Length - 1);
+                if (s != "√")
+                {
+                    dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
+                }
+            }
+
             num--;
             label2.Text = "第" + (num + 1) + "题目";
             //显示题目
@@ -475,9 +561,12 @@ namespace Automatic_Course_Test_System
             str = dataGridView1.CurrentRow.Cells[0].ToString();
             str = str.Remove(0, str.Length - 3);
             str = str.Remove(1, 2);
+            
             if (Convert.ToInt32( str) > nownum)
             {
                 MessageBox.Show("请按顺序答题！");
+                dataGridView1.Focus();
+                dataGridView1.CurrentCell = dataGridView1.Rows[num].Cells[0];
                 return;
             }
             Class_Upload c = new Class_Upload();
@@ -514,9 +603,27 @@ namespace Automatic_Course_Test_System
             }
             else
             {
+               
                 anwser[num].copyto(c);
             }
-            
+            if (dt.Rows[num]["type"].ToString() != "1" && textBox2.Text != "")
+            {
+                s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                s = s.Remove(1, s.Length - 1);
+                if (s != "√")
+                {
+                    dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
+                }
+            }
+            else if (dt.Rows[num]["type"].ToString() == "1" && (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked))
+            {
+                s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                s = s.Remove(1, s.Length - 1);
+                if (s != "√")
+                {
+                    dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
+                }
+            }
             num = Convert.ToInt32(str);
            
             label2.Text = "第" + (num + 1) + "题目";
@@ -575,6 +682,14 @@ namespace Automatic_Course_Test_System
                 radioButton4.Checked = false;
                 groupBox1.Hide();
                 textBox2.Show();
+            }
+        }
+
+        private void textBox2_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(textBox2.Text=="简答题")
+            {
+                textBox2.Text = "";
             }
         }
     }

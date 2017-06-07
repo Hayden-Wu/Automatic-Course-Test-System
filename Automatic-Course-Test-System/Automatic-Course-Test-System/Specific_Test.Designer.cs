@@ -165,11 +165,12 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(311, 106);
+            this.textBox2.Location = new System.Drawing.Point(320, 122);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 21);
             this.textBox2.TabIndex = 7;
             this.textBox2.Text = "简答题";
+            this.textBox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBox2_MouseClick);
             // 
             // button1
             // 
