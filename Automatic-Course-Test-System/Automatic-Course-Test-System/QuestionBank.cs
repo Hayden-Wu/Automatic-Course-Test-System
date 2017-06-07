@@ -176,5 +176,10 @@ namespace Automatic_Course_Test_System
             string KeMu = comboBox1.SelectedValue.ToString().Trim();
             specifictest(KeMu);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
