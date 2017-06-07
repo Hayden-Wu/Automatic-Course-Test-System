@@ -146,7 +146,7 @@ namespace Automatic_Course_Test_System
                 
             }
             str=str.Remove(str.Length-1, 1);
-            MessageBox.Show(str);
+           // MessageBox.Show(str);
 
             string html = "";
             try
@@ -192,6 +192,7 @@ namespace Automatic_Course_Test_System
 
         private void button2_Click(object sender, EventArgs e)
         {
+            
             if (num+1 == zongshu)
             {
                 MessageBox.Show("已完成所有试题，请交卷！");
@@ -244,7 +245,7 @@ namespace Automatic_Course_Test_System
                    
                 }
 
-                if (dt.Rows[num]["type"].ToString() != "1" && textBox2.Text != "")
+                if (dt.Rows[num]["type"].ToString() != "1" && textBox2.Text != ""&&textBox2.Text!="简答题")
                 {
                     s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                     s = s.Remove(1, s.Length - 1);
@@ -296,7 +297,7 @@ namespace Automatic_Course_Test_System
                     c.Answer = textBox2.Text;
                 }
 
-                if (dt.Rows[num]["type"].ToString() != "1" && textBox2.Text != "")
+                if (dt.Rows[num]["type"].ToString() != "1" && textBox2.Text != "" && textBox2.Text != "简答题")
                 {
                     s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                     s = s.Remove(1, s.Length - 1);
@@ -388,6 +389,7 @@ namespace Automatic_Course_Test_System
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             if(num==0)
             {
                 MessageBox.Show("已是第一题");
@@ -426,7 +428,7 @@ namespace Automatic_Course_Test_System
             if (num == nownum && num == anwser.Count)
             {
                 anwser.Add(c);
-               
+                nownum++;
                 
             }
             else
@@ -435,7 +437,7 @@ namespace Automatic_Course_Test_System
                 anwser[num].copyto(c);
             }
 
-            if (dt.Rows[num]["type"].ToString() != "1" && textBox2.Text != "")
+            if (dt.Rows[num]["type"].ToString() != "1" && textBox2.Text != "" && textBox2.Text != "简答题")
             {
                 s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 s = s.Remove(1, s.Length - 1);
