@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Xml;
+using System.Net;
+using System.IO;
 namespace Automatic_Course_Test_System
 {
     public partial class Inquiry : Form
@@ -18,11 +20,18 @@ namespace Automatic_Course_Test_System
         private string zhanghao="";
         private bool Close = true;
         private Form FatherForm = null;
+        private string html="";
         public Inquiry(Form Sign_in)
         {
             InitializeComponent();
             FatherForm = Sign_in;
             Close = true;
+            test();
+            string testvalue = comboBox1.Text.Trim();
+
+            comboBox2.DisplayMember = "";
+            comboBox2.ValueMember = "specifictest";
+            specifictest(testvalue);
         }
         public void getmessage(string z)
         {
@@ -30,10 +39,39 @@ namespace Automatic_Course_Test_System
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            kemu = comboBox1.Text;
-            ceshi = comboBox2.Text;
+            
+            kemu = comboBox1.SelectedValue.ToString().Trim();
+            ceshi = comboBox2.SelectedValue.ToString().Trim();
             //查询成绩
             Close = false;
+            try
+            {
+                Encoding encoding = Encoding.GetEncoding("utf-8");
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=score&zhanghao=" + zhanghao + "&kemu"+kemu+"&specifictest=" + ceshi);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=score&zhanghao=" + zhanghao + "&kemu" + kemu + "&specifictest=" + ceshi);
+                webReq.Method = "post";
+                webReq.ContentType = "text/xml";
+
+                Stream outstream = webReq.GetRequestStream();
+                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                outstream.Flush();
+                outstream.Close();
+
+                webReq.Timeout = 2000;
+                HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+                Stream stream = webResp.GetResponseStream();
+                StreamReader sr = new StreamReader(stream, encoding);
+                html = sr.ReadToEnd();
+                sr.Close();
+                stream.Close();
+                score = html;
+            }
+            catch
+            {
+                MessageBox.Show("链接失败");
+            }
+
+
             Results f = new Results(FatherForm);
             f.getscore(kemu, ceshi, score);
             f.Show();
@@ -44,6 +82,123 @@ namespace Automatic_Course_Test_System
         {
             if (Close == true)
                 Application.Exit();
+        }
+        private void test()
+        {
+            Encoding encoding = Encoding.GetEncoding("utf-8");
+            byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=test");
+            HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=test");
+            webReq.Method = "post";
+            webReq.ContentType = "text/xml";
+
+            Stream outstream = webReq.GetRequestStream();
+            outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+            outstream.Flush();
+            outstream.Close();
+
+            webReq.Timeout = 2000;
+            HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+            Stream stream = webResp.GetResponseStream();
+            StreamReader sr = new StreamReader(stream, encoding);
+            html = sr.ReadToEnd();
+            sr.Close();
+            stream.Close();
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(html.Trim());
+
+            if (doc.SelectSingleNode("informations/warn") != null)
+            {
+                XmlNode node = doc.SelectSingleNode("informations/warn");
+                string success = node.ChildNodes[0].InnerText;
+                string err_msg = node.ChildNodes[1].InnerText;
+
+                label1.Text = "success:" + success + "\r\n" + "err_msg:" + err_msg;
+            }
+            else
+            {
+                StringBuilder stext = new StringBuilder();
+                XmlNodeList nodelist = doc.DocumentElement.GetElementsByTagName("information");
+
+                DataTable dt = new DataTable();
+                DataColumn dc1 = new DataColumn("test", typeof(string));
+                dt.Columns.Add(dc1);
+
+                for (int i = 0; i < nodelist.Count; ++i)
+                {
+                    DataRow dr = dt.NewRow();
+                    XmlNode node = nodelist[i];
+                    dr[dt.Columns[0].ColumnName] = node.Attributes["test"].InnerText;
+                    dt.Rows.Add(dr);
+                }
+                
+                comboBox1.DisplayMember = "";
+                comboBox1.ValueMember = "test";
+                comboBox1.DataSource = dt;
+            }
+        }
+
+        private void specifictest(string testvalue)
+        {
+            string test = testvalue.Trim();
+
+            Encoding encoding = Encoding.GetEncoding("utf-8");
+            byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=specific_test&test=" + test);
+            HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=specific_test&test=" + test);
+            webReq.Method = "post";
+            webReq.ContentType = "text/xml";
+
+            Stream outstream = webReq.GetRequestStream();
+            outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+            outstream.Flush();
+            outstream.Close();
+
+            webReq.Timeout = 2000;
+            HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+            Stream stream = webResp.GetResponseStream();
+            StreamReader sr = new StreamReader(stream, encoding);
+            html = sr.ReadToEnd();
+            sr.Close();
+            stream.Close();
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(html.Trim());
+
+            if (doc.SelectSingleNode("informations/warn") != null)
+            {
+                XmlNode node = doc.SelectSingleNode("informations/warn");
+                string success = node.ChildNodes[0].InnerText;
+                string err_msg = node.ChildNodes[1].InnerText;
+
+                label1.Text = "success:" + success + "\r\n" + "err_msg:" + err_msg;
+            }
+            else
+            {
+                StringBuilder stext = new StringBuilder();
+                XmlNodeList nodelist = doc.DocumentElement.GetElementsByTagName("information");
+
+                DataTable dt = new DataTable();
+                DataColumn dc1 = new DataColumn("specifictest", typeof(string));
+                dt.Columns.Add(dc1);
+
+                for (int i = 0; i < nodelist.Count; ++i)
+                {
+                    DataRow dr = dt.NewRow();
+                    XmlNode node = nodelist[i];
+                    dr[dt.Columns[0].ColumnName] = node.Attributes["specifictest"].InnerText;
+                    dt.Rows.Add(dr);
+                }
+
+                //comboBox2.DisplayMember = "";
+                //comboBox2.ValueMember = "specifictest";
+                comboBox2.DataSource = dt;
+            }
+        }
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            string testvalue = comboBox1.SelectedValue.ToString().Trim();
+            specifictest(testvalue);
         }
     }
 }
