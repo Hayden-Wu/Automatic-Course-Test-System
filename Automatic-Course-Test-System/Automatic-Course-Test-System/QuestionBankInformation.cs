@@ -44,7 +44,7 @@ namespace Automatic_Course_Test_System
             try
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=question&specifictest=" + CeYan);
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=questionall&specifictest=" + CeYan);
                 HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=question&specifictest=" + CeYan);
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
@@ -149,7 +149,54 @@ namespace Automatic_Course_Test_System
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            string str = "";
+            str = dataGridView1.CurrentRow.Cells[0].ToString();
+            str = str.Remove(0, str.Length - 3);
+            str = str.Remove(1, 2);
 
+           
+           
+            num = Convert.ToInt32(str);
+
+            label2.Text = "第" + (num + 1) + "题目";
+            //显示题目
+            textBox1.Text = dt.Rows[num]["question"].ToString();
+            if (dt.Rows[num]["type"].ToString() == "1")
+            {
+               
+               
+                groupBox2.Show();
+                groupBox3.Hide();
+                radioButton3.Text = "A." + dt.Rows[num]["choiceanswerA"].ToString();
+                radioButton4.Text = "B." + dt.Rows[num]["choiceanswerB"].ToString();
+                radioButton5.Text = "C." + dt.Rows[num]["choiceanswerC"].ToString();
+                radioButton6.Text = "D." + dt.Rows[num]["choiceanswerD"].ToString();
+
+                if(dt.Rows[num]["answer"].ToString()=="A")
+                {
+                    radioButton3.Checked = true;
+                }
+                else if(dt.Rows[num]["answer"].ToString() == "B")
+                {
+                    radioButton4.Checked = true;
+                }
+                else if(dt.Rows[num]["answer"].ToString() == "C")
+                {
+                    radioButton5.Checked = true;
+                }
+                else
+                {
+                    radioButton6.Checked = true;
+                }
+                
+            }
+            else
+            {
+                
+                groupBox2.Hide();
+                groupBox3.Show();
+                textBox6.Text = dt.Rows[num]["answer"].ToString();
+            }
         }
 
         public void jiexi(string x)
@@ -206,6 +253,7 @@ namespace Automatic_Course_Test_System
             dt.Columns.Add("choiceanswerB");
             dt.Columns.Add("choiceanswerC");
             dt.Columns.Add("choiceanswerD");
+            dt.Columns.Add("answer");
             return dt;
         }
     }
