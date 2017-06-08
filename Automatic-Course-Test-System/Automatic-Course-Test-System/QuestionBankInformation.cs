@@ -23,6 +23,7 @@ namespace Automatic_Course_Test_System
         private int num = 0;
         private int nownum = 0;
         private int zongshu;
+       
         DataTable dt = new DataTable();
         DataTable dtnum = new DataTable();
         public QuestionBankInformation(Form Admin)
@@ -75,7 +76,7 @@ namespace Automatic_Course_Test_System
                 textBox1.Text = dt.Rows[0]["question"].ToString();
                 if (int.Parse(dt.Rows[0]["type"].ToString()) == 1)
                 {
-
+                    radioButton1.Checked = true;
                     groupBox3.Hide();
                     groupBox2.Show();
                     radioButton1.Text = "A." + dt.Rows[0]["choiceanswerA"].ToString();
@@ -83,12 +84,14 @@ namespace Automatic_Course_Test_System
                     radioButton3.Text = "C." + dt.Rows[0]["choiceanswerC"].ToString();
                     radioButton4.Text = "D." + dt.Rows[0]["choiceanswerD"].ToString();
                 }
-                else
+                else if(int.Parse(dt.Rows[0]["type"].ToString()) == 2)
                 {
+                    radioButton2.Checked = true;
                     groupBox2.Hide();
                     groupBox3.Show();
-
+                    textBox6.Text= dt.Rows[0]["answer"].ToString();
                 }
+                
             }
             catch
             {
@@ -139,11 +142,40 @@ namespace Automatic_Course_Test_System
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            dt.Rows[num]["question"] = textBox1.Text;
+            if (radioButton1.Checked == true)
+            {
+                dt.Rows[num]["type"] = "1";
+                dt.Rows[num]["choiceanswerA"] = radioButton3.Text;
+                dt.Rows[num]["choiceanswerB"] = radioButton4.Text;
+                dt.Rows[num]["choiceanswerC"] = radioButton5.Text;
+                dt.Rows[num]["choiceanswerD"] = radioButton6.Text;
+                if(radioButton3.Checked == true)
+                   dt.Rows[num]["answer"] = "A";
+                else if (radioButton4.Checked == true)
+                   dt.Rows[num]["answer"] = "B";
+                else if (radioButton5.Checked == true)
+                    dt.Rows[num]["answer"] = "C";
+                else if (radioButton6.Checked == true)
+                    dt.Rows[num]["answer"] = "D";
+            }
+            else
+            {
+                dt.Rows[num]["type"] = "2";
+                dt.Rows[num]["answer"] = textBox6.Text;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            
+            dt.Rows[num]["question"] = "";
+            dt.Rows[num]["type"] = "";
+            dt.Rows[num]["choiceanswerA"] = "";
+            dt.Rows[num]["choiceanswerB"] = "";
+            dt.Rows[num]["choiceanswerC"] = "";
+            dt.Rows[num]["choiceanswerD"] = "";
+            dt.Rows[num]["answer"] = "";
 
         }
 
@@ -153,18 +185,14 @@ namespace Automatic_Course_Test_System
             str = dataGridView1.CurrentRow.Cells[0].ToString();
             str = str.Remove(0, str.Length - 3);
             str = str.Remove(1, 2);
-
-           
-           
             num = Convert.ToInt32(str);
-
             label2.Text = "第" + (num + 1) + "题目";
             //显示题目
             textBox1.Text = dt.Rows[num]["question"].ToString();
             if (dt.Rows[num]["type"].ToString() == "1")
             {
-               
-               
+
+                radioButton1.Checked = true;
                 groupBox2.Show();
                 groupBox3.Hide();
                 radioButton3.Text = "A." + dt.Rows[num]["choiceanswerA"].ToString();
@@ -192,7 +220,7 @@ namespace Automatic_Course_Test_System
             }
             else
             {
-                
+                radioButton2.Checked = true;
                 groupBox2.Hide();
                 groupBox3.Show();
                 textBox6.Text = dt.Rows[num]["answer"].ToString();

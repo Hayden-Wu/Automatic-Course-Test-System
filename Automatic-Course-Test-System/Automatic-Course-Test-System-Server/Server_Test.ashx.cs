@@ -451,7 +451,7 @@ namespace Automatic_Course_Test_System_Server
                     XmlElement xeSub6 = xmlDoc.CreateElement("choiceanswerD");
                     xeSub6.InnerText = "" + model.ChoiceanswerA.Trim() + "";
                     xe1.AppendChild(xeSub6);
-                    XmlElement xeSub7 = xmlDoc.CreateElement("choiceanswerD");
+                    XmlElement xeSub7 = xmlDoc.CreateElement("answer");
                     xeSub7.InnerText = "" + answer + "";
                     xe1.AppendChild(xeSub7);
                     root.AppendChild(xe1);      
