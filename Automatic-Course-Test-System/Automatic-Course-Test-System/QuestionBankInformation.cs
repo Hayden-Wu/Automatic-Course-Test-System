@@ -176,7 +176,9 @@ namespace Automatic_Course_Test_System
             dt.Rows[num]["choiceanswerC"] = "";
             dt.Rows[num]["choiceanswerD"] = "";
             dt.Rows[num]["answer"] = "";
-
+            radioButton2.Checked = true;
+            groupBox3.Show();
+            textBox1.Text = "";
         }
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
