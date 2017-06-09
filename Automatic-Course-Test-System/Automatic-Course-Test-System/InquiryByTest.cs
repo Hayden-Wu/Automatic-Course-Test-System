@@ -20,6 +20,14 @@ namespace Automatic_Course_Test_System
         private Form ChildForm = null;
         private bool Close = true;
         string html = "";
+        string KeMu = null;
+        string CeYan = null;
+        string S_name = null;
+        string S_score = null;
+        DataTable dt = new DataTable();
+        DataTable dt_class = new DataTable();
+        DataTable dt_name = new DataTable();
+        DataTable dt_score = new DataTable();
 
         public InquiryByTest(Form Admin,Form Examinee)
         {
@@ -29,20 +37,59 @@ namespace Automatic_Course_Test_System
             Close = true;
 
             test();
-            string KeMu = comboBox1.Text.Trim();
+            KeMu = comboBox1.Text.Trim();
 
             comboBox2.DisplayMember = "";
             comboBox2.ValueMember = "specifictest";
             specifictest(KeMu);
         }
-
+        /// <summary>
+        /// 按测试查询学生成绩
+        /// 调用Server_InquiryByTest的inquiry函数
+        /// 上传测验“specifictest”
+        /// 需接收学生姓名与该测验对应成绩
+        /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            Close = false;
-            ExamineeInformation f = new ExamineeInformation(FatherForm,ChildForm);
-            f.Show();
-            f.getmessage(zhanghao);
-            this.Close();
+            //Close = false;
+            //ExamineeInformation f = new ExamineeInformation(FatherForm,ChildForm);
+            //f.Show();
+            //f.getmessage(zhanghao);
+            //this.Close();
+            KeMu = comboBox1.Text.Trim();
+            CeYan = comboBox2.Text.Trim();
+            try
+            {
+                Encoding encoding = Encoding.GetEncoding("utf-8");
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_InquiryByTest.ashx?action=questionall&specifictest=" + CeYan);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_InquiryByTest.ashx?action=questionall&specifictest=" + CeYan);
+                webReq.Method = "post";
+                webReq.ContentType = "text/xml";
+
+                Stream outstream = webReq.GetRequestStream();
+                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                outstream.Flush();
+                outstream.Close();
+
+                webReq.Timeout = 2000;
+                HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+                Stream stream = webResp.GetResponseStream();
+                StreamReader sr = new StreamReader(stream, encoding);
+                html = sr.ReadToEnd();
+                sr.Close();
+                stream.Close();
+
+                jiexi(html);
+
+                DataGridViewCellStyle dgvcs = new DataGridViewCellStyle();
+                dgvcs.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dataGridView1.DefaultCellStyle = dgvcs;
+                dataGridView1.DataSource = dt;
+            }
+            catch
+            {
+                MessageBox.Show("链接失败123");
+            }
         }
         public void getmessage(string z)
         {
@@ -163,6 +210,76 @@ namespace Automatic_Course_Test_System
                 }
                 comboBox2.DataSource = dt;
             }
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            
+        }
+
+        public void jiexi(string x)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(x.Trim());
+
+            if (doc.SelectSingleNode("informations/warn") != null)
+            {
+                XmlNode node = doc.SelectSingleNode("informations/warn");
+                string success = node.ChildNodes[0].InnerText;
+                string err_msg = node.ChildNodes[1].InnerText;
+
+                label2.Text = "success:" + success + "\r\n" + "err_msg:" + err_msg;
+            }
+            else
+            {
+                StringBuilder stext = new StringBuilder();
+                XmlNodeList nodelist = doc.DocumentElement.GetElementsByTagName("information");
+
+                dt = null;
+                dt = DataTableColumn(); //具体题目表
+
+                //题数表
+                DataColumn dc1 = new DataColumn("班级", typeof(string));
+                DataColumn dc2 = new DataColumn("姓名",typeof(string));
+                DataColumn dc3 = new DataColumn("成绩", typeof(string));
+                dt_name.Columns.Add(dc1);
+                dt_class.Columns.Add(dc2);
+                dt_score.Columns.Add(dc3);
+
+                for (int i = 0; i < nodelist.Count; ++i)
+                {
+                    DataRow dr = dt.NewRow();
+                    DataRow dr_name = dt_name.NewRow();
+                    DataRow dr_class = dt_class.NewRow();
+                    DataRow dr_score = dt_score.NewRow();
+                    XmlNode node = nodelist[i];
+                    dr[dt.Columns[0].ColumnName] = node.Attributes["s_class"].InnerText;
+                    dr_name["班级"] = node.Attributes["s_class"].InnerText;
+                    dr[dt.Columns[1].ColumnName] = node.Attributes["s_name"].InnerText;
+                    dr_name["姓名"] = node.Attributes["s_name"].InnerText;
+                    dr[dt.Columns[2].ColumnName] = node.Attributes["s_score"].InnerText;
+                    dr_name["成绩"] = node.Attributes["s_score"].InnerText;
+                    for (int j = 1; j < dt.Columns.Count; ++j)
+                    {
+                        dr[dt.Columns[j].ColumnName] = node.ChildNodes[j - 1].InnerText.Trim();
+                    }
+                    dt.Rows.Add(dr);
+                    dt_class.Rows.Add(dr_class);
+                    dt_name.Rows.Add(dr_name);
+                    dt_score.Rows.Add(dr_score);
+                }
+            }
+        }
+        /// <summary>
+        /// datatable含姓名与成绩两列
+        /// </summary>
+        private DataTable DataTableColumn()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("班级");
+            dt.Columns.Add("姓名");
+            dt.Columns.Add("成绩");
+            return dt;
         }
     }
 }
