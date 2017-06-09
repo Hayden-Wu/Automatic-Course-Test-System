@@ -35,11 +35,11 @@ namespace Automatic_Course_Test_System
             groupBox3.Hide();
         }
 
-        public void gettest(string c, string k, string z)
+        public void gettest(string z, string k, string c)
         {
 
-            KeMu = c;
-            CeYan = k;
+            KeMu = k;
+            CeYan = c;
             zhanghao = z;
             string html = "";
             try
