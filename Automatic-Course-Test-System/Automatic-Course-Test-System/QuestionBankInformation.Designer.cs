@@ -258,7 +258,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.textBox6);
-            this.groupBox3.Location = new System.Drawing.Point(157, 145);
+            this.groupBox3.Location = new System.Drawing.Point(151, 145);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(200, 78);
             this.groupBox3.TabIndex = 6;
@@ -267,7 +267,7 @@
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(23, 21);
+            this.textBox6.Location = new System.Drawing.Point(23, 24);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(171, 21);
             this.textBox6.TabIndex = 0;
