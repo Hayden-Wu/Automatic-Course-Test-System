@@ -286,5 +286,10 @@ namespace Automatic_Course_Test_System
             dt.Columns.Add("answer");
             return dt;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+              
+        }
     }
 }
