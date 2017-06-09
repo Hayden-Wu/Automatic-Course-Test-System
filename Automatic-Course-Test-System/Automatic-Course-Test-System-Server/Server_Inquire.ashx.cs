@@ -115,25 +115,11 @@ namespace Automatic_Course_Test_System_Server
                 + "where username = '" + username.Trim()
                 + "' and specifictest = '" + specifictest.Trim() + "'";
 
-
-            SqlCommand SC = new SqlCommand(sqlstr, conn);
-            SqlDataReader SDR = SC.ExecuteReader();
-
-            if (SDR.Read())
-            {
-                SDR.Close();
                 SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
                 DataSet ds = new DataSet();
                 SD.Fill(ds);
 
                 result = Int32.Parse(ds.Tables[0].Rows[0][2].ToString());
-
-
-            }
-            else
-            {
-                SDR.Close();
-            }
 
             httpContext.Response.Write(result);
             conn.Close();

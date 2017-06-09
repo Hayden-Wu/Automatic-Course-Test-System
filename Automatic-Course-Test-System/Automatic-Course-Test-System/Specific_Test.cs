@@ -29,12 +29,14 @@ namespace Automatic_Course_Test_System
         List<Class_Upload> anwser = new List<Class_Upload>();
         DataTable dt = new DataTable();
         DataTable dtnum = new DataTable();
+
         public Specific_Test(Form Sign_in)
         {
             InitializeComponent();
             this.FatherForm = Sign_in;
             Close = true;
         }
+
         public void gettest(string c, string k,string z)
         {
             
@@ -77,8 +79,8 @@ namespace Automatic_Course_Test_System
                 textBox1.Text = dt.Rows[0]["question"].ToString();
                 if (int.Parse(dt.Rows[0]["type"].ToString()) == 1)
                 {
-
-                    textBox2.Hide();
+                    groupBox2.Hide();
+                    //textBox2.Hide();
                     groupBox1.Show();
                     radioButton1.Text = "A." + dt.Rows[0]["choiceanswerA"].ToString();
                     radioButton2.Text = "B." + dt.Rows[0]["choiceanswerB"].ToString();
@@ -88,7 +90,8 @@ namespace Automatic_Course_Test_System
                 else
                 {
                     groupBox1.Hide();
-                    textBox2.Show();
+                    groupBox2.Show();
+                    //textBox2.Show();
 
                 }
             }
@@ -96,98 +99,119 @@ namespace Automatic_Course_Test_System
             {
                 MessageBox.Show("链接失败");
             }
-        }
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Close = false;
-            Results f = new Results(FatherForm);
-            //提交
-            if (num == anwser.Count)
-            {
-                Class_Upload c = new Class_Upload();
-                if (radioButton1.Checked)
-                {
-                    c.Choice_answer = "A";
-                }
-                else if (radioButton2.Checked)
-                {
-                    c.Choice_answer = "B";
-                }
-                else if (radioButton3.Checked)
-                {
-                    c.Choice_answer = "C";
-                }
-                else if (radioButton4.Checked)
-                {
-                    c.Choice_answer = "D";
-                }
-                else
-                {
-                    c.Answer = textBox2.Text;
-                }
-           
-
-            c.Subject = ceshiming;
-            c.Test = kaoshiming;
-            c.Testnumber = Convert.ToString(num);
-            anwser.Add(c);
-            }
-            string str = "";
-            for (int i = 0; i < anwser.Count; ++i)
-            {
-                if (int.Parse(dt.Rows[i]["type"].ToString()) == 1)
-                {
-                    str = str + (i+1) + "=" + anwser[i].Choice_answer + "&";
-                }
-                else
-                {
-                    str = str + (i+1) + "=" + anwser[i].Answer + "&";
-                }
-                
-            }
-            str=str.Remove(str.Length-1, 1);
-            //MessageBox.Show(str);
-
-            string html = "";
-            try
-            {
-                Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=answer&zhanghao="+zhanghao+"&specifictest=" + kaoshiming + "&" + str);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=answer&zhanghao=" + zhanghao + "&specifictest=" + kaoshiming + "&" + str);
-                webReq.Method = "post";
-                webReq.ContentType = "text/xml";
-
-                Stream outstream = webReq.GetRequestStream();
-                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
-                outstream.Flush();
-                outstream.Close();
-
-                webReq.Timeout = 2000;
-                HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
-                Stream stream = webResp.GetResponseStream();
-                StreamReader sr = new StreamReader(stream, encoding);
-                html = sr.ReadToEnd();
-                sr.Close();
-                stream.Close();
-                score = html;
-            }
-            catch
-            {
-                MessageBox.Show("链接失败");
-            }
-
-
-
-                //接受成绩
-            f.getscore(ceshiming, kaoshiming, score);
-            f.Show();
-            this.Close();
         }
 
         private void Specific_Test_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Close == true)
                 Application.Exit();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (num == 0)
+            {
+                MessageBox.Show("已是第一题");
+                return;
+            }
+            Class_Upload c = new Class_Upload();
+            if (radioButton1.Checked)
+            {
+                c.Choice_answer = "A";
+            }
+            else if (radioButton2.Checked)
+            {
+                c.Choice_answer = "B";
+            }
+            else if (radioButton3.Checked)
+            {
+                c.Choice_answer = "C";
+            }
+            else if (radioButton4.Checked)
+            {
+                c.Choice_answer = "D";
+            }
+            else if (dt.Rows[num]["type"].ToString() != "1")
+            {
+                c.Answer = textBox2.Text;
+
+            }
+
+            c.Subject = ceshiming;
+            c.Test = kaoshiming;
+            c.Testnumber = Convert.ToString(num);
+            if (num == nownum && num == anwser.Count)
+            {
+                anwser.Add(c);
+            }
+            else
+            {
+                anwser[num].copyto(c);
+            }
+
+            if (dt.Rows[num]["type"].ToString() != "1" && textBox2.Text != "")
+            {
+                s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                s = s.Remove(1, s.Length - 1);
+                if (s != "√")
+                {
+                    dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
+                }
+            }
+            else if (dt.Rows[num]["type"].ToString() == "1" && (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked))
+            {
+                s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                s = s.Remove(1, s.Length - 1);
+                if (s != "√")
+                {
+                    dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
+                }
+            }
+
+            num--;
+            label2.Text = "第" + (num + 1) + "题目";
+            //显示题目
+            textBox1.Text = dt.Rows[num]["question"].ToString();
+            if (dt.Rows[num]["type"].ToString() == "1")
+            {
+                groupBox1.Show();
+                groupBox2.Hide();
+                //textBox2.Hide();
+                radioButton1.Text = "A." + dt.Rows[num]["choiceanswerA"].ToString();
+                radioButton2.Text = "B." + dt.Rows[num]["choiceanswerB"].ToString();
+                radioButton3.Text = "C." + dt.Rows[num]["choiceanswerC"].ToString();
+                radioButton4.Text = "D." + dt.Rows[num]["choiceanswerD"].ToString();
+                if (anwser[num].Choice_answer == "A")
+                {
+                    radioButton1.Checked = true;
+                }
+                else if (anwser[num].Choice_answer == "B")
+                {
+                    radioButton2.Checked = true;
+                }
+                else if (anwser[num].Choice_answer == "C")
+                {
+                    radioButton3.Checked = true;
+                }
+                else if (anwser[num].Choice_answer == "D")
+                {
+                    radioButton4.Checked = true;
+                }
+            }
+            else
+            {
+                radioButton1.Checked = false;
+                radioButton2.Checked = false;
+                radioButton3.Checked = false;
+                radioButton4.Checked = false;
+                groupBox1.Hide();
+
+                groupBox2.Show();
+                textBox2.Text = anwser[num].Answer;
+                //textBox2.Show();
+            }
+            dataGridView1.Focus();
+            dataGridView1.CurrentCell = dataGridView1.Rows[num].Cells[0];
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -365,7 +389,8 @@ namespace Automatic_Course_Test_System
                     }
                 }
                 groupBox1.Show();
-                textBox2.Hide();
+                groupBox2.Hide();
+                //textBox2.Hide();
                 radioButton1.Text = "A." + dt.Rows[num]["choiceanswerA"].ToString();
                 radioButton2.Text = "B." + dt.Rows[num]["choiceanswerB"].ToString();
                 radioButton3.Text = "C." + dt.Rows[num]["choiceanswerC"].ToString();
@@ -378,7 +403,12 @@ namespace Automatic_Course_Test_System
                 radioButton3.Checked = false;
                 radioButton4.Checked = false;
                 groupBox1.Hide();
-                textBox2.Show();
+                groupBox2.Show();
+                //textBox2.Show();
+                if (num >= anwser.Count)
+                    textBox2.Text = "";
+                else
+                    textBox2.Text = anwser[num].Answer;
             }
             //  MessageBox.Show(Convert.ToString(anwser.Count));
             dataGridView1.Focus();
@@ -386,117 +416,94 @@ namespace Automatic_Course_Test_System
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
-            if(num==0)
+            Close = false;
+            Results f = new Results(this.FatherForm,1);
+            f.getmessage(zhanghao);
+            //提交
+            if (num == anwser.Count)
             {
-                MessageBox.Show("已是第一题");
-                return;
-            }
-            Class_Upload c = new Class_Upload();
-            if (radioButton1.Checked)
-            {
-                c.Choice_answer = "A";
-               
-            }
-            else if (radioButton2.Checked)
-            {
-                c.Choice_answer = "B";
-               
-            }
-            else if (radioButton3.Checked)
-            {
-                c.Choice_answer = "C";
-               
-            }
-            else if (radioButton4.Checked)
-            {
-                c.Choice_answer = "D";
-               
-            }
-            else if(dt.Rows[num]["type"].ToString() != "1")
-            {
-                c.Answer = textBox2.Text;
-                
-            }
-            
-            c.Subject = ceshiming;
-            c.Test = kaoshiming;
-            c.Testnumber = Convert.ToString(num);
-            if (num == nownum && num == anwser.Count)
-            {
+                Class_Upload c = new Class_Upload();
+                if (radioButton1.Checked)
+                {
+                    c.Choice_answer = "A";
+                }
+                else if (radioButton2.Checked)
+                {
+                    c.Choice_answer = "B";
+                }
+                else if (radioButton3.Checked)
+                {
+                    c.Choice_answer = "C";
+                }
+                else if (radioButton4.Checked)
+                {
+                    c.Choice_answer = "D";
+                }
+                else
+                {
+                    c.Answer = textBox2.Text;
+                }
+
+
+                c.Subject = ceshiming;
+                c.Test = kaoshiming;
+                c.Testnumber = Convert.ToString(num);
                 anwser.Add(c);
-               
-                
             }
-            else
+            string str = "";
+            for (int i = 0; i < anwser.Count; ++i)
             {
-                
-                anwser[num].copyto(c);
+                if (int.Parse(dt.Rows[i]["type"].ToString()) == 1)
+                {
+                    str = str + (i + 1) + "=" + anwser[i].Choice_answer + "&";
+                }
+                else
+                {
+                    str = str + (i + 1) + "=" + anwser[i].Answer + "&";
+                }
+
+            }
+            str = str.Remove(str.Length - 1, 1);
+            //MessageBox.Show(str);
+
+            string html = "";
+            try
+            {
+                Encoding encoding = Encoding.GetEncoding("utf-8");
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=answer&zhanghao=" + zhanghao + "&specifictest=" + kaoshiming + "&" + str);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=answer&zhanghao=" + zhanghao + "&specifictest=" + kaoshiming + "&" + str);
+                webReq.Method = "post";
+                webReq.ContentType = "text/xml";
+
+                Stream outstream = webReq.GetRequestStream();
+                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                outstream.Flush();
+                outstream.Close();
+
+                webReq.Timeout = 2000;
+                HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+                Stream stream = webResp.GetResponseStream();
+                StreamReader sr = new StreamReader(stream, encoding);
+                html = sr.ReadToEnd();
+                sr.Close();
+                stream.Close();
+                score = html;
+            }
+            catch
+            {
+                MessageBox.Show("链接失败");
             }
 
-            if (dt.Rows[num]["type"].ToString() != "1" && textBox2.Text != "")
-            {
-                s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                s = s.Remove(1, s.Length - 1);
-                if (s != "√")
-                {
-                    dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
-                }
-            }
-            else if (dt.Rows[num]["type"].ToString() == "1" && (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked))
-            {
-                s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                s = s.Remove(1, s.Length - 1);
-                if (s != "√")
-                {
-                    dataGridView1.CurrentRow.Cells[0].Value = "√" + dataGridView1.CurrentRow.Cells[0].Value;
-                }
-            }
 
-            num--;
-            label2.Text = "第" + (num + 1) + "题目";
-            //显示题目
-            textBox1.Text = dt.Rows[num]["question"].ToString();
-            if (dt.Rows[num]["type"].ToString() == "1")
-            {
-                groupBox1.Show();
-                textBox2.Hide();
-                radioButton1.Text = "A."+dt.Rows[num]["choiceanswerA"].ToString();
-                radioButton2.Text = "B."+dt.Rows[num]["choiceanswerB"].ToString();
-                radioButton3.Text = "C."+dt.Rows[num]["choiceanswerC"].ToString();
-                radioButton4.Text = "D."+dt.Rows[num]["choiceanswerD"].ToString();
-                if (anwser[num].Choice_answer=="A")
-                {
-                    radioButton1.Checked = true;
-                }
-                else if(anwser[num].Choice_answer == "B")
-                {
-                    radioButton2.Checked = true;
-                }
-                else if (anwser[num].Choice_answer == "C")
-                {
-                    radioButton3.Checked = true;
-                }
-                else if (anwser[num].Choice_answer == "D")
-                {
-                    radioButton4.Checked = true;
-                }
-            }
-            else
-            {
-                radioButton1.Checked = false;
-                radioButton2.Checked = false;
-                radioButton3.Checked = false;
-                radioButton4.Checked = false;
-                groupBox1.Hide();
-                
-                textBox2.Text = anwser[num].Answer;
-                textBox2.Show();
-            }
-            dataGridView1.Focus();
-            dataGridView1.CurrentCell = dataGridView1.Rows[num].Cells[0];
+
+            //接受成绩
+            f.getscore(ceshiming, kaoshiming, score);
+            f.Show();
+            this.Close();
         }
+
         public void jiexi(string x)
         {
             XmlDocument doc = new XmlDocument();
@@ -668,7 +675,8 @@ namespace Automatic_Course_Test_System
                     }
                 }
                 groupBox1.Show();
-                textBox2.Hide();
+                groupBox2.Hide();
+                //textBox2.Hide();
                 radioButton1.Text = "A." + dt.Rows[num]["choiceanswerA"].ToString();
                 radioButton2.Text = "B." + dt.Rows[num]["choiceanswerB"].ToString();
                 radioButton3.Text = "C." + dt.Rows[num]["choiceanswerC"].ToString();
@@ -681,7 +689,8 @@ namespace Automatic_Course_Test_System
                 radioButton3.Checked = false;
                 radioButton4.Checked = false;
                 groupBox1.Hide();
-                textBox2.Show();
+                groupBox2.Show();
+                //textBox2.Show();
             }
         }
 
@@ -690,6 +699,14 @@ namespace Automatic_Course_Test_System
             if(textBox2.Text=="简答题")
             {
                 textBox2.Text = "";
+            }
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
             }
         }
     }

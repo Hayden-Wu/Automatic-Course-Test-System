@@ -12,39 +12,53 @@ namespace Automatic_Course_Test_System
 {
     public partial class Results : Form
     {
-        private Form FatherForm = null;
+        private Form HomeForm = null;
+        private string zhanghao;
         private bool Close = true;
-        public Results(Form Sign_in)
+
+        public Results(Form Sign_in,int which)
         {
             InitializeComponent();
-            FatherForm = Sign_in;
+            HomeForm = Sign_in;
             Close = true;
+            if(which == 1)
+                button1.Hide();
         }
+
+        public void getmessage(string z)
+        {
+            zhanghao = z;
+        }
+
         public void getscore(string kemu,string test,string score)
         {
             textBox1.Text = kemu;
             textBox2.Text = test;
             textBox3.Text = score;
         }
+
         private void Results_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Close == true)
                 Application.Exit();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Close = true;
-            this.Close();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             Close = false;
-            if (this.FatherForm != null)
-            {
-                this.FatherForm.Visible = true;
-            }
+
+            Inquiry f = new Inquiry(HomeForm);
+            f.getmessage(zhanghao);
+            f.Show();
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            User f = new User(HomeForm);
+            f.getmessage(zhanghao);
+            f.Show();
             this.Close();
         }
     }

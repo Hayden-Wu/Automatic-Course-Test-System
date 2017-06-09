@@ -18,7 +18,6 @@ namespace Automatic_Course_Test_System
         private string zhanghao = "";
         private Form FatherForm = null;
         private bool Close = true;
-        //private bool XiaLa = false;
         string html = "";
         public Test(Form Sign_in)
         {
@@ -32,7 +31,6 @@ namespace Automatic_Course_Test_System
             comboBox2.DisplayMember = "";
             comboBox2.ValueMember = "specifictest";
             specifictest(testvalue);
-            //XiaLa = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -51,6 +49,7 @@ namespace Automatic_Course_Test_System
             if (Close == true)
                 Application.Exit();
         }
+
         public void getmessage(string z)
         {
             zhanghao = z;
@@ -172,6 +171,15 @@ namespace Automatic_Course_Test_System
         {
             string testvalue = comboBox1.SelectedValue.ToString().Trim();
             specifictest(testvalue);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            User f = new User(this.FatherForm);
+            f.getmessage(zhanghao);
+            this.Close();
+            f.Show();
         }
     }
 }

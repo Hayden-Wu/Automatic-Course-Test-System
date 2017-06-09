@@ -12,28 +12,34 @@ namespace Automatic_Course_Test_System
 {
     public partial class User : Form
     {
+        private Form FatherForm = null;
         private string zhanghao;
         private bool Close = true;
-        public User()
+
+        public User(Form SignIn)
         {
             InitializeComponent();
             Close = true;
+
+            this.FatherForm = SignIn;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Test f = new Test(this);
+            Close = false;
+            Test f = new Test(this.FatherForm);
             f.getmessage(zhanghao);
             f.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Inquiry f = new Inquiry(this);
+            Close = false;
+            Inquiry f = new Inquiry(this.FatherForm);
             f.getmessage(zhanghao);
             f.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void User_FormClosing(object sender, FormClosingEventArgs e)
@@ -45,6 +51,16 @@ namespace Automatic_Course_Test_System
         public void getmessage(string z)
         {
             zhanghao = z;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            if (this.FatherForm != null)
+            {
+                this.FatherForm.Visible = true;
+            }
+            this.Close();
         }
     }
 }

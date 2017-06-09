@@ -64,8 +64,9 @@ namespace Automatic_Course_Test_System
 
             if ( html == "1")
             {
-                User f = new User();
+                User f = new User(this);
                 f.getmessage(zhanghao);
+                textBox2.Text = "";
                 this.Hide();
                 f.Show();
             }
@@ -73,6 +74,7 @@ namespace Automatic_Course_Test_System
             {
                 Administrator f = new Administrator();
                 f.getmessage(zhanghao);
+                textBox2.Text = "";
                 this.Hide();
                 f.Show();
             }

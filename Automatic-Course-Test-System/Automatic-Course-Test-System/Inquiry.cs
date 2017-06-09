@@ -21,6 +21,9 @@ namespace Automatic_Course_Test_System
         private bool Close = true;
         private Form FatherForm = null;
         private string html="";
+
+        BindingSource BS = new BindingSource();
+
         public Inquiry(Form Sign_in)
         {
             InitializeComponent();
@@ -33,6 +36,7 @@ namespace Automatic_Course_Test_System
             //comboBox2.ValueMember = "specifictest";
             //specifictest(testvalue);
         }
+
         public void getmessage(string z)
         {
             zhanghao = z;
@@ -43,45 +47,57 @@ namespace Automatic_Course_Test_System
             comboBox2.ValueMember = "specifictest";
             specifictest(testvalue);
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             
-            kemu = comboBox1.SelectedValue.ToString().Trim();
-            ceshi = comboBox2.SelectedValue.ToString().Trim();
+            //kemu = comboBox1.SelectedValue.ToString().Trim();
+            //ceshi = comboBox2.SelectedValue.ToString().Trim();
             //查询成绩
-            Close = false;
-            try
+            if (comboBox2.SelectedValue == null)
             {
-                Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=score&zhanghao=" + zhanghao +"&specifictest=" + ceshi);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=score&zhanghao=" + zhanghao + "&specifictest=" + ceshi);
-                webReq.Method = "post";
-                webReq.ContentType = "text/xml";
-
-                Stream outstream = webReq.GetRequestStream();
-                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
-                outstream.Flush();
-                outstream.Close();
-
-                webReq.Timeout = 2000;
-                HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
-                Stream stream = webResp.GetResponseStream();
-                StreamReader sr = new StreamReader(stream, encoding);
-                html = sr.ReadToEnd();
-                sr.Close();
-                stream.Close();
-                score = html;
+                MessageBox.Show("请选择一个已考科目！");
             }
-            catch
+            else
             {
-                MessageBox.Show("链接失败");
+                kemu = comboBox1.SelectedValue.ToString().Trim();
+                ceshi = comboBox2.SelectedValue.ToString().Trim();
+
+                Close = false;
+                try
+                {
+                    Encoding encoding = Encoding.GetEncoding("utf-8");
+                    byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=score&zhanghao=" + zhanghao + "&specifictest=" + ceshi);
+                    HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=score&zhanghao=" + zhanghao + "&specifictest=" + ceshi);
+                    webReq.Method = "post";
+                    webReq.ContentType = "text/xml";
+
+                    Stream outstream = webReq.GetRequestStream();
+                    outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                    outstream.Flush();
+                    outstream.Close();
+
+                    webReq.Timeout = 2000;
+                    HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+                    Stream stream = webResp.GetResponseStream();
+                    StreamReader sr = new StreamReader(stream, encoding);
+                    html = sr.ReadToEnd();
+                    sr.Close();
+                    stream.Close();
+                    score = html;
+                }
+                catch
+                {
+                    MessageBox.Show("链接失败");
+                }
+
+
+                Results f = new Results(FatherForm,2);
+                f.getscore(kemu, ceshi, score);
+                f.getmessage(zhanghao);
+                f.Show();
+                this.Close();
             }
-
-
-            Results f = new Results(FatherForm);
-            f.getscore(kemu, ceshi, score);
-            f.Show();
-            this.Close();
         }
 
         private void Inquiry_FormClosing(object sender, FormClosingEventArgs e)
@@ -148,6 +164,9 @@ namespace Automatic_Course_Test_System
         {
             string test = testvalue.Trim();
 
+            //comboBox2.DataSource = null;
+            //comboBox2.Items.Clear();
+
             Encoding encoding = Encoding.GetEncoding("utf-8");
             byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=specifictest&zhanghao=" + zhanghao + "&test=" + test);
             HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=specifictest&zhanghao=" + zhanghao + "&test=" + test);
@@ -195,9 +214,13 @@ namespace Automatic_Course_Test_System
                     dt.Rows.Add(dr);
                 }
 
+
                 //comboBox2.DisplayMember = "";
                 //comboBox2.ValueMember = "specifictest";
-                comboBox2.DataSource = dt;
+                //BindingSource BS = new BindingSource();
+                BS.DataSource = dt;
+                comboBox2.DataSource = BS;
+                BS.ResetBindings(false);
             }
         }
 
