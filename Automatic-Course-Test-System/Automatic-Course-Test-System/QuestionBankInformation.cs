@@ -40,13 +40,14 @@ namespace Automatic_Course_Test_System
 
             KeMu = c;
             CeYan = k;
+            MessageBox.Show(CeYan);
             zhanghao = z;
             string html = "";
             try
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
                 byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=questionall&specifictest=" + CeYan);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=question&specifictest=" + CeYan);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=questionall&specifictest=" + CeYan);
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
 
@@ -62,7 +63,7 @@ namespace Automatic_Course_Test_System
                 html = sr.ReadToEnd();
                 sr.Close();
                 stream.Close();
-
+                MessageBox.Show(html);
                 jiexi(html);
 
                 DataGridViewCellStyle dgvcs = new DataGridViewCellStyle();
