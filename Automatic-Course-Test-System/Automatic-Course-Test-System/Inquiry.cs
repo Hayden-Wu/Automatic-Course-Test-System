@@ -17,7 +17,7 @@ namespace Automatic_Course_Test_System
         private string kemu="";
         private string ceshi = "";
         private string score = "";
-        private string zhanghao="";
+        private string zhanghao = "";
         private bool Close = true;
         private Form FatherForm = null;
         private string html="";
@@ -47,7 +47,7 @@ namespace Automatic_Course_Test_System
             try
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=score&zhanghao=" + zhanghao +"&specifictest=" + ceshi);
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=score&zhanghao=" + zhanghao +"&specifictest=" + ceshi);
                 HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=score&zhanghao=" + zhanghao   + "&specifictest=" + ceshi);
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
@@ -143,8 +143,8 @@ namespace Automatic_Course_Test_System
             string test = testvalue.Trim();
 
             Encoding encoding = Encoding.GetEncoding("utf-8");
-            byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=specific_test&test=" + test);
-            HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=specific_test&test=" + test);
+            byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=specifictest&test=" + test + "&zhanghao=" + zhanghao);
+            HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=specifictest&test=" + test + "&zhanghao=" + zhanghao);
             webReq.Method = "post";
             webReq.ContentType = "text/xml";
 
