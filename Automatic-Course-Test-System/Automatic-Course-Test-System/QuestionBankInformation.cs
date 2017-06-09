@@ -23,7 +23,7 @@ namespace Automatic_Course_Test_System
         private int num = 0;
         private int nownum = 0;
         private int zongshu;
-       
+        private int lei = 0;
         DataTable dt = new DataTable();
         DataTable dtnum = new DataTable();
         public QuestionBankInformation(Form Admin)
@@ -35,68 +35,97 @@ namespace Automatic_Course_Test_System
             groupBox3.Hide();
         }
 
-        public void gettest(string c, string k, string z)
+        public void gettest(string c, string k, string z,int l)
         {
 
             KeMu = c;
             CeYan = k;
-            MessageBox.Show(CeYan);
+            lei = l;
             zhanghao = z;
             string html = "";
-            try
+            if (lei == 1)
             {
-                Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=questionall&specifictest=" + CeYan);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=questionall&specifictest=" + CeYan);
-                webReq.Method = "post";
-                webReq.ContentType = "text/xml";
+                try
+                {
+                    Encoding encoding = Encoding.GetEncoding("utf-8");
+                    byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=questionall&specifictest=" + CeYan);
+                    HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=questionall&specifictest=" + CeYan);
+                    webReq.Method = "post";
+                    webReq.ContentType = "text/xml";
 
-                Stream outstream = webReq.GetRequestStream();
-                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
-                outstream.Flush();
-                outstream.Close();
+                    Stream outstream = webReq.GetRequestStream();
+                    outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                    outstream.Flush();
+                    outstream.Close();
 
-                webReq.Timeout = 2000;
-                HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
-                Stream stream = webResp.GetResponseStream();
-                StreamReader sr = new StreamReader(stream, encoding);
-                html = sr.ReadToEnd();
-                sr.Close();
-                stream.Close();
-                MessageBox.Show(html);
-                jiexi(html);
+                    webReq.Timeout = 2000;
+                    HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+                    Stream stream = webResp.GetResponseStream();
+                    StreamReader sr = new StreamReader(stream, encoding);
+                    html = sr.ReadToEnd();
+                    sr.Close();
+                    stream.Close();
 
+                    jiexi(html);
+
+                    DataGridViewCellStyle dgvcs = new DataGridViewCellStyle();
+                    dgvcs.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dataGridView1.DefaultCellStyle = dgvcs;
+                    dataGridView1.DataSource = dtnum;
+
+
+                    label1.Text = "第" + dt.Rows[0]["testnumber"].ToString() + "题";
+                    nownum = 0;
+                    textBox1.Text = dt.Rows[0]["question"].ToString();
+                    if (int.Parse(dt.Rows[0]["type"].ToString()) == 1)
+                    {
+                        radioButton1.Checked = true;
+                        groupBox3.Hide();
+                        groupBox2.Show();
+                        textBox2.Text = dt.Rows[0]["choiceanswerA"].ToString();
+                        textBox3.Text = dt.Rows[0]["choiceanswerB"].ToString();
+                        textBox4.Text = dt.Rows[0]["choiceanswerC"].ToString();
+                        textBox5.Text = dt.Rows[0]["choiceanswerD"].ToString();
+                        if (dt.Rows[num]["answer"].ToString()[0] == 'A')
+                        {
+                            radioButton3.Checked = true;
+                        }
+                        else if (dt.Rows[num]["answer"].ToString()[0] == 'B')
+                        {
+                            radioButton4.Checked = true;
+                        }
+                        else if (dt.Rows[num]["answer"].ToString()[0] == 'C')
+                        {
+                            radioButton5.Checked = true;
+                        }
+                        else
+                        {
+                            radioButton6.Checked = true;
+                        }
+                    }
+                    else if (int.Parse(dt.Rows[0]["type"].ToString()) == 2)
+                    {
+                        radioButton2.Checked = true;
+                        groupBox2.Hide();
+                        groupBox3.Show();
+                        textBox6.Text = dt.Rows[0]["answer"].ToString();
+                    }
+
+                }
+                catch
+                {
+                    MessageBox.Show("链接失败123");
+                }
+            }
+            else
+            {
+                button2.Hide();
+                button4.Hide();
+                zengjia();
                 DataGridViewCellStyle dgvcs = new DataGridViewCellStyle();
                 dgvcs.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dataGridView1.DefaultCellStyle = dgvcs;
                 dataGridView1.DataSource = dtnum;
-
-
-                label1.Text = "第" + dt.Rows[0]["testnumber"].ToString() + "题";
-                nownum = 0;
-                textBox1.Text = dt.Rows[0]["question"].ToString();
-                if (int.Parse(dt.Rows[0]["type"].ToString()) == 1)
-                {
-                    radioButton1.Checked = true;
-                    groupBox3.Hide();
-                    groupBox2.Show();
-                    radioButton1.Text = "A." + dt.Rows[0]["choiceanswerA"].ToString();
-                    radioButton2.Text = "B." + dt.Rows[0]["choiceanswerB"].ToString();
-                    radioButton3.Text = "C." + dt.Rows[0]["choiceanswerC"].ToString();
-                    radioButton4.Text = "D." + dt.Rows[0]["choiceanswerD"].ToString();
-                }
-                else if(int.Parse(dt.Rows[0]["type"].ToString()) == 2)
-                {
-                    radioButton2.Checked = true;
-                    groupBox2.Hide();
-                    groupBox3.Show();
-                    textBox6.Text= dt.Rows[0]["answer"].ToString();
-                }
-                
-            }
-            catch
-            {
-                MessageBox.Show("链接失败123");
             }
         }
         private void button3_Click(object sender, EventArgs e)
@@ -147,10 +176,10 @@ namespace Automatic_Course_Test_System
             if (radioButton1.Checked == true)
             {
                 dt.Rows[num]["type"] = "1";
-                dt.Rows[num]["choiceanswerA"] = radioButton3.Text;
-                dt.Rows[num]["choiceanswerB"] = radioButton4.Text;
-                dt.Rows[num]["choiceanswerC"] = radioButton5.Text;
-                dt.Rows[num]["choiceanswerD"] = radioButton6.Text;
+                dt.Rows[num]["choiceanswerA"] = textBox2.Text;
+                dt.Rows[num]["choiceanswerB"] = textBox3.Text;
+                dt.Rows[num]["choiceanswerC"] = textBox4.Text;
+                dt.Rows[num]["choiceanswerD"] = textBox5.Text;
                 if(radioButton3.Checked == true)
                    dt.Rows[num]["answer"] = "A";
                 else if (radioButton4.Checked == true)
@@ -184,49 +213,56 @@ namespace Automatic_Course_Test_System
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            string str = "";
-            str = dataGridView1.CurrentRow.Cells[0].ToString();
-            str = str.Remove(0, str.Length - 3);
-            str = str.Remove(1, 2);
-            num = Convert.ToInt32(str);
-            label2.Text = "第" + (num + 1) + "题目";
-            //显示题目
-            textBox1.Text = dt.Rows[num]["question"].ToString();
-            if (dt.Rows[num]["type"].ToString() == "1")
+            if (lei == 1)
             {
-
-                radioButton1.Checked = true;
-                groupBox2.Show();
-                groupBox3.Hide();
-                radioButton3.Text = "A." + dt.Rows[num]["choiceanswerA"].ToString();
-                radioButton4.Text = "B." + dt.Rows[num]["choiceanswerB"].ToString();
-                radioButton5.Text = "C." + dt.Rows[num]["choiceanswerC"].ToString();
-                radioButton6.Text = "D." + dt.Rows[num]["choiceanswerD"].ToString();
-
-                if(dt.Rows[num]["answer"].ToString()=="A")
+                string str = "";
+                str = dataGridView1.CurrentRow.Cells[0].ToString();
+                str = str.Remove(0, str.Length - 3);
+                str = str.Remove(1, 2);
+                num = Convert.ToInt32(str);
+                if (num >= zongshu)
                 {
-                    radioButton3.Checked = true;
+                    return;
                 }
-                else if(dt.Rows[num]["answer"].ToString() == "B")
+                label2.Text = "第" + (num + 1) + "题目";
+                //显示题目
+                textBox1.Text = dt.Rows[num]["question"].ToString();
+                if (dt.Rows[num]["type"].ToString() == "1")
                 {
-                    radioButton4.Checked = true;
-                }
-                else if(dt.Rows[num]["answer"].ToString() == "C")
-                {
-                    radioButton5.Checked = true;
+
+                    radioButton1.Checked = true;
+                    groupBox2.Show();
+                    groupBox3.Hide();
+                    textBox2.Text = dt.Rows[num]["choiceanswerA"].ToString();
+                    textBox3.Text = dt.Rows[num]["choiceanswerB"].ToString();
+                    textBox4.Text = dt.Rows[num]["choiceanswerC"].ToString();
+                    textBox5.Text = dt.Rows[num]["choiceanswerD"].ToString();
+
+                    if (dt.Rows[num]["answer"].ToString()[0] == 'A')
+                    {
+                        radioButton3.Checked = true;
+                    }
+                    else if (dt.Rows[num]["answer"].ToString()[0] == 'B')
+                    {
+                        radioButton4.Checked = true;
+                    }
+                    else if (dt.Rows[num]["answer"].ToString()[0] == 'C')
+                    {
+                        radioButton5.Checked = true;
+                    }
+                    else
+                    {
+                        radioButton6.Checked = true;
+                    }
+
                 }
                 else
                 {
-                    radioButton6.Checked = true;
+                    radioButton2.Checked = true;
+                    groupBox2.Hide();
+                    groupBox3.Show();
+                    textBox6.Text = dt.Rows[num]["answer"].ToString();
                 }
-                
-            }
-            else
-            {
-                radioButton2.Checked = true;
-                groupBox2.Hide();
-                groupBox3.Show();
-                textBox6.Text = dt.Rows[num]["answer"].ToString();
             }
         }
 
@@ -287,10 +323,83 @@ namespace Automatic_Course_Test_System
             dt.Columns.Add("answer");
             return dt;
         }
+        private void zengjia()
+        {
+            
+           
 
+            dt = null;
+            dt = DataTableColumn(); //具体题目表
+
+            //题数表
+            DataColumn dc1 = new DataColumn("testnumber", typeof(string));
+            dtnum.Columns.Add(dc1);
+            for (int i = 0; i < 20; ++i)
+            {
+                DataRow dr = dt.NewRow();
+                DataRow drnum = dtnum.NewRow();
+                
+                
+                drnum["testnumber"] = "第" + i+1 + "题";
+                
+                dt.Rows.Add(dr);
+                dtnum.Rows.Add(drnum);
+            }
+            zongshu = 20;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
-              
+            string str = "http://1725r3a792.iask.in:28445/Server_Test.ashx?action=questionin&specifictest=" + CeYan;
+             for (int i=0;i<zongshu;i++)
+            {
+                str = str + "&";
+                str = str + "testnumber=";
+                str = str + dt.Rows[i]["testnumber"].ToString();
+                str = str + "&";
+                str = str + "question=";
+                str = str + dt.Rows[i]["question"].ToString();
+                str = str + "&";
+                str = str + "type=";
+                str = str + dt.Rows[i]["type"].ToString();
+                str = str + "&";
+                str = str + "choiceanswerA=";
+                str = str + dt.Rows[i]["choiceanswerA"].ToString();
+                str = str + "&";
+                str = str + "choiceanswerB=";
+                str = str + dt.Rows[i]["choiceanswerB"].ToString();
+                str = str + "&";
+                str = str + "choiceanswerC=";
+                str = str + dt.Rows[i]["choiceanswerC"].ToString();
+                str = str + "&";
+                str = str + "choiceanswerD=";
+                str = str + dt.Rows[i]["choiceanswerD"].ToString();
+                str = str + "&";
+                str = str + "choiceanswer=";
+                if(dt.Rows[i]["type"].ToString()=="1")
+                   str = str + dt.Rows[i]["answer"].ToString();
+                str = str + "&";
+                str = str + "answer=";
+                if (dt.Rows[i]["type"].ToString() != "1")
+                    str = str + dt.Rows[i]["answer"].ToString();
+
+            }
+            try
+            {
+                Encoding encoding = Encoding.GetEncoding("utf-8");
+                byte[] getWeatherUrl = encoding.GetBytes(str);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create(str);
+                webReq.Method = "post";
+                webReq.ContentType = "text/xml";
+                Stream outstream = webReq.GetRequestStream();
+                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                outstream.Flush();
+                outstream.Close();
+            }
+            catch
+            {
+                MessageBox.Show("链接失败123");
+            }
+
         }
     }
 }

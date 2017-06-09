@@ -62,7 +62,7 @@ namespace Automatic_Course_Test_System
             {
                 MessageBox.Show("创建测验成功，请加入具体题目");
                 QuestionBankInformation f = new QuestionBankInformation(FatherForm);
-                f.gettest(zhanghao, KeMu, CeYan);
+                f.gettest(zhanghao, KeMu, CeYan,0);
                 f.Show();
                 this.Close();
             }
