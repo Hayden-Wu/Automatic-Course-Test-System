@@ -41,6 +41,7 @@ namespace Automatic_Course_Test_System
             if (Close == true)
                 Application.Exit();
         }
+
         public void getmessage(string z)
         {
             zhanghao = z;

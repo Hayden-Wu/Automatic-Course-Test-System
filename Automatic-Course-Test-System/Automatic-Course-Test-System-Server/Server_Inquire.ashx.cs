@@ -69,7 +69,7 @@ namespace Automatic_Course_Test_System_Server
                     + "where specifictest in "
                     + "(select specifictest from CourseTestTest "
                     + "where test = '" + test.Trim() 
-                    + "' and username = '" + username.Trim() + "'";
+                    + "') and username = '" + username.Trim() + "'";
 
                 SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
                 DataSet ds = new DataSet();
