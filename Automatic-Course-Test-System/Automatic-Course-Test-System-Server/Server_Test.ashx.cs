@@ -65,8 +65,6 @@ namespace Automatic_Course_Test_System_Server
                 Question(specifictest);
             else if (action == "answer")
                 Answer(username, specifictest, answer);
-            else if (action == "score")
-                Score(username, specifictest);
         }
 
         public bool IsReusable
@@ -352,38 +350,6 @@ namespace Automatic_Course_Test_System_Server
 
             httpContext.Response.Write(results);
         }
-        protected void Score(string username, string specifictest)
-        {
-            string result="";
-            SqlConnection conn = new SqlConnection(constr);
-            conn.Open();
-            string sqlstr = "select * from CourseTestResults "
-                + "where username = '" + username.Trim()
-                + "' and specifictest = '" + specifictest.Trim() + "'";
 
-
-            SqlCommand SC = new SqlCommand(sqlstr, conn);
-            SqlDataReader SDR = SC.ExecuteReader();
-            
-            if (SDR.Read())
-            {
-                SDR.Close();
-                SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
-                DataSet ds = new DataSet();
-                SD.Fill(ds);
-
-                result = Int32.Parse(ds.Tables[0].Rows[0][2].ToString());
-               
-                  
-            }
-            else
-            {
-                SDR.Close();
-
-                
-            }
-            httpContext.Response.Write(result);
-            conn.Close();
-        }
     }
 }
