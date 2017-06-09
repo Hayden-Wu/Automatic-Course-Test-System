@@ -258,7 +258,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.textBox6);
-            this.groupBox3.Location = new System.Drawing.Point(151, 145);
+            this.groupBox3.Location = new System.Drawing.Point(157, 142);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(200, 78);
             this.groupBox3.TabIndex = 6;
@@ -278,8 +278,9 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
-            this.button1.Text = "保存";
+            this.button1.Text = "提交";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -307,7 +308,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 10;
-            this.button4.Text = "新增";
+            this.button4.Text = "保存";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 

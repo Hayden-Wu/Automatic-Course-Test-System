@@ -59,7 +59,7 @@ namespace Automatic_Course_Test_System
             string CeYan = comboBox2.SelectedValue.ToString().Trim();
             Close = false;
             QuestionBankInformation f = new QuestionBankInformation(FatherForm);
-            f.gettest(zhanghao,KeMu,CeYan);
+            f.gettest(KeMu,CeYan,zhanghao);
             f.Show();
             this.Close();
         }

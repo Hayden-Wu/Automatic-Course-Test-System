@@ -65,8 +65,6 @@ namespace Automatic_Course_Test_System_Server
                 Question(specifictest);
             else if (action == "answer")
                 Answer(username, specifictest, answer);
-            else if (action == "score")
-                Score(username, specifictest);
             else if (action == "questionall")
                 Questionall(specifictest);
         }
@@ -104,7 +102,7 @@ namespace Automatic_Course_Test_System_Server
 
                 Automatic_Course_Test_System_Server.Class_Test model = new Class_Test();
 
-                for (int i = 0; i < ds.Tables[0].Rows.Count; ++i)
+                for(int i = 0; i < ds.Tables[0].Rows.Count; ++i)
                 {
                     model.Test = ds.Tables[0].Rows[i]["test"].ToString();
                     XmlNode root = xmlDoc.SelectSingleNode("informations");
@@ -288,12 +286,12 @@ namespace Automatic_Course_Test_System_Server
                     model.Choiceanswer = ds.Tables[0].Rows[i]["choiceanswer"].ToString();
                     model.Answer = ds.Tables[0].Rows[i]["answer"].ToString();
 
-                    if (model.Type == 1)
+                    if(model.Type == 1)
                     {
                         if (model.Choiceanswer.Trim() == answer[model.Testnumber - 1].Trim())
                             results += 5;
                     }
-                    else if (model.Type == 2)
+                    else if(model.Type == 2)
                     {
                         int num = -1;
                         num = answer[model.Testnumber - 1].Trim().IndexOf(model.Answer.Trim());
@@ -354,39 +352,6 @@ namespace Automatic_Course_Test_System_Server
 
             httpContext.Response.Write(results);
         }
-        protected void Score(string username, string specifictest)
-        {
-            string result = "";
-            SqlConnection conn = new SqlConnection(constr);
-            conn.Open();
-            string sqlstr = "select * from CourseTestResults "
-                + "where username = '" + username.Trim()
-                + "' and specifictest = '" + specifictest.Trim() + "'";
-
-
-            SqlCommand SC = new SqlCommand(sqlstr, conn);
-            SqlDataReader SDR = SC.ExecuteReader();
-
-            if (SDR.Read())
-            {
-                SDR.Close();
-                SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
-                DataSet ds = new DataSet();
-                SD.Fill(ds);
-
-                result = Int32.Parse(ds.Tables[0].Rows[0][2].ToString());
-
-
-            }
-            else
-            {
-                SDR.Close();
-
-
-            }
-            httpContext.Response.Write(result);
-            conn.Close();
-        }
         protected void Questionall(string specifictest)
         {
             XmlDocument xmlDoc = new XmlDocument();
@@ -395,7 +360,7 @@ namespace Automatic_Course_Test_System_Server
             xmlDoc.AppendChild(xmlDeclar);
             XmlElement xmlElement = xmlDoc.CreateElement("", "informations", "");
             xmlDoc.AppendChild(xmlElement);
-            string answer="";
+
             string constr = "server=.;database=CourseTest;Integrated Security=SSPI";
             try
             {
@@ -408,7 +373,7 @@ namespace Automatic_Course_Test_System_Server
                 SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
                 DataSet ds = new DataSet();
                 SD.Fill(ds);
-
+                string answer="";
                 conn.Close();
 
                 Automatic_Course_Test_System_Server.Class_SpecificTest model = new Class_SpecificTest();
@@ -422,14 +387,9 @@ namespace Automatic_Course_Test_System_Server
                     model.ChoiceanswerB = ds.Tables[0].Rows[i]["choiceanswerB"].ToString();
                     model.ChoiceanswerC = ds.Tables[0].Rows[i]["choiceanswerC"].ToString();
                     model.ChoiceanswerD = ds.Tables[0].Rows[i]["choiceanswerD"].ToString();
-                    if (model.Type==1)
-                    {
-                        answer= ds.Tables[0].Rows[i]["choiceanswer"].ToString();
-                    }
-                    else
-                    {
-                        answer= ds.Tables[0].Rows[i]["answer"].ToString();
-                    }
+                    if (model.Type==1)             
+                       answer = ds.Tables[0].Rows[i]["choiceanswer"].ToString();
+                    else answer = ds.Tables[0].Rows[i]["answer"].ToString();
                     XmlNode root = xmlDoc.SelectSingleNode("informations");
                     XmlElement xe1 = xmlDoc.CreateElement("information");
                     xe1.SetAttribute("testnumber", "" + model.Testnumber + "");
@@ -454,7 +414,7 @@ namespace Automatic_Course_Test_System_Server
                     XmlElement xeSub7 = xmlDoc.CreateElement("answer");
                     xeSub7.InnerText = "" + answer + "";
                     xe1.AppendChild(xeSub7);
-                    root.AppendChild(xe1);      
+                    root.AppendChild(xe1);
                 }
 
             }
@@ -473,5 +433,6 @@ namespace Automatic_Course_Test_System_Server
 
             httpContext.Response.Write(xmlDoc.InnerXml);
         }
+
     }
 }

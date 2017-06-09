@@ -76,6 +76,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -101,6 +102,7 @@
     <Content Include="Server_Sign.ashx" />
     <None Include="Properties\PublishProfiles\server.pubxml" />
     <Content Include="Server_Test.ashx" />
+    <Content Include="Server_Inquire.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -114,6 +116,9 @@
   <ItemGroup>
     <Compile Include="ClassBank.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server_Inquire.ashx.cs">
+      <DependentUpon>Server_Inquire.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Server_Sign.ashx.cs">
       <DependentUpon>Server_Sign.ashx</DependentUpon>
     </Compile>
