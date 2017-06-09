@@ -27,15 +27,21 @@ namespace Automatic_Course_Test_System
             FatherForm = Sign_in;
             Close = true;
             test();
+            //string testvalue = comboBox1.Text.Trim();
+
+            //comboBox2.DisplayMember = "";
+            //comboBox2.ValueMember = "specifictest";
+            //specifictest(testvalue);
+        }
+        public void getmessage(string z)
+        {
+            zhanghao = z;
+
             string testvalue = comboBox1.Text.Trim();
 
             comboBox2.DisplayMember = "";
             comboBox2.ValueMember = "specifictest";
             specifictest(testvalue);
-        }
-        public void getmessage(string z)
-        {
-            zhanghao = z;
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -48,7 +54,7 @@ namespace Automatic_Course_Test_System
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
                 byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=score&zhanghao=" + zhanghao +"&specifictest=" + ceshi);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=score&zhanghao=" + zhanghao   + "&specifictest=" + ceshi);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Test.ashx?action=score&zhanghao=" + zhanghao + "&specifictest=" + ceshi);
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
 
@@ -143,8 +149,8 @@ namespace Automatic_Course_Test_System
             string test = testvalue.Trim();
 
             Encoding encoding = Encoding.GetEncoding("utf-8");
-            byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=specifictest&test=" + test + "&zhanghao=" + zhanghao);
-            HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=specifictest&test=" + test + "&zhanghao=" + zhanghao);
+            byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=specifictest&zhanghao=" + zhanghao + "&test=" + test);
+            HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=specifictest&zhanghao=" + zhanghao + "&test=" + test);
             webReq.Method = "post";
             webReq.ContentType = "text/xml";
 
