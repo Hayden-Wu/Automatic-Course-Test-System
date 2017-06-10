@@ -19,6 +19,8 @@ namespace Automatic_Course_Test_System
         private string zhanghao = null;
         private Form FatherForm = null;
         private Form ChildForm = null;
+        string S_class = null;
+        string S_name = null;
 
         string html = "";
         public InquiryByExaminee(Form Admin,Form Examinee)
@@ -43,7 +45,9 @@ namespace Automatic_Course_Test_System
         private void button1_Click(object sender, EventArgs e)
         {
             Close = false;
-            ExamineeInformation f = new ExamineeInformation(FatherForm,ChildForm);
+            S_class = comboBox1.Text.ToString().Trim();
+            S_name = comboBox2.Text.ToString().Trim();
+            ExamineeInformation f = new ExamineeInformation(FatherForm,ChildForm,S_class,S_name);
             f.Show();
             f.getmessage(zhanghao);
             this.Close();

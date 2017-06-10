@@ -22,8 +22,8 @@ namespace Automatic_Course_Test_System
         string html = "";
         string KeMu = null;
         string CeYan = null;
+        string S_class = null;
         string S_name = null;
-        string S_score = null;
         DataTable dt = new DataTable();
         DataTable dt_class = new DataTable();
         DataTable dt_name = new DataTable();
@@ -51,11 +51,6 @@ namespace Automatic_Course_Test_System
         /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            //Close = false;
-            //ExamineeInformation f = new ExamineeInformation(FatherForm,ChildForm);
-            //f.Show();
-            //f.getmessage(zhanghao);
-            //this.Close();
             KeMu = comboBox1.Text.Trim();
             CeYan = comboBox2.Text.Trim();
             try
@@ -214,7 +209,14 @@ namespace Automatic_Course_Test_System
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            
+            S_class = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString().Trim();
+            S_name = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[1].Value.ToString().Trim();
+
+            Close = false;
+            ExamineeInformation f = new ExamineeInformation(FatherForm, ChildForm,S_class,S_name);
+            f.Show();
+            f.getmessage(zhanghao);
+            this.Close();
         }
 
         public void jiexi(string x)
