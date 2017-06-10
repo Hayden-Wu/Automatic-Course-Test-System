@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
-
+using System.Xml;
 
 namespace Automatic_Course_Test_System_Server
 {
@@ -34,9 +34,17 @@ namespace Automatic_Course_Test_System_Server
             string action = httpContext.Request.QueryString["action"];
             string username = httpContext.Request.QueryString["username"];
             string password = httpContext.Request.QueryString["password"];
+            string classroom = httpContext.Request.QueryString["classroom"];
+            string administrstorpassword = httpContext.Request.QueryString["administrstorpassword"];
 
             if (action == "sign")
                 Sign(username, password);
+            else if (action == "registereduser")
+                RegisteredUser(username, password, classroom);
+            else if (action == "registeredadministrstor")
+                RegisteredAdministrator(username, password, administrstorpassword);
+            else if (action == "classroom")
+                ClassRoom();
         }
 
         public bool IsReusable
@@ -88,6 +96,155 @@ namespace Automatic_Course_Test_System_Server
             //object judge = SC.ExecuteScalar();
 
             httpContext.Response.Write(login);
+        }
+
+        protected void RegisteredUser(string username, string password, string classroom)
+        {
+            int RegisteredReturn = -1;
+
+            string constr = "server=.;database=CourseTest;Integrated Security=SSPI";
+            try
+            {
+
+                SqlConnection conn = new SqlConnection(constr);
+                conn.Open();
+                string sqlstr = "select * from CourseTestUser "
+                    + "where username = '" + username.Trim() + "'";
+
+                SqlCommand SC = new SqlCommand(sqlstr, conn);
+                SqlDataReader SDR = SC.ExecuteReader();
+
+                if (SDR.Read())
+                {
+                    SDR.Close();
+                    RegisteredReturn = 2;
+                }
+                else
+                {
+                    SDR.Close();
+                    string sqlstr2 = "insert into CourseTestUser(username,password,type)"
+                        + "values('" + username.Trim() + "','" + password.Trim() + "','1')";
+                    SqlCommand SC2 = new SqlCommand(sqlstr2, conn);
+                    int mark = SC2.ExecuteNonQuery();
+
+                    string sqlstr3 = "insert into CourseTestExaminee(username,class)"
+                        + "values('" + username.Trim() + "','" + classroom.Trim() + "')";
+                    SqlCommand SC3 = new SqlCommand(sqlstr3, conn);
+                    int mark2 = SC3.ExecuteNonQuery();
+
+                    RegisteredReturn = 1;
+                }
+
+                conn.Close();
+
+            }
+            catch (Exception ex)
+            {
+                RegisteredReturn = -1;
+            }
+            finally
+            { }
+
+            httpContext.Response.Write(RegisteredReturn);
+        }
+
+        protected void RegisteredAdministrator(string username, string password, string administrstorpassword)
+        {
+            int RegisteredReturn = -1;
+
+            string constr = "server=.;database=CourseTest;Integrated Security=SSPI";
+            try
+            {
+
+                SqlConnection conn = new SqlConnection(constr);
+                conn.Open();
+                string sqlstr = "select * from CourseTestUser "
+                    + "where username = '" + username.Trim() + "'";
+
+                SqlCommand SC = new SqlCommand(sqlstr, conn);
+                SqlDataReader SDR = SC.ExecuteReader();
+
+                if (SDR.Read())
+                {
+                    SDR.Close();
+                    RegisteredReturn = 2;
+                }
+                else
+                {
+                    SDR.Close();
+                    if (administrstorpassword == "123456")
+                    {
+                        string sqlstr2 = "insert into CourseTestUser(username,password,type)"
+                            + "values('" + username.Trim() + "','" + password.Trim() + "','2')";
+                        SqlCommand SC2 = new SqlCommand(sqlstr2, conn);
+                        int mark = SC2.ExecuteNonQuery();
+
+                        RegisteredReturn = 1;
+                    }
+                    else
+                        RegisteredReturn = 3;
+                }
+
+                conn.Close();
+
+            }
+            catch (Exception ex)
+            {
+                RegisteredReturn = -1;
+            }
+            finally
+            { }
+
+            httpContext.Response.Write(RegisteredReturn);
+        }
+
+        protected void ClassRoom()
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            XmlDeclaration xmlDeclar;
+            xmlDeclar = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            xmlDoc.AppendChild(xmlDeclar);
+            XmlElement xmlElement = xmlDoc.CreateElement("", "informations", "");
+            xmlDoc.AppendChild(xmlElement);
+
+            string constr = "server=.;database=CourseTest;Integrated Security=SSPI";
+            try
+            {
+                SqlConnection conn = new SqlConnection(constr);
+                conn.Open();
+                string sqlstr = "select class from CourseTestClass";
+
+                SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
+                DataSet ds = new DataSet();
+                SD.Fill(ds);
+
+                conn.Close();
+
+
+                for (int i = 0; i < ds.Tables[0].Rows.Count; ++i)
+                {
+                    string Classroom = ds.Tables[0].Rows[i]["class"].ToString();
+                    XmlNode root = xmlDoc.SelectSingleNode("informations");
+                    XmlElement xe1 = xmlDoc.CreateElement("information");
+                    xe1.SetAttribute("classroom", "" + Classroom + "");
+                    root.AppendChild(xe1);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                XmlNode root = xmlDoc.SelectSingleNode("informations");
+                XmlElement xe1 = xmlDoc.CreateElement("warn");
+                XmlElement xeSub1 = xmlDoc.CreateElement("success");
+                xeSub1.InnerText = "false2";
+                xe1.AppendChild(xeSub1);
+                XmlElement xeSub2 = xmlDoc.CreateElement("err_msg");
+                xeSub2.InnerText = "" + ex.Message + "";
+                xe1.AppendChild(xeSub2);
+                root.AppendChild(xe1);
+            }
+
+            httpContext.Response.Write(xmlDoc.InnerXml);
         }
     }
 }

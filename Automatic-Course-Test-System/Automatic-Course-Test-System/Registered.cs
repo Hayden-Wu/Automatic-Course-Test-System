@@ -21,6 +21,7 @@ namespace Automatic_Course_Test_System
         private string zhanghao = null;
         private string mima = null;
         private string banji = null;
+        private string AdministratorPassword;
 
         string html = "";
         public Registered(Form Sign_in)
@@ -30,18 +31,19 @@ namespace Automatic_Course_Test_System
             this.FatherForm = Sign_in;
             Close = true;
 
-            test();
-            banji = comboBox1.Text.Trim();
+            label5.Hide();
+            label6.Hide();
+            comboBox1.Hide();
+            textBox4.Hide();
+
+            comboBox1.DisplayMember = "";
+            comboBox1.ValueMember = "classroom";
+
+            //classroom();
+            //banji = comboBox1.Text.Trim();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (this.FatherForm != null)
-            {
-                this.FatherForm.Visible = true;
-            }
-            this.Close();
-        }
+        
         /// <summary>
         /// 注册按钮，“用户名”对应username，“密码”对应password，“班级”对应class
         /// 调用Sever_Registered的register函数
@@ -56,44 +58,114 @@ namespace Automatic_Course_Test_System
             
             if (textBox1.Text != "" && textBox2.Text != "" && (textBox2.Text == textBox3.Text))
             {
-                try
+                if (radioButton1.Checked)
                 {
-                    Encoding encoding = Encoding.GetEncoding("utf-8");
-                    byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Registered.ashx?action=register&username=" + zhanghao + "&password=" + mima + "&class=" + banji);
-                    HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Registered.ashx?action=register&username=" + zhanghao + "&password=" + mima + "&class=" + banji);
-                    webReq.Method = "post";
-                    webReq.ContentType = "text/xml";
+                    banji = comboBox1.Text.Trim();
 
-                    Stream outstream = webReq.GetRequestStream();
-                    outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
-                    outstream.Flush();
-                    outstream.Close();
-
-                    webReq.Timeout = 2000;
-                    HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
-                    Stream stream = webResp.GetResponseStream();
-                    StreamReader sr = new StreamReader(stream, encoding);
-                    html = sr.ReadToEnd();
-                    sr.Close();
-                    stream.Close();
-                }
-                catch
-                {
-                    MessageBox.Show("链接失败");
-                }
-                if (html == "1")
-                {
-                    MessageBox.Show("注册成功");
-                    if (this.FatherForm != null)
+                    try
                     {
-                        this.FatherForm.Visible = true;
+                        Encoding encoding = Encoding.GetEncoding("utf-8");
+                        byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=registereduser&username=" + zhanghao + "&password=" + mima + "&classroom=" + banji);
+                        HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=registereduser&username=" + zhanghao + "&password=" + mima + "&classroom=" + banji);
+                        webReq.Method = "post";
+                        webReq.ContentType = "text/xml";
+
+                        Stream outstream = webReq.GetRequestStream();
+                        outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                        outstream.Flush();
+                        outstream.Close();
+
+                        webReq.Timeout = 2000;
+                        HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+                        Stream stream = webResp.GetResponseStream();
+                        StreamReader sr = new StreamReader(stream, encoding);
+                        html = sr.ReadToEnd();
+                        sr.Close();
+                        stream.Close();
                     }
-                    this.Close();
+                    catch
+                    {
+                        MessageBox.Show("链接失败");
+                    }
+
+                    if (html == "1")
+                    {
+                        MessageBox.Show("注册成功");
+                        Close = false;
+                        if (this.FatherForm != null)
+                        {
+                            this.FatherForm.Visible = true;
+                        }
+                        this.Close();
+                    }
+                    else if (html == "2")
+                    {
+                        MessageBox.Show("用户名已存在，请重新输入");
+                        textBox1.Select();
+                    }
+                    else
+                    {
+                        MessageBox.Show("注册失败"+ html);
+                    }
                 }
-                else if (html == "2")
+                else if(radioButton2.Checked)
                 {
-                    MessageBox.Show("用户名已存在，请重新输入");
-                    textBox1.Select();
+                    AdministratorPassword = textBox4.Text.Trim();
+
+                    try
+                    {
+                        Encoding encoding = Encoding.GetEncoding("utf-8");
+                        byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=registeredadministrstor&username=" + zhanghao + "&password=" + mima + "&administrstorpassword=" + AdministratorPassword);
+                        HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=registeredadministrstor&username=" + zhanghao + "&password=" + mima + "&administrstorpassword=" + AdministratorPassword);
+                        webReq.Method = "post";
+                        webReq.ContentType = "text/xml";
+
+                        Stream outstream = webReq.GetRequestStream();
+                        outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                        outstream.Flush();
+                        outstream.Close();
+
+                        webReq.Timeout = 2000;
+                        HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+                        Stream stream = webResp.GetResponseStream();
+                        StreamReader sr = new StreamReader(stream, encoding);
+                        html = sr.ReadToEnd();
+                        sr.Close();
+                        stream.Close();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("链接失败");
+                    }
+
+                    if (html == "1")
+                    {
+                        MessageBox.Show("注册成功");
+                        Close = false;
+                        if (this.FatherForm != null)
+                        {
+                            this.FatherForm.Visible = true;
+                        }
+                        this.Close();
+                    }
+                    else if (html == "2")
+                    {
+                        MessageBox.Show("用户名已存在，请重新输入");
+                        textBox1.Select();
+                    }
+                    else if (html == "3")
+                    {
+                        MessageBox.Show("管理员口令错误，请重新输入");
+                        textBox4.Select();
+                    }
+                    else
+                    {
+                        MessageBox.Show("注册失败" + html);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("请选择学生或管理员！");
                 }
             }
             else if (textBox2.Text != textBox3.Text)
@@ -110,6 +182,15 @@ namespace Automatic_Course_Test_System
                 textBox2.Clear();
                 textBox3.Clear();
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (this.FatherForm != null)
+            {
+                this.FatherForm.Visible = true;
+            }
+            this.Close();
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
@@ -141,15 +222,16 @@ namespace Automatic_Course_Test_System
             if (Close == true)
                 Application.Exit();
         }
+
         /// <summary>
         /// 将班级加入下拉框中
         /// 调用Server_Registered的class函数
         /// </summary>
-        private void test()
+        private void classroom()
         {
             Encoding encoding = Encoding.GetEncoding("utf-8");
-            byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Registered.ashx?action=class");
-            HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Registered.ashx?action=class");
+            byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=classroom");
+            HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=classroom");
             webReq.Method = "post";
             webReq.ContentType = "text/xml";
 
@@ -183,21 +265,43 @@ namespace Automatic_Course_Test_System
                 XmlNodeList nodelist = doc.DocumentElement.GetElementsByTagName("information");
 
                 DataTable dt = new DataTable();
-                DataColumn dc1 = new DataColumn("class", typeof(string));
+                DataColumn dc1 = new DataColumn("classroom", typeof(string));
                 dt.Columns.Add(dc1);
 
                 for (int i = 0; i < nodelist.Count; ++i)
                 {
                     DataRow dr = dt.NewRow();
                     XmlNode node = nodelist[i];
-                    dr[dt.Columns[0].ColumnName] = node.Attributes["class"].InnerText;
+                    dr[dt.Columns[0].ColumnName] = node.Attributes["classroom"].InnerText;
                     dt.Rows.Add(dr);
                 }
 
-                comboBox1.DisplayMember = "";
-                comboBox1.ValueMember = "class";
+                //comboBox1.DisplayMember = "";
+                //comboBox1.ValueMember = "classroom";
                 comboBox1.DataSource = dt;
             }
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButton1.Checked)
+            {
+                label5.Show();
+                comboBox1.Show();
+                label6.Hide();
+                textBox4.Hide();
+
+                classroom();
+                //banji = comboBox1.Text.Trim();
+            }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            label6.Show();
+            textBox4.Show();
+            label5.Hide();
+            comboBox1.Hide();
         }
     }
 }

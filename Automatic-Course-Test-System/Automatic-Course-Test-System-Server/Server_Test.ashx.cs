@@ -352,6 +352,7 @@ namespace Automatic_Course_Test_System_Server
 
             httpContext.Response.Write(results);
         }
+
         protected void Questionall(string specifictest)
         {
             XmlDocument xmlDoc = new XmlDocument();
