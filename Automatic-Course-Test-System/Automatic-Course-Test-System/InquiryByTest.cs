@@ -86,6 +86,7 @@ namespace Automatic_Course_Test_System
                 MessageBox.Show("链接失败123");
             }
         }
+
         public void getmessage(string z)
         {
             zhanghao = z;
@@ -231,7 +232,7 @@ namespace Automatic_Course_Test_System
                 string success = node.ChildNodes[0].InnerText;
                 string err_msg = node.ChildNodes[1].InnerText;
 
-                label2.Text = "success:" + success + "\r\n" + "err_msg:" + err_msg;
+                label1.Text = "success:" + success + "\r\n" + "err_msg:" + err_msg;
             }
             else
             {
@@ -241,45 +242,26 @@ namespace Automatic_Course_Test_System
                 dt = null;
                 dt = DataTableColumn(); //具体题目表
 
-                //题数表
-                DataColumn dc1 = new DataColumn("班级", typeof(string));
-                DataColumn dc2 = new DataColumn("姓名",typeof(string));
-                DataColumn dc3 = new DataColumn("成绩", typeof(string));
-                dt_name.Columns.Add(dc1);
-                dt_class.Columns.Add(dc2);
-                dt_score.Columns.Add(dc3);
-
                 for (int i = 0; i < nodelist.Count; ++i)
                 {
                     DataRow dr = dt.NewRow();
-                    DataRow dr_name = dt_name.NewRow();
-                    DataRow dr_class = dt_class.NewRow();
-                    DataRow dr_score = dt_score.NewRow();
                     XmlNode node = nodelist[i];
-                    dr[dt.Columns[0].ColumnName] = node.Attributes["s_class"].InnerText;
-                    dr_name["班级"] = node.Attributes["s_class"].InnerText;
-                    dr[dt.Columns[1].ColumnName] = node.Attributes["s_name"].InnerText;
-                    dr_name["姓名"] = node.Attributes["s_name"].InnerText;
-                    dr[dt.Columns[2].ColumnName] = node.Attributes["s_score"].InnerText;
-                    dr_name["成绩"] = node.Attributes["s_score"].InnerText;
+                    dr[dt.Columns[0].ColumnName] = node.Attributes["username"].InnerText;
                     for (int j = 1; j < dt.Columns.Count; ++j)
                     {
                         dr[dt.Columns[j].ColumnName] = node.ChildNodes[j - 1].InnerText.Trim();
                     }
                     dt.Rows.Add(dr);
-                    dt_class.Rows.Add(dr_class);
-                    dt_name.Rows.Add(dr_name);
-                    dt_score.Rows.Add(dr_score);
                 }
             }
         }
+
         /// <summary>
         /// datatable含姓名与成绩两列
         /// </summary>
         private DataTable DataTableColumn()
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("班级");
             dt.Columns.Add("姓名");
             dt.Columns.Add("成绩");
             return dt;

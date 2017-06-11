@@ -128,8 +128,8 @@ namespace Automatic_Course_Test_System
             string test = testvalue.Trim();
 
             Encoding encoding = Encoding.GetEncoding("utf-8");
-            byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Examinee.ashx?action=specific_test&banji=" + test);
-            HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Examinee.ashx?action=specific_test&banji=" + test);
+            byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Examinee.ashx?action=specific_test&banji=" + S_class);
+            HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Examinee.ashx?action=specific_test&banji=" + S_class);
             webReq.Method = "post";
             webReq.ContentType = "text/xml";
 
