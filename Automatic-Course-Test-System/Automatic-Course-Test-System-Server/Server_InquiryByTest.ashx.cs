@@ -71,7 +71,7 @@ namespace Automatic_Course_Test_System_Server
 
                 for (int i = 0; i < ds.Tables[0].Rows.Count; ++i)
                 {
-                    string username = ds.Tables[0].Rows[i]["test"].ToString();
+                    string username = ds.Tables[0].Rows[i]["username"].ToString();
                     string score = ds.Tables[0].Rows[i]["score"].ToString();
                     XmlNode root = xmlDoc.SelectSingleNode("informations");
                     XmlElement xe1 = xmlDoc.CreateElement("information");
