@@ -87,6 +87,15 @@ namespace Automatic_Course_Test_System
             }
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            Administrator f = new Administrator(FatherForm);
+            f.getmessage(zhanghao);
+            this.Close();
+            f.Show();
+        }
+
         public void getmessage(string z)
         {
             zhanghao = z;
@@ -267,13 +276,10 @@ namespace Automatic_Course_Test_System
             return dt;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            Close = false;
-            Administrator f = new Administrator(FatherForm);
-            f.getmessage(zhanghao);
-            this.Close();
-            f.Show();
+            string testvalue = comboBox1.SelectedValue.ToString().Trim();
+            specifictest(testvalue);
         }
     }
 }
