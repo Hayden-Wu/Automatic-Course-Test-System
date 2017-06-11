@@ -192,7 +192,30 @@ namespace Automatic_Course_Test_System
             }
             else
             {
-                str = "http://1725r3a792.iask.in:28445/Server_ChangeTest.ashx?action=add&specifictest=" + CeYan.Trim()+"&kemu="+KeMu.Trim();
+                str = "http://1725r3a792.iask.in:28445/Server_ChangeTest.ashx?action=add&test=" + CeYan.Trim() + "&specifictest=" + KeMu.Trim();
+                dt.Rows[num]["question"] = textBox1.Text;
+                dt.Rows[num]["testnumber"] = num;
+                if (radioButton1.Checked == true)
+                {
+                    dt.Rows[num]["type"] = "1";
+                    dt.Rows[num]["choiceanswerA"] = textBox2.Text;
+                    dt.Rows[num]["choiceanswerB"] = textBox3.Text;
+                    dt.Rows[num]["choiceanswerC"] = textBox4.Text;
+                    dt.Rows[num]["choiceanswerD"] = textBox5.Text;
+                    if (radioButton3.Checked == true)
+                        dt.Rows[num]["answer"] = "A";
+                    else if (radioButton4.Checked == true)
+                        dt.Rows[num]["answer"] = "B";
+                    else if (radioButton5.Checked == true)
+                        dt.Rows[num]["answer"] = "C";
+                    else if (radioButton6.Checked == true)
+                        dt.Rows[num]["answer"] = "D";
+                }
+                else
+                {
+                    dt.Rows[num]["type"] = "2";
+                    dt.Rows[num]["answer"] = textBox6.Text;
+                }
             }
             for (int i = 0; i < zongshu; i++)
             {
@@ -344,6 +367,8 @@ namespace Automatic_Course_Test_System
                         dt.Rows[num]["answer"] = "C";
                     else if (radioButton6.Checked == true)
                         dt.Rows[num]["answer"] = "D";
+                    
+
                 }
                 else
                 {

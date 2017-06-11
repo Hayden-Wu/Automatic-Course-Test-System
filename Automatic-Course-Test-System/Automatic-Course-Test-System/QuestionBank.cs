@@ -58,7 +58,43 @@ namespace Automatic_Course_Test_System
 
         private void button2_Click(object sender, EventArgs e)
         {
-            delete();
+            string CeYan = comboBox2.Text;
+            MessageBox.Show(CeYan);
+            try
+            {
+                Encoding encoding = Encoding.GetEncoding("utf-8");
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Delete.ashx?action=delete&specifictest=" + CeYan);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Delete.ashx?action=delete&specifictest=" + CeYan);
+                webReq.Method = "post";
+                webReq.ContentType = "text/xml";
+
+                Stream outstream = webReq.GetRequestStream();
+                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                outstream.Flush();
+                outstream.Close();
+
+                webReq.Timeout = 2000;
+                HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+                Stream stream = webResp.GetResponseStream();
+                StreamReader sr = new StreamReader(stream, encoding);
+                html = sr.ReadToEnd();
+                sr.Close();
+                stream.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+
+            }
+            if(html=="1")
+            {
+                MessageBox.Show("删除成功");
+                
+            }
+            else
+            {
+                MessageBox.Show("删除失败");
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
