@@ -72,7 +72,7 @@ namespace Automatic_Course_Test_System
             }
             else if(html =="2")
             {
-                Administrator f = new Administrator();
+                Administrator f = new Administrator(this);
                 f.getmessage(zhanghao);
                 textBox2.Text = "";
                 this.Hide();

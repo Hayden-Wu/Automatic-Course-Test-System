@@ -12,38 +12,53 @@ namespace Automatic_Course_Test_System
 {
     public partial class Administrator : Form
     {
+        private Form FatherForm = null;
         private bool Close = true;
         private string zhanghao;
-        public Administrator()
+        public Administrator(Form SignIn)
         {
             InitializeComponent();
             Close = true;
+
+            this.FatherForm = SignIn;
         }
         public void getmessage(string z)
         {
             zhanghao = z;
+        } 
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            QuestionBank f = new QuestionBank(this.FatherForm);
+            f.getmessage(zhanghao);
+            f.Show();
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            Examinee f = new Examinee(this.FatherForm);
+            f.getmessage(zhanghao);
+            f.Show();
+            this.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            if (this.FatherForm != null)
+            {
+                this.FatherForm.Visible = true;
+            }
+            this.Close();
         }
 
         private void Administrator_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Close == true)
                 Application.Exit();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            QuestionBank f = new QuestionBank(this);
-            f.getmessage(zhanghao);
-            f.Show();
-            this.Hide();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Examinee f = new Examinee(this);
-            f.getmessage(zhanghao);
-            f.Show();
-            this.Hide();
         }
     }
 }

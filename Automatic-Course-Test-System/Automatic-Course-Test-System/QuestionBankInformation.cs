@@ -26,6 +26,7 @@ namespace Automatic_Course_Test_System
         private int lei = 0;
         DataTable dt = new DataTable();
         DataTable dtnum = new DataTable();
+
         public QuestionBankInformation(Form Admin)
         {
             InitializeComponent();
@@ -128,20 +129,11 @@ namespace Automatic_Course_Test_System
                 dataGridView1.DataSource = dtnum;
             }
         }
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Close = false;
-            if (this.FatherForm != null)
-            {
-                this.FatherForm.Visible = true;
-            }
-            this.Close();
-        }
+
         public void getmessage(string z)
         {
             zhanghao = z;
         }
-
 
         private void QuestionBankInformation_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -170,30 +162,139 @@ namespace Automatic_Course_Test_System
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            dt.Rows[num]["question"] = textBox1.Text;
-            if (radioButton1.Checked == true)
+            //string str = "http://1725r3a792.iask.in:28445/Server_Test.ashx?action=questionin&specifictest=" + CeYan;
+            //for (int i = 0; i < zongshu; i++)
+            //{
+            //    str = str + "&";
+            //    str = str + "testnumber"+i+"=";
+            //    str = str + dt.Rows[i]["testnumber"].ToString();
+            //    str = str + "&";
+            //    str = str + "question=";
+            //    str = str + dt.Rows[i]["question"].ToString();
+            //    str = str + "&";
+            //    str = str + "type=";
+            //    str = str + dt.Rows[i]["type"].ToString();
+            //    str = str + "&";
+            //    str = str + "choiceanswerA=";
+            //    str = str + dt.Rows[i]["choiceanswerA"].ToString();
+            //    str = str + "&";
+            //    str = str + "choiceanswerB=";
+            //    str = str + dt.Rows[i]["choiceanswerB"].ToString();
+            //    str = str + "&";
+            //    str = str + "choiceanswerC=";
+            //    str = str + dt.Rows[i]["choiceanswerC"].ToString();
+            //    str = str + "&";
+            //    str = str + "choiceanswerD=";
+            //    str = str + dt.Rows[i]["choiceanswerD"].ToString();
+            //    str = str + "&";
+            //    str = str + "choiceanswer=";
+            //    if (dt.Rows[i]["type"].ToString() == "1")
+            //        str = str + dt.Rows[i]["answer"].ToString();
+            //    str = str + "&";
+            //    str = str + "answer=";
+            //    if (dt.Rows[i]["type"].ToString() != "1")
+            //        str = str + dt.Rows[i]["answer"].ToString();
+
+            //}
+            string html = "-1";
+            XmlDocument xmlDoc = new XmlDocument();
+            XmlDeclaration xmlDeclar;
+            xmlDeclar = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            xmlDoc.AppendChild(xmlDeclar);
+            XmlElement xmlElement = xmlDoc.CreateElement("", "informations", "");
+            xmlDoc.AppendChild(xmlElement);
+
+            string answer = "";
+
+            Automatic_Course_Test_System.Class_Test model = new Class_Test();
+
+            for (int i = 0; i < zongshu; ++i)
+                {
+                    model.Testnumber = dt.Rows[i]["testnumber"].ToString();
+                    model.Question = dt.Rows[i]["question"].ToString();
+                    model.Type = int.Parse(dt.Rows[i]["type"].ToString());
+                    model.Choice_answerA = dt.Rows[i]["choiceanswerA"].ToString();
+                    model.Choice_answerB = dt.Rows[i]["choiceanswerB"].ToString();
+                    model.Choice_answerC = dt.Rows[i]["choiceanswerC"].ToString();
+                    model.Choice_answerD = dt.Rows[i]["choiceanswerD"].ToString();
+                    answer = dt.Rows[i]["answer"].ToString();
+
+                    XmlNode root = xmlDoc.SelectSingleNode("informations");
+                    XmlElement xe1 = xmlDoc.CreateElement("information");
+                    xe1.SetAttribute("testnumber", "" + model.Testnumber + "");
+                    XmlElement xeSub1 = xmlDoc.CreateElement("question");
+                    xeSub1.InnerText = "" + model.Question.Trim() + "";
+                    xe1.AppendChild(xeSub1);
+                    XmlElement xeSub2 = xmlDoc.CreateElement("type");
+                    xeSub2.InnerText = "" + model.Type + "";
+                    xe1.AppendChild(xeSub2);
+                    XmlElement xeSub3 = xmlDoc.CreateElement("choiceanswerA");
+                    xeSub3.InnerText = "" + model.Choice_answerA.Trim() + "";
+                    xe1.AppendChild(xeSub3);
+                    XmlElement xeSub4 = xmlDoc.CreateElement("choiceanswerB");
+                    xeSub4.InnerText = "" + model.Choice_answerA.Trim() + "";
+                    xe1.AppendChild(xeSub4);
+                    XmlElement xeSub5 = xmlDoc.CreateElement("choiceanswerC");
+                    xeSub5.InnerText = "" + model.Choice_answerA.Trim() + "";
+                    xe1.AppendChild(xeSub5);
+                    XmlElement xeSub6 = xmlDoc.CreateElement("choiceanswerD");
+                    xeSub6.InnerText = "" + model.Choice_answerA.Trim() + "";
+                    xe1.AppendChild(xeSub6);
+                    XmlElement xeSub7 = xmlDoc.CreateElement("answer");
+                    xeSub7.InnerText = "" + answer + "";
+                    xe1.AppendChild(xeSub7);
+                    root.AppendChild(xe1);
+            }
+
+            string Xmlstring = ConvertXmlToString(xmlDoc);
+
+            string str = "http://1725r3a792.iask.in:28445/Server_ChangeTest.ashx?action=questionchange&specifictest=" + CeYan + "&xml=" + Xmlstring;
+
+            try
             {
-                dt.Rows[num]["type"] = "1";
-                dt.Rows[num]["choiceanswerA"] = textBox2.Text;
-                dt.Rows[num]["choiceanswerB"] = textBox3.Text;
-                dt.Rows[num]["choiceanswerC"] = textBox4.Text;
-                dt.Rows[num]["choiceanswerD"] = textBox5.Text;
-                if(radioButton3.Checked == true)
-                   dt.Rows[num]["answer"] = "A";
-                else if (radioButton4.Checked == true)
-                   dt.Rows[num]["answer"] = "B";
-                else if (radioButton5.Checked == true)
-                    dt.Rows[num]["answer"] = "C";
-                else if (radioButton6.Checked == true)
-                    dt.Rows[num]["answer"] = "D";
+                Encoding encoding = Encoding.GetEncoding("utf-8");
+                byte[] getWeatherUrl = encoding.GetBytes(str);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create(str);
+                webReq.Method = "post";
+                webReq.ContentType = "text/xml";
+
+                Stream outstream = webReq.GetRequestStream();
+                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                outstream.Flush();
+                outstream.Close();
+
+                webReq.Timeout = 2000;
+                HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+                Stream stream = webResp.GetResponseStream();
+                StreamReader sr = new StreamReader(stream, encoding);
+                html = sr.ReadToEnd();
+                sr.Close();
+                stream.Close();
+            }
+            catch
+            {
+                MessageBox.Show("链接失败123");
+            }
+
+            if (html == "1")
+            {
+                if (MessageBox.Show("修改成功", "修改成功",MessageBoxButtons.OK) == DialogResult.OK)
+                {
+                    Close = false;
+                    QuestionBank f = new QuestionBank(this.FatherForm);
+                    f.getmessage(zhanghao);
+                    f.Show();
+                    this.Close();
+                }
             }
             else
             {
-                dt.Rows[num]["type"] = "2";
-                dt.Rows[num]["answer"] = textBox6.Text;
+                MessageBox.Show("修改失败");
+                textBox1.Text = html;
             }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -209,6 +310,41 @@ namespace Automatic_Course_Test_System
             radioButton2.Checked = true;
             groupBox3.Show();
             textBox1.Text = "";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            QuestionBank f = new QuestionBank(this.FatherForm);
+            f.getmessage(zhanghao);
+            f.Show();
+            this.Close();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            dt.Rows[num]["question"] = textBox1.Text;
+            if (radioButton1.Checked == true)
+            {
+                dt.Rows[num]["type"] = "1";
+                dt.Rows[num]["choiceanswerA"] = textBox2.Text;
+                dt.Rows[num]["choiceanswerB"] = textBox3.Text;
+                dt.Rows[num]["choiceanswerC"] = textBox4.Text;
+                dt.Rows[num]["choiceanswerD"] = textBox5.Text;
+                if (radioButton3.Checked == true)
+                    dt.Rows[num]["answer"] = "A";
+                else if (radioButton4.Checked == true)
+                    dt.Rows[num]["answer"] = "B";
+                else if (radioButton5.Checked == true)
+                    dt.Rows[num]["answer"] = "C";
+                else if (radioButton6.Checked == true)
+                    dt.Rows[num]["answer"] = "D";
+            }
+            else
+            {
+                dt.Rows[num]["type"] = "2";
+                dt.Rows[num]["answer"] = textBox6.Text;
+            }
         }
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -281,7 +417,7 @@ namespace Automatic_Course_Test_System
             }
             else
             {
-                StringBuilder stext = new StringBuilder();
+                //StringBuilder stext = new StringBuilder();
                 XmlNodeList nodelist = doc.DocumentElement.GetElementsByTagName("information");
 
                 dt = null;
@@ -310,6 +446,7 @@ namespace Automatic_Course_Test_System
 
             }
         }
+
         private DataTable DataTableColumn()
         {
             DataTable dt = new DataTable();
@@ -323,11 +460,9 @@ namespace Automatic_Course_Test_System
             dt.Columns.Add("answer");
             return dt;
         }
+
         private void zengjia()
         {
-            
-           
-
             dt = null;
             dt = DataTableColumn(); //具体题目表
 
@@ -347,59 +482,19 @@ namespace Automatic_Course_Test_System
             }
             zongshu = 20;
         }
-        private void button1_Click(object sender, EventArgs e)
+
+        public string ConvertXmlToString(XmlDocument xmlDoc)
         {
-            string str = "http://1725r3a792.iask.in:28445/Server_Test.ashx?action=questionin&specifictest=" + CeYan;
-             for (int i=0;i<zongshu;i++)
-            {
-                str = str + "&";
-                str = str + "testnumber=";
-                str = str + dt.Rows[i]["testnumber"].ToString();
-                str = str + "&";
-                str = str + "question=";
-                str = str + dt.Rows[i]["question"].ToString();
-                str = str + "&";
-                str = str + "type=";
-                str = str + dt.Rows[i]["type"].ToString();
-                str = str + "&";
-                str = str + "choiceanswerA=";
-                str = str + dt.Rows[i]["choiceanswerA"].ToString();
-                str = str + "&";
-                str = str + "choiceanswerB=";
-                str = str + dt.Rows[i]["choiceanswerB"].ToString();
-                str = str + "&";
-                str = str + "choiceanswerC=";
-                str = str + dt.Rows[i]["choiceanswerC"].ToString();
-                str = str + "&";
-                str = str + "choiceanswerD=";
-                str = str + dt.Rows[i]["choiceanswerD"].ToString();
-                str = str + "&";
-                str = str + "choiceanswer=";
-                if(dt.Rows[i]["type"].ToString()=="1")
-                   str = str + dt.Rows[i]["answer"].ToString();
-                str = str + "&";
-                str = str + "answer=";
-                if (dt.Rows[i]["type"].ToString() != "1")
-                    str = str + dt.Rows[i]["answer"].ToString();
-
-            }
-            try
-            {
-                Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes(str);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create(str);
-                webReq.Method = "post";
-                webReq.ContentType = "text/xml";
-                Stream outstream = webReq.GetRequestStream();
-                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
-                outstream.Flush();
-                outstream.Close();
-            }
-            catch
-            {
-                MessageBox.Show("链接失败123");
-            }
-
+            MemoryStream stream = new MemoryStream();
+            XmlTextWriter writer = new XmlTextWriter(stream, null);
+            writer.Formatting = Formatting.Indented;
+            xmlDoc.Save(writer);
+            StreamReader sr = new StreamReader(stream, System.Text.Encoding.UTF8);
+            stream.Position = 0;
+            string xmlString = sr.ReadToEnd();
+            sr.Close();
+            stream.Close();
+            return xmlString;
         }
     }
 }
