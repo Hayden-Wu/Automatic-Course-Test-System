@@ -47,11 +47,10 @@ namespace Automatic_Course_Test_System
         private void button2_Click(object sender, EventArgs e)
         {
             Close = false;
-            if (this.FatherForm != null)
-            {
-                this.FatherForm.Visible = true;
-            }
+            Administrator f = new Administrator(FatherForm);
+            f.getmessage(zhanghao);
             this.Close();
+            f.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
