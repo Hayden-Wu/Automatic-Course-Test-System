@@ -115,6 +115,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Sign_in";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "课程自动测试系统";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Sign_in_KeyDown);
             this.ResumeLayout(false);
