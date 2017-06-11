@@ -34,13 +34,9 @@ namespace Automatic_Course_Test_System_Server
             string banji = httpContext.Request.QueryString["banji"];
 
             if (action == "test")
-            {
                 Test();
-            }
-            else if(action == "specific_test")
-            {
+            else if(action == "specifictest")
                 Specific_test(banji);
-            }
         }
 
         public bool IsReusable
@@ -66,7 +62,7 @@ namespace Automatic_Course_Test_System_Server
                 //SqlConnection conn = new SqlConnection(constr.ConnectionString);
                 SqlConnection conn = new SqlConnection(constr);
                 conn.Open();
-                string sqlstr = "select class from CourseTestExaminee";
+                string sqlstr = "select class from CourseTestClass";
 
                 SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
                 DataSet ds = new DataSet();
@@ -74,14 +70,13 @@ namespace Automatic_Course_Test_System_Server
 
                 conn.Close();
 
-                Class_Test model = new Class_Test();
 
                 for (int i = 0; i < ds.Tables[0].Rows.Count; ++i)
                 {
-                    model.Test = ds.Tables[0].Rows[i]["test"].ToString();
+                    string classroom = ds.Tables[0].Rows[i]["class"].ToString();
                     XmlNode root = xmlDoc.SelectSingleNode("informations");
                     XmlElement xe1 = xmlDoc.CreateElement("information");
-                    xe1.SetAttribute("test", "" + model.Test + "");
+                    xe1.SetAttribute("classroom", "" + classroom + "");
                     root.AppendChild(xe1);
                 }
 
@@ -117,7 +112,7 @@ namespace Automatic_Course_Test_System_Server
                 //SqlConnection conn = new SqlConnection(constr.ConnectionString);
                 SqlConnection conn = new SqlConnection(constr);
                 conn.Open();
-                string sqlstr = "select class from CourseTestExaminee where class ="+banji;
+                string sqlstr = "select username from CourseTestExaminee where class = '" + banji + "'";
 
                 SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
                 DataSet ds = new DataSet();
@@ -125,14 +120,12 @@ namespace Automatic_Course_Test_System_Server
 
                 conn.Close();
 
-                Class_Test model = new Class_Test();
-
                 for (int i = 0; i < ds.Tables[0].Rows.Count; ++i)
                 {
-                    model.Test = ds.Tables[0].Rows[i]["test"].ToString();
+                    string username = ds.Tables[0].Rows[i]["username"].ToString();
                     XmlNode root = xmlDoc.SelectSingleNode("informations");
                     XmlElement xe1 = xmlDoc.CreateElement("information");
-                    xe1.SetAttribute("test", "" + model.Test + "");
+                    xe1.SetAttribute("username", "" + username + "");
                     root.AppendChild(xe1);
                 }
 

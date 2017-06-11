@@ -35,7 +35,7 @@ namespace Automatic_Course_Test_System
             string banji = comboBox1.Text.Trim();
 
             comboBox2.DisplayMember = "";
-            comboBox2.ValueMember = "specifictest";
+            comboBox2.ValueMember = "username";
             specifictest(banji);
         }
 
@@ -105,19 +105,19 @@ namespace Automatic_Course_Test_System
                 XmlNodeList nodelist = doc.DocumentElement.GetElementsByTagName("information");
 
                 DataTable dt = new DataTable();
-                DataColumn dc1 = new DataColumn("test", typeof(string));
+                DataColumn dc1 = new DataColumn("classroom", typeof(string));
                 dt.Columns.Add(dc1);
 
                 for (int i = 0; i < nodelist.Count; ++i)
                 {
                     DataRow dr = dt.NewRow();
                     XmlNode node = nodelist[i];
-                    dr[dt.Columns[0].ColumnName] = node.Attributes["test"].InnerText;
+                    dr[dt.Columns[0].ColumnName] = node.Attributes["classroom"].InnerText;
                     dt.Rows.Add(dr);
                 }
 
                 comboBox1.DisplayMember = "";
-                comboBox1.ValueMember = "banji";
+                comboBox1.ValueMember = "classroom";
                 comboBox1.DataSource = dt;
             }
         }
@@ -129,11 +129,11 @@ namespace Automatic_Course_Test_System
         /// <param name="testvalue"></param>
         private void specifictest(string testvalue)
         {
-            string test = testvalue.Trim();
+            string banji = testvalue.Trim();
 
             Encoding encoding = Encoding.GetEncoding("utf-8");
-            byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Examinee.ashx?action=specific_test&banji=" + S_class);
-            HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Examinee.ashx?action=specific_test&banji=" + S_class);
+            byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Examinee.ashx?action=specifictest&banji=" + banji);
+            HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Examinee.ashx?action=specifictest&banji=" + banji);
             webReq.Method = "post";
             webReq.ContentType = "text/xml";
 
@@ -167,14 +167,14 @@ namespace Automatic_Course_Test_System
                 XmlNodeList nodelist = doc.DocumentElement.GetElementsByTagName("information");
 
                 DataTable dt = new DataTable();
-                DataColumn dc1 = new DataColumn("specifictest", typeof(string));
+                DataColumn dc1 = new DataColumn("username", typeof(string));
                 dt.Columns.Add(dc1);
 
                 for (int i = 0; i < nodelist.Count; ++i)
                 {
                     DataRow dr = dt.NewRow();
                     XmlNode node = nodelist[i];
-                    dr[dt.Columns[0].ColumnName] = node.Attributes["specifictest"].InnerText;
+                    dr[dt.Columns[0].ColumnName] = node.Attributes["username"].InnerText;
                     dt.Rows.Add(dr);
                 }
                 comboBox2.DataSource = dt;
@@ -188,6 +188,12 @@ namespace Automatic_Course_Test_System
             f.getmessage(zhanghao);
             this.Close();
             f.Show();
+        }
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            string testvalue = comboBox1.SelectedValue.ToString().Trim();
+            specifictest(testvalue);
         }
     }
 }
