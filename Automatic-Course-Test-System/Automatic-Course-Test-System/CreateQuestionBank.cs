@@ -36,8 +36,8 @@ namespace Automatic_Course_Test_System
             try
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Create.ashx?action=create&test=" + KeMu + "&specific_test=" + CeYan);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Create.ashx?action=create&test=" + KeMu + "&specific_test=" + CeYan);
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=create&&specific_test=" + CeYan);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=create&&specific_test=" + CeYan);
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
 
@@ -58,7 +58,7 @@ namespace Automatic_Course_Test_System
             {
                 MessageBox.Show("链接失败");
             }
-            if(html == "1")
+            if(html == "0")
             {
                 MessageBox.Show("创建测验成功，请加入具体题目");
                 QuestionBankInformation f = new QuestionBankInformation(FatherForm);

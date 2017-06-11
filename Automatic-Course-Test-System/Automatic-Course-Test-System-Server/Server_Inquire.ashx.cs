@@ -36,10 +36,12 @@ namespace Automatic_Course_Test_System_Server
             string test = httpContext.Request.QueryString["test"];
             string specifictest = httpContext.Request.QueryString["specifictest"];
 
-            if(action == "specifictest")
-                Specific_Test(username,test);
+            if (action == "specifictest")
+                Specific_Test(username, test);
             else if (action == "score")
                 Score(username, specifictest);
+            else if (action == "creat")
+                Ifcreat(specifictest);
         }
 
         public bool IsReusable
@@ -120,6 +122,29 @@ namespace Automatic_Course_Test_System_Server
                 SD.Fill(ds);
 
                 result = Int32.Parse(ds.Tables[0].Rows[0][2].ToString());
+
+            httpContext.Response.Write(result);
+            conn.Close();
+        }
+        protected void Ifcreat( string specifictest)
+        {
+            string constr = "server=.;database=CourseTest;Integrated Security=SSPI";
+            SqlConnection conn = new SqlConnection(constr);
+            conn.Open();
+            string sqlstr = "select * from CourseTestSpecificTest "
+                    + "where specifictest = '" + specifictest.Trim() + "'";
+
+            SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
+            DataSet ds = new DataSet();
+            SD.Fill(ds);
+            if(ds.Tables[0].Rows[0][2].ToString()=="")
+            {
+                result = "0";
+            }
+            else
+            {
+                result = "1";
+            }
 
             httpContext.Response.Write(result);
             conn.Close();
