@@ -242,10 +242,10 @@ namespace Automatic_Course_Test_System
                 dt = DataTableColumn(); //具体题目表
 
                 //题数表
-                DataColumn dc1 = new DataColumn("班级", typeof(string));
+                //DataColumn dc1 = new DataColumn("班级", typeof(string));
                 DataColumn dc2 = new DataColumn("姓名",typeof(string));
                 DataColumn dc3 = new DataColumn("成绩", typeof(string));
-                dt_name.Columns.Add(dc1);
+                // dt_name.Columns.Add(dc1);
                 dt_class.Columns.Add(dc2);
                 dt_score.Columns.Add(dc3);
 
@@ -256,8 +256,8 @@ namespace Automatic_Course_Test_System
                     DataRow dr_class = dt_class.NewRow();
                     DataRow dr_score = dt_score.NewRow();
                     XmlNode node = nodelist[i];
-                    dr[dt.Columns[0].ColumnName] = node.Attributes["s_class"].InnerText;
-                    dr_name["班级"] = node.Attributes["s_class"].InnerText;
+                    //dr[dt.Columns[0].ColumnName] = node.Attributes["s_class"].InnerText;
+                    //dr_name["班级"] = node.Attributes["s_class"].InnerText;
                     dr[dt.Columns[1].ColumnName] = node.Attributes["s_name"].InnerText;
                     dr_name["姓名"] = node.Attributes["s_name"].InnerText;
                     dr[dt.Columns[2].ColumnName] = node.Attributes["s_score"].InnerText;

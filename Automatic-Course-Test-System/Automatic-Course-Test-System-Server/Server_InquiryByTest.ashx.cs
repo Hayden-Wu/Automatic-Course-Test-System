@@ -59,7 +59,8 @@ namespace Automatic_Course_Test_System_Server
             {
                 SqlConnection conn = new SqlConnection(constr);
                 conn.Open();
-                string sqlstr = "select username from CourseTestResults where";
+                string sqlstr = "select username,score from CourseTestResults "
+                    + "where specifictest='" + specifictest + "'";
 
                 SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
                 DataSet ds = new DataSet();
@@ -67,14 +68,17 @@ namespace Automatic_Course_Test_System_Server
 
                 conn.Close();
 
-                Automatic_Course_Test_System_Server.Class_Test model = new Class_Test();
 
                 for (int i = 0; i < ds.Tables[0].Rows.Count; ++i)
                 {
-                    model.Test = ds.Tables[0].Rows[i]["test"].ToString();
+                    string username = ds.Tables[0].Rows[i]["test"].ToString();
+                    string score = ds.Tables[0].Rows[i]["score"].ToString();
                     XmlNode root = xmlDoc.SelectSingleNode("informations");
                     XmlElement xe1 = xmlDoc.CreateElement("information");
-                    xe1.SetAttribute("test", "" + model.Test + "");
+                    xe1.SetAttribute("username", "" + username + "");
+                    XmlElement xeSub1 = xmlDoc.CreateElement("score");
+                    xeSub1.InnerText = "" + score + "";
+                    xe1.AppendChild(xeSub1);
                     root.AppendChild(xe1);
                 }
 
