@@ -149,15 +149,35 @@ namespace Automatic_Course_Test_System
             if (radioButton1.Checked == true)
             {
                 groupBox3.Hide();
+                textBox2.Text = dt.Rows[num]["choiceanswerA"].ToString();
+                textBox3.Text = dt.Rows[num]["choiceanswerB"].ToString();
+                textBox4.Text = dt.Rows[num]["choiceanswerC"].ToString();
+                textBox5.Text = dt.Rows[num]["choiceanswerD"].ToString();
+                if (dt.Rows[num]["type"].ToString() != "1")
+                {
+                    radioButton3.Checked = false;
+                    radioButton4.Checked = false;
+                    radioButton5.Checked = false;
+                    radioButton6.Checked = false;
+                }
                 groupBox2.Show();
+
             }
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            if(radioButton2.Checked == true)
+            if (radioButton2.Checked == true)
             {
                 groupBox2.Hide();
+                if (dt.Rows[num]["type"].ToString() != "1")
+                {
+                    textBox6.Text = dt.Rows[num]["answer"].ToString();
+                }
+                else
+                {
+                    textBox6.Text = "";
+                }
                 groupBox3.Show();
             }
         }
@@ -165,8 +185,15 @@ namespace Automatic_Course_Test_System
         private void button1_Click(object sender, EventArgs e)
         {
             string html = "-1";
-
-            string str = "http://1725r3a792.iask.in:28445/Server_ChangeTest.ashx?action=questionchange&specifictest=" + CeYan.Trim();
+            string str="";
+            if (lei == 1)
+            {
+                str = "http://1725r3a792.iask.in:28445/Server_ChangeTest.ashx?action=questionchange&specifictest=" + CeYan.Trim();
+            }
+            else
+            {
+                str = "http://1725r3a792.iask.in:28445/Server_ChangeTest.ashx?action=add&specifictest=" + CeYan.Trim()+"&kemu="+KeMu.Trim();
+            }
             for (int i = 0; i < zongshu; i++)
             {
                 str = str + "&";
@@ -200,11 +227,10 @@ namespace Automatic_Course_Test_System
                     str = str + dt.Rows[i]["answer"].ToString();
 
             }
-
+            
             try
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
-                MessageBox.Show(str);
                 byte[] getWeatherUrl = encoding.GetBytes(str);
                 HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create(str);
                 webReq.Method = "post";
@@ -299,56 +325,79 @@ namespace Automatic_Course_Test_System
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (lei == 1)
+            if (lei != 1)
             {
-                string str = "";
-                str = dataGridView1.CurrentRow.Cells[0].ToString();
-                str = str.Remove(0, str.Length - 3);
-                str = str.Remove(1, 2);
-                num = Convert.ToInt32(str);
-                if (num >= zongshu)
+                dt.Rows[num]["question"] = textBox1.Text;
+                dt.Rows[num]["testnumber"] = num;
+                if (radioButton1.Checked == true)
                 {
-                    return;
-                }
-                label2.Text = "第" + (num + 1) + "题目";
-                //显示题目
-                textBox1.Text = dt.Rows[num]["question"].ToString();
-                if (dt.Rows[num]["type"].ToString() == "1")
-                {
-
-                    radioButton1.Checked = true;
-                    groupBox2.Show();
-                    groupBox3.Hide();
-                    textBox2.Text = dt.Rows[num]["choiceanswerA"].ToString();
-                    textBox3.Text = dt.Rows[num]["choiceanswerB"].ToString();
-                    textBox4.Text = dt.Rows[num]["choiceanswerC"].ToString();
-                    textBox5.Text = dt.Rows[num]["choiceanswerD"].ToString();
-
-                    if (dt.Rows[num]["answer"].ToString()[0] == 'A')
-                    {
-                        radioButton3.Checked = true;
-                    }
-                    else if (dt.Rows[num]["answer"].ToString()[0] == 'B')
-                    {
-                        radioButton4.Checked = true;
-                    }
-                    else if (dt.Rows[num]["answer"].ToString()[0] == 'C')
-                    {
-                        radioButton5.Checked = true;
-                    }
-                    else
-                    {
-                        radioButton6.Checked = true;
-                    }
-
+                    dt.Rows[num]["type"] = "1";
+                    dt.Rows[num]["choiceanswerA"] = textBox2.Text;
+                    dt.Rows[num]["choiceanswerB"] = textBox3.Text;
+                    dt.Rows[num]["choiceanswerC"] = textBox4.Text;
+                    dt.Rows[num]["choiceanswerD"] = textBox5.Text;
+                    if (radioButton3.Checked == true)
+                        dt.Rows[num]["answer"] = "A";
+                    else if (radioButton4.Checked == true)
+                        dt.Rows[num]["answer"] = "B";
+                    else if (radioButton5.Checked == true)
+                        dt.Rows[num]["answer"] = "C";
+                    else if (radioButton6.Checked == true)
+                        dt.Rows[num]["answer"] = "D";
                 }
                 else
                 {
-                    radioButton2.Checked = true;
-                    groupBox2.Hide();
-                    groupBox3.Show();
-                    textBox6.Text = dt.Rows[num]["answer"].ToString();
+                    dt.Rows[num]["type"] = "2";
+                    dt.Rows[num]["answer"] = textBox6.Text;
                 }
+            }
+            string str = "";
+            str = dataGridView1.CurrentRow.Cells[0].ToString();
+            str = str.Remove(0, str.Length - 3);
+            str = str.Remove(1, 2);
+            num = Convert.ToInt32(str);
+            if (num >= zongshu)
+            {
+                return;
+            }
+            label2.Text = "第" + (num + 1) + "题目";
+            //显示题目
+            textBox1.Text = dt.Rows[num]["question"].ToString();
+            if (dt.Rows[num]["type"].ToString() == "1")
+            {
+
+                radioButton1.Checked = true;
+                groupBox2.Show();
+                groupBox3.Hide();
+                textBox2.Text = dt.Rows[num]["choiceanswerA"].ToString();
+                textBox3.Text = dt.Rows[num]["choiceanswerB"].ToString();
+                textBox4.Text = dt.Rows[num]["choiceanswerC"].ToString();
+                textBox5.Text = dt.Rows[num]["choiceanswerD"].ToString();
+
+                if (dt.Rows[num]["answer"].ToString()[0] == 'A')
+                {
+                    radioButton3.Checked = true;
+                }
+                else if (dt.Rows[num]["answer"].ToString()[0] == 'B')
+                {
+                    radioButton4.Checked = true;
+                }
+                else if (dt.Rows[num]["answer"].ToString()[0] == 'C')
+                {
+                    radioButton5.Checked = true;
+                }
+                else
+                {
+                    radioButton6.Checked = true;
+                }
+
+            }
+            else
+            {
+                radioButton2.Checked = true;
+                groupBox2.Hide();
+                groupBox3.Show();
+                textBox6.Text = dt.Rows[num]["answer"].ToString();
             }
         }
 
@@ -417,20 +466,20 @@ namespace Automatic_Course_Test_System
             dt = DataTableColumn(); //具体题目表
 
             //题数表
-            DataColumn dc1 = new DataColumn("testnumber", typeof(string));
-            dtnum.Columns.Add(dc1);
-            for (int i = 0; i < 20; ++i)
+            DataColumn dc2 = new DataColumn("testnumber", typeof(string));
+            dtnum.Columns.Add(dc2);
+            for (int i = 1; i <= 10; ++i)
             {
                 DataRow dr = dt.NewRow();
                 DataRow drnum = dtnum.NewRow();
-                
-                
-                drnum["testnumber"] = "第" + i+1 + "题";
-                
+
+
+                drnum["testnumber"] = "第" + i + "题";
+
                 dt.Rows.Add(dr);
                 dtnum.Rows.Add(drnum);
             }
-            zongshu = 20;
+            zongshu = 10;
         }
 
     }
