@@ -23,6 +23,7 @@ namespace Automatic_Course_Test_System
         string S_name = null;
 
         string html = "";
+
         public InquiryByExaminee(Form Admin,Form Examinee)
         {
             InitializeComponent();
@@ -37,6 +38,7 @@ namespace Automatic_Course_Test_System
             comboBox2.ValueMember = "specifictest";
             specifictest(banji);
         }
+
         public void getmessage(string z)
         {
             zhanghao = z;
@@ -60,6 +62,7 @@ namespace Automatic_Course_Test_System
                 Application.Exit();
             }
         }
+
         /// <summary>
         /// 获取班级操作
         /// 调用Server_Examinee的test函数
@@ -118,6 +121,7 @@ namespace Automatic_Course_Test_System
                 comboBox1.DataSource = dt;
             }
         }
+
         /// <summary>
         /// 获取考生姓名，班级设为“banji”上传
         /// 调用Server_Examinee的specific_test函数
