@@ -30,19 +30,19 @@ namespace Automatic_Course_Test_System
         private void button1_Click(object sender, EventArgs e)
         {
             Close = false;
-            InquiryByTest f = new InquiryByTest(FatherForm,this);
+            InquiryByTest f = new InquiryByTest(FatherForm);
             f.Show();
             f.getmessage(zhanghao);
-            this.Hide();
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Close = false;
-            InquiryByExaminee f = new InquiryByExaminee(FatherForm,this);
+            InquiryByExaminee f = new InquiryByExaminee(FatherForm);
             f.Show();
             f.getmessage(zhanghao);
-            this.Hide();
+            this.Close();
         }
 
         private void Examinee_FormClosing(object sender, FormClosingEventArgs e)
@@ -51,6 +51,15 @@ namespace Automatic_Course_Test_System
             {
                 Application.Exit();
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            Administrator f = new Administrator(FatherForm);
+            f.getmessage(zhanghao);
+            this.Close();
+            f.Show();
         }
     }
 }

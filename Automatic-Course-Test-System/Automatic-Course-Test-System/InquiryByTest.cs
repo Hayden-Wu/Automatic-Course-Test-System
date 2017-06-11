@@ -17,7 +17,6 @@ namespace Automatic_Course_Test_System
     {
         private string zhanghao = null;
         private Form FatherForm = null;
-        private Form ChildForm = null;
         private bool Close = true;
         string html = "";
         string KeMu = null;
@@ -29,11 +28,10 @@ namespace Automatic_Course_Test_System
         DataTable dt_name = new DataTable();
         DataTable dt_score = new DataTable();
 
-        public InquiryByTest(Form Admin,Form Examinee)
+        public InquiryByTest(Form Admin)
         {
             InitializeComponent();
             FatherForm = Admin;
-            ChildForm = Examinee;
             Close = true;
 
             test();
@@ -90,7 +88,7 @@ namespace Automatic_Course_Test_System
         private void button2_Click(object sender, EventArgs e)
         {
             Close = false;
-            Administrator f = new Administrator(FatherForm);
+            Examinee f = new Examinee(FatherForm);
             f.getmessage(zhanghao);
             this.Close();
             f.Show();
@@ -220,11 +218,10 @@ namespace Automatic_Course_Test_System
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            S_class = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString().Trim();
-            S_name = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[1].Value.ToString().Trim();
+            S_name = dataGridView1.CurrentRow.Cells[0].Value.ToString();
 
             Close = false;
-            ExamineeInformation f = new ExamineeInformation(FatherForm, ChildForm,S_class,S_name);
+            ExamineeInformation f = new ExamineeInformation(FatherForm,1 ,S_name);
             f.Show();
             f.getmessage(zhanghao);
             this.Close();

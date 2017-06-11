@@ -32,11 +32,16 @@ namespace Automatic_Course_Test_System_Server
 
             string action = httpContext.Request.QueryString["action"];
             string banji = httpContext.Request.QueryString["banji"];
+            string username = httpContext.Request.QueryString["username"];
 
             if (action == "test")
                 Test();
-            else if(action == "specifictest")
+            else if (action == "specifictest")
                 Specific_test(banji);
+            else if (action == "class")
+                UserClass(username);
+            else if (action == "results")
+                Results(username);
         }
 
         public bool IsReusable
@@ -46,6 +51,7 @@ namespace Automatic_Course_Test_System_Server
                 return false;
             }
         }
+
         protected void Test()
         {
             XmlDocument xmlDoc = new XmlDocument();
@@ -126,6 +132,94 @@ namespace Automatic_Course_Test_System_Server
                     XmlNode root = xmlDoc.SelectSingleNode("informations");
                     XmlElement xe1 = xmlDoc.CreateElement("information");
                     xe1.SetAttribute("username", "" + username + "");
+                    root.AppendChild(xe1);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                XmlNode root = xmlDoc.SelectSingleNode("informations");
+                XmlElement xe1 = xmlDoc.CreateElement("warn");
+                XmlElement xeSub1 = xmlDoc.CreateElement("success");
+                xeSub1.InnerText = "false2";
+                xe1.AppendChild(xeSub1);
+                XmlElement xeSub2 = xmlDoc.CreateElement("err_msg");
+                xeSub2.InnerText = "" + ex.Message + "";
+                xe1.AppendChild(xeSub2);
+                root.AppendChild(xe1);
+            }
+
+            httpContext.Response.Write(xmlDoc.InnerXml);
+        }
+
+        protected void UserClass(string username)
+        {
+            string classroom = "-1";
+
+            string constr = "server=.;database=CourseTest;Integrated Security=SSPI";
+            try
+            {
+                //SqlConnection conn = new SqlConnection(constr.ConnectionString);
+                SqlConnection conn = new SqlConnection(constr);
+                conn.Open();
+                string sqlstr = "select class from CourseTestExaminee "
+                    + "where username = '" + username.Trim() + "'";
+
+
+                SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
+                DataSet ds = new DataSet();
+                SD.Fill(ds);
+
+                conn.Close();
+
+                classroom = ds.Tables[0].Rows[0]["class"].ToString();
+            }
+            catch (Exception ex)
+            {
+                classroom = ex.Message;
+            }
+            finally
+            { }
+
+            httpContext.Response.Write(classroom);
+        }
+
+        protected void Results(string username)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            XmlDeclaration xmlDeclar;
+            xmlDeclar = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            xmlDoc.AppendChild(xmlDeclar);
+            XmlElement xmlElement = xmlDoc.CreateElement("", "informations", "");
+            xmlDoc.AppendChild(xmlElement);
+
+            string constr = "server=.;database=CourseTest;Integrated Security=SSPI";
+
+            try
+            {
+                //SqlConnection conn = new SqlConnection(constr.ConnectionString);
+                SqlConnection conn = new SqlConnection(constr);
+                conn.Open();
+                string sqlstr = "select specifictest,score from CourseTestResults "
+                    + "where username ='" + username.Trim() + "'";
+
+                SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
+                DataSet ds = new DataSet();
+                SD.Fill(ds);
+
+                conn.Close();
+
+
+                for (int i = 0; i < ds.Tables[0].Rows.Count; ++i)
+                {
+                    string specifictest = ds.Tables[0].Rows[i]["specifictest"].ToString();
+                    string score = ds.Tables[0].Rows[i]["score"].ToString();
+                    XmlNode root = xmlDoc.SelectSingleNode("informations");
+                    XmlElement xe1 = xmlDoc.CreateElement("information");
+                    xe1.SetAttribute("specifictest", "" + specifictest + "");
+                    XmlElement xeSub1 = xmlDoc.CreateElement("score");
+                    xeSub1.InnerText = "" + score + "";
+                    xe1.AppendChild(xeSub1);
                     root.AppendChild(xe1);
                 }
 

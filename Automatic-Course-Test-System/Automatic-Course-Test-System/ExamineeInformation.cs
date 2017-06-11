@@ -18,25 +18,31 @@ namespace Automatic_Course_Test_System
         private bool Close = true;
         private string zhanghao = null;
         private Form FatherForm = null;
-        private Form ChildForm = null;
-        string S_class = null;
-        string S_name = null;
-        string html = null;
+        string S_name = "-1";
+        string html = "-1";
+        int beforeform = -1;
         DataTable dt = new DataTable();
         DataTable dt_ceyan = new DataTable();
         DataTable dt_chengji = new DataTable();
-        public ExamineeInformation(Form Admin,Form Examinee,string s_class,string s_name)
+        public ExamineeInformation(Form Admin,int BeforeForm,string s_name)
         {
             InitializeComponent();
             FatherForm = Admin;
-            ChildForm = Examinee;
-            S_class = s_class;
             S_name = s_name;
+            beforeform = BeforeForm;
             Close = true;
             textBox1.Text = S_name;
-            textBox2.Text = S_class;
 
-            test();
+            classroom(S_name);
+
+            textBox2.Text = html;
+
+            Score(S_name);
+
+            DataGridViewCellStyle dgvcs = new DataGridViewCellStyle();
+            dgvcs.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.DefaultCellStyle = dgvcs;
+            dataGridView1.DataSource = dt;
         }
 
         public void getmessage(string z)
@@ -56,9 +62,17 @@ namespace Automatic_Course_Test_System
         private void button1_Click(object sender, EventArgs e)
         {
             Close = false;
-            if (this.ChildForm != null)
+            if(beforeform == 1)
             {
-                this.ChildForm.Visible = true;
+                InquiryByTest f = new InquiryByTest(FatherForm);
+                f.Show();
+                f.getmessage(zhanghao);
+            }
+            else
+            {
+                InquiryByExaminee f = new InquiryByExaminee(FatherForm);
+                f.Show();
+                f.getmessage(zhanghao);
             }
             this.Close();
         }
@@ -69,13 +83,14 @@ namespace Automatic_Course_Test_System
                 Application.Exit();
         }
 
-        void test()
+        void classroom(string name)
         {
             try
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_ExamineeInformation.ashx?action=inquiry&s_class=" + S_class + "s_name=" + S_name);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_ExamineeInformation.ashx?action=inquiry&s_class=" + S_class + "s_name=" + S_name);
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Examinee.ashx?action=class&username=" + name.Trim());
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Examinee.ashx?action=class&username=" + name.Trim());
+
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
 
@@ -91,19 +106,46 @@ namespace Automatic_Course_Test_System
                 html = sr.ReadToEnd();
                 sr.Close();
                 stream.Close();
-
-                jiexi(html);
-
-                DataGridViewCellStyle dgvcs = new DataGridViewCellStyle();
-                dgvcs.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                dataGridView1.DefaultCellStyle = dgvcs;
-                dataGridView1.DataSource = dt;
             }
             catch
             {
-                MessageBox.Show("链接失败123");
+                MessageBox.Show("链接失败1");
             }
         }
+
+        void Score(string name)
+        {
+            try
+            {
+                Encoding encoding = Encoding.GetEncoding("utf-8");
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Examinee.ashx?action=results&username=" + name.Trim());
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Examinee.ashx?action=results&username=" + name.Trim());
+
+                webReq.Method = "post";
+                webReq.ContentType = "text/xml";
+
+                Stream outstream = webReq.GetRequestStream();
+                outstream.Write(getWeatherUrl, 0, getWeatherUrl.Length);
+                outstream.Flush();
+                outstream.Close();
+
+                webReq.Timeout = 2000;
+                HttpWebResponse webResp = (HttpWebResponse)webReq.GetResponse();
+                Stream stream = webResp.GetResponseStream();
+                StreamReader sr = new StreamReader(stream, encoding);
+                html = sr.ReadToEnd();
+                sr.Close();
+                stream.Close();
+            }
+            catch
+            {
+                MessageBox.Show("链接失败1");
+            }
+
+            jiexi(html);
+            
+        }
+
         public void jiexi(string x)
         {
             XmlDocument doc = new XmlDocument();
@@ -125,29 +167,16 @@ namespace Automatic_Course_Test_System
                 dt = null;
                 dt = DataTableColumn(); //具体题目表
 
-                //题数表
-                DataColumn dc1 = new DataColumn("测验", typeof(string));
-                DataColumn dc2 = new DataColumn("成绩", typeof(string));
-                dt_ceyan.Columns.Add(dc1);
-                dt_chengji.Columns.Add(dc2);
-
                 for (int i = 0; i < nodelist.Count; ++i)
                 {
                     DataRow dr = dt.NewRow();
-                    DataRow dr_ceyan = dt_ceyan.NewRow();
-                    DataRow dr_chengji = dt_chengji.NewRow();
                     XmlNode node = nodelist[i];
-                    dr[dt.Columns[0].ColumnName] = node.Attributes["s_specifictest"].InnerText;
-                    dr_ceyan["测验"] = node.Attributes["s_specifictest"].InnerText;
-                    dr[dt.Columns[1].ColumnName] = node.Attributes["s_score"].InnerText;
-                    dr_chengji["成绩"] = node.Attributes["s_score"].InnerText;
+                    dr[dt.Columns[0].ColumnName] = node.Attributes["specifictest"].InnerText;
                     for (int j = 1; j < dt.Columns.Count; ++j)
                     {
                         dr[dt.Columns[j].ColumnName] = node.ChildNodes[j - 1].InnerText.Trim();
                     }
                     dt.Rows.Add(dr);
-                    dt_ceyan.Rows.Add(dr_ceyan);
-                    dt_chengji.Rows.Add(dr_chengji);;
                 }
             }
         }
@@ -157,7 +186,7 @@ namespace Automatic_Course_Test_System
         private DataTable DataTableColumn()
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("测验");
+            dt.Columns.Add("考试");
             dt.Columns.Add("成绩");
             return dt;
         }
