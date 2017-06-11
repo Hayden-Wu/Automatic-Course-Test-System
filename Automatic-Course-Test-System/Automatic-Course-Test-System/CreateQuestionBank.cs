@@ -36,8 +36,8 @@ namespace Automatic_Course_Test_System
             try
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=create&&specific_test=" + CeYan);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=create&&specific_test=" + CeYan);
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=creat&&specifictest=" + CeYan);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Inquire.ashx?action=creat&&specifictest=" + CeYan);
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
 
@@ -83,5 +83,13 @@ namespace Automatic_Course_Test_System
                 Application.Exit();
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            Administrator f = new Administrator(FatherForm);
+            f.getmessage(zhanghao);
+            this.Close();
+            f.Show();
+        }
     }
 }
