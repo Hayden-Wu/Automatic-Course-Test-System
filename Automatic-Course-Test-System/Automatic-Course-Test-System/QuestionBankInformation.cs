@@ -165,7 +165,8 @@ namespace Automatic_Course_Test_System
         private void button1_Click(object sender, EventArgs e)
         {
             string html = "-1";
-            string str = "http://1725r3a792.iask.in:28445/Server_Test.ashx?action=questionin&specifictest=" + CeYan;
+
+            string str = "http://1725r3a792.iask.in:28445/Server_ChangeTest.ashx?action=questionchange&specifictest=" + CeYan.Trim();
             for (int i = 0; i < zongshu; i++)
             {
                 str = str + "&";
@@ -203,6 +204,7 @@ namespace Automatic_Course_Test_System
             try
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
+                MessageBox.Show(str);
                 byte[] getWeatherUrl = encoding.GetBytes(str);
                 HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create(str);
                 webReq.Method = "post";
@@ -240,7 +242,7 @@ namespace Automatic_Course_Test_System
             else
             {
                 MessageBox.Show("修改失败");
-                textBox1.Text = html;
+                textBox1.Text = str;
             }
 
         }

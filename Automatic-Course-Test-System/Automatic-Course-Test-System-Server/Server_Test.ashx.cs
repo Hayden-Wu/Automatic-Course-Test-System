@@ -229,13 +229,13 @@ namespace Automatic_Course_Test_System_Server
                     xeSub3.InnerText = "" + model.ChoiceanswerA.Trim() + "";
                     xe1.AppendChild(xeSub3);
                     XmlElement xeSub4 = xmlDoc.CreateElement("choiceanswerB");
-                    xeSub4.InnerText = "" + model.ChoiceanswerA.Trim() + "";
+                    xeSub4.InnerText = "" + model.ChoiceanswerB.Trim() + "";
                     xe1.AppendChild(xeSub4);
                     XmlElement xeSub5 = xmlDoc.CreateElement("choiceanswerC");
-                    xeSub5.InnerText = "" + model.ChoiceanswerA.Trim() + "";
+                    xeSub5.InnerText = "" + model.ChoiceanswerC.Trim() + "";
                     xe1.AppendChild(xeSub5);
                     XmlElement xeSub6 = xmlDoc.CreateElement("choiceanswerD");
-                    xeSub6.InnerText = "" + model.ChoiceanswerA.Trim() + "";
+                    xeSub6.InnerText = "" + model.ChoiceanswerD.Trim() + "";
                     xe1.AppendChild(xeSub6);
                     root.AppendChild(xe1);
                 }
@@ -404,13 +404,13 @@ namespace Automatic_Course_Test_System_Server
                     xeSub3.InnerText = "" + model.ChoiceanswerA.Trim() + "";
                     xe1.AppendChild(xeSub3);
                     XmlElement xeSub4 = xmlDoc.CreateElement("choiceanswerB");
-                    xeSub4.InnerText = "" + model.ChoiceanswerA.Trim() + "";
+                    xeSub4.InnerText = "" + model.ChoiceanswerB.Trim() + "";
                     xe1.AppendChild(xeSub4);
                     XmlElement xeSub5 = xmlDoc.CreateElement("choiceanswerC");
-                    xeSub5.InnerText = "" + model.ChoiceanswerA.Trim() + "";
+                    xeSub5.InnerText = "" + model.ChoiceanswerC.Trim() + "";
                     xe1.AppendChild(xeSub5);
                     XmlElement xeSub6 = xmlDoc.CreateElement("choiceanswerD");
-                    xeSub6.InnerText = "" + model.ChoiceanswerA.Trim() + "";
+                    xeSub6.InnerText = "" + model.ChoiceanswerD.Trim() + "";
                     xe1.AppendChild(xeSub6);
                     XmlElement xeSub7 = xmlDoc.CreateElement("answer");
                     xeSub7.InnerText = "" + answer + "";

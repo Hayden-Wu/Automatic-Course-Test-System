@@ -126,24 +126,28 @@ namespace Automatic_Course_Test_System_Server
             httpContext.Response.Write(result);
             conn.Close();
         }
+
         protected void Ifcreat( string specifictest)
         {
+            string result;
             string constr = "server=.;database=CourseTest;Integrated Security=SSPI";
             SqlConnection conn = new SqlConnection(constr);
             conn.Open();
             string sqlstr = "select * from CourseTestSpecificTest "
                     + "where specifictest = '" + specifictest.Trim() + "'";
 
-            SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
-            DataSet ds = new DataSet();
-            SD.Fill(ds);
-            if(ds.Tables[0].Rows[0][2].ToString()=="")
+            SqlCommand SC = new SqlCommand(sqlstr, conn);
+            SqlDataReader SDR = SC.ExecuteReader();
+
+            if (SDR.Read())
             {
-                result = "0";
+                SDR.Close();
+                result = "1";
             }
             else
             {
-                result = "1";
+                SDR.Close();
+                result = "0";
             }
 
             httpContext.Response.Write(result);
