@@ -194,7 +194,7 @@ namespace Automatic_Course_Test_System
             {
                 str = "http://1725r3a792.iask.in:28445/Server_ChangeTest.ashx?action=add&test=" + CeYan.Trim() + "&specifictest=" + KeMu.Trim();
                 dt.Rows[num]["question"] = textBox1.Text;
-                dt.Rows[num]["testnumber"] = num;
+                dt.Rows[num]["testnumber"] = num+1;
                 if (radioButton1.Checked == true)
                 {
                     dt.Rows[num]["type"] = "1";
@@ -351,7 +351,7 @@ namespace Automatic_Course_Test_System
             if (lei != 1)
             {
                 dt.Rows[num]["question"] = textBox1.Text;
-                dt.Rows[num]["testnumber"] = num;
+                dt.Rows[num]["testnumber"] = num+1;
                 if (radioButton1.Checked == true)
                 {
                     dt.Rows[num]["type"] = "1";
