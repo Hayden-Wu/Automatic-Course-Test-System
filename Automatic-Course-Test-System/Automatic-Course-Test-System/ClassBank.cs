@@ -262,6 +262,7 @@ namespace Automatic_Course_Test_System
 
         public Class_Upload()
         { }
+
         public void copyto(Class_Upload b)
         {
             examineenumber = b.examineenumber;
@@ -272,6 +273,7 @@ namespace Automatic_Course_Test_System
             answer = b.answer;
            
         }
+
         public string Examineenumber
         {
             get

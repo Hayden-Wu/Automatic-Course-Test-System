@@ -20,11 +20,11 @@ namespace Automatic_Course_Test_System
         private string zhanghao = null;
         string html = "";
         
-        public QuestionBank(Form Admin)
+        public QuestionBank(Form Sign)
         {
             InitializeComponent();
             Close = true;
-            FatherForm = Admin;
+            FatherForm = Sign;
 
             test();
             string KeMu = comboBox1.Text.Trim();
@@ -33,6 +33,7 @@ namespace Automatic_Course_Test_System
             comboBox2.ValueMember = "specifictest";
             specifictest(KeMu);
         }
+
         public void getmessage(string z)
         {
             zhanghao = z;
@@ -44,15 +45,6 @@ namespace Automatic_Course_Test_System
                 Application.Exit();
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Close = false;
-            CreateQuestionBank f = new CreateQuestionBank(FatherForm);
-            f.getmessage(zhanghao);
-            f.Show();
-            this.Close();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             string KeMu = comboBox1.SelectedValue.ToString().Trim();
@@ -62,6 +54,26 @@ namespace Automatic_Course_Test_System
             f.gettest(KeMu,CeYan,zhanghao,1);
             f.Show();
             this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            delete();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            CreateQuestionBank f = new CreateQuestionBank(FatherForm);
+            f.getmessage(zhanghao);
+            f.Show();
+            this.Close();
+        }
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            string KeMu = comboBox1.SelectedValue.ToString().Trim();
+            specifictest(KeMu);
         }
 
         private void test()
@@ -118,6 +130,7 @@ namespace Automatic_Course_Test_System
                 comboBox1.DataSource = dt;
             }
         }
+
         private void specifictest(string testvalue)
         {
             string test = testvalue.Trim();
@@ -171,16 +184,6 @@ namespace Automatic_Course_Test_System
                 comboBox2.DataSource = dt;
             }
         }
-        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            string KeMu = comboBox1.SelectedValue.ToString().Trim();
-            specifictest(KeMu);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            delete();
-        }
 
         /// <summary>
         /// 删除科目操作，“科目”设为test，“测验”设为sprcifictest
@@ -224,6 +227,15 @@ namespace Automatic_Course_Test_System
             {
                 MessageBox.Show("删除失败");
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            Administrator f = new Administrator(FatherForm);
+            f.getmessage(zhanghao);
+            this.Close();
+            f.Show();
         }
     }
 }
