@@ -229,5 +229,14 @@ namespace Automatic_Course_Test_System
             string testvalue = comboBox1.SelectedValue.ToString().Trim();
             specifictest(testvalue);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            User f = new User(FatherForm);
+            f.getmessage(zhanghao);
+            this.Close();
+            f.Show();
+        }
     }
 }
