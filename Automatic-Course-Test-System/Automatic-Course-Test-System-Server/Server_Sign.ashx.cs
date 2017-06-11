@@ -35,12 +35,13 @@ namespace Automatic_Course_Test_System_Server
             string username = httpContext.Request.QueryString["username"];
             string password = httpContext.Request.QueryString["password"];
             string classroom = httpContext.Request.QueryString["classroom"];
+            string name = httpContext.Request.QueryString["name"];
             string administrstorpassword = httpContext.Request.QueryString["administrstorpassword"];
 
             if (action == "sign")
                 Sign(username, password);
             else if (action == "registereduser")
-                RegisteredUser(username, password, classroom);
+                RegisteredUser(username, password, classroom, name);
             else if (action == "registeredadministrstor")
                 RegisteredAdministrator(username, password, administrstorpassword);
             else if (action == "classroom")
@@ -98,7 +99,7 @@ namespace Automatic_Course_Test_System_Server
             httpContext.Response.Write(login);
         }
 
-        protected void RegisteredUser(string username, string password, string classroom)
+        protected void RegisteredUser(string username, string password, string classroom, string name)
         {
             int RegisteredReturn = -1;
 
@@ -127,8 +128,8 @@ namespace Automatic_Course_Test_System_Server
                     SqlCommand SC2 = new SqlCommand(sqlstr2, conn);
                     int mark = SC2.ExecuteNonQuery();
 
-                    string sqlstr3 = "insert into CourseTestExaminee(username,class)"
-                        + "values('" + username.Trim() + "','" + classroom.Trim() + "')";
+                    string sqlstr3 = "insert into CourseTestExaminee(username,name,class)"
+                        + "values('" + username.Trim() + "','" + name.Trim() + "','" + classroom.Trim() + "')";
                     SqlCommand SC3 = new SqlCommand(sqlstr3, conn);
                     int mark2 = SC3.ExecuteNonQuery();
 

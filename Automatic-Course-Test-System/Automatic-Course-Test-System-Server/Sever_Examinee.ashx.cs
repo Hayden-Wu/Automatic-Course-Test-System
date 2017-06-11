@@ -117,7 +117,7 @@ namespace Automatic_Course_Test_System_Server
                 //SqlConnection conn = new SqlConnection(constr.ConnectionString);
                 SqlConnection conn = new SqlConnection(constr);
                 conn.Open();
-                string sqlstr = "select class from CourseTestExaminee where class ="+banji+";
+                string sqlstr = "select class from CourseTestExaminee where class ="+banji;
 
                 SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
                 DataSet ds = new DataSet();
