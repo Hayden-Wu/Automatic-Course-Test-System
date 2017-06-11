@@ -289,14 +289,14 @@ namespace Automatic_Course_Test_System_Server
                     if(model.Type == 1)
                     {
                         if (model.Choiceanswer.Trim() == answer[model.Testnumber - 1].Trim())
-                            results += 5;
+                            results += 10;
                     }
                     else if(model.Type == 2)
                     {
                         int num = -1;
                         num = answer[model.Testnumber - 1].Trim().IndexOf(model.Answer.Trim());
                         if (num >= 0)
-                            results += 5;
+                            results += 10;
                     }
                 }
 
