@@ -88,8 +88,12 @@ namespace Automatic_Course_Test_System
             }
             if(html=="1")
             {
+                Close = false;
                 MessageBox.Show("删除成功");
-                
+                QuestionBank f2 = new QuestionBank(this.FatherForm);
+                f2.getmessage(zhanghao);
+                f2.Show();
+                this.Close();
             }
             else
             {
