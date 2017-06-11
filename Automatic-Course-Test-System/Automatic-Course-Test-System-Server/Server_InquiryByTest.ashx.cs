@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Xml;
 
 namespace Automatic_Course_Test_System_Server
 {
@@ -30,7 +33,8 @@ namespace Automatic_Course_Test_System_Server
             string action = httpContext.Request.QueryString["action"];
             string specifictest = httpContext.Request.QueryString["specifictest"];
 
-            if(action == "")
+            if (action == "studenttest")
+                StudentTest(specifictest);
         }
 
         public bool IsReusable
@@ -39,6 +43,56 @@ namespace Automatic_Course_Test_System_Server
             {
                 return false;
             }
+        }
+
+        private void StudentTest(string specifictest)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            XmlDeclaration xmlDeclar;
+            xmlDeclar = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            xmlDoc.AppendChild(xmlDeclar);
+            XmlElement xmlElement = xmlDoc.CreateElement("", "informations", "");
+            xmlDoc.AppendChild(xmlElement);
+
+            string constr = "server=.;database=CourseTest;Integrated Security=SSPI";
+            try
+            {
+                SqlConnection conn = new SqlConnection(constr);
+                conn.Open();
+                string sqlstr = "select username from CourseTestResults where";
+
+                SqlDataAdapter SD = new SqlDataAdapter(sqlstr, conn);
+                DataSet ds = new DataSet();
+                SD.Fill(ds);
+
+                conn.Close();
+
+                Automatic_Course_Test_System_Server.Class_Test model = new Class_Test();
+
+                for (int i = 0; i < ds.Tables[0].Rows.Count; ++i)
+                {
+                    model.Test = ds.Tables[0].Rows[i]["test"].ToString();
+                    XmlNode root = xmlDoc.SelectSingleNode("informations");
+                    XmlElement xe1 = xmlDoc.CreateElement("information");
+                    xe1.SetAttribute("test", "" + model.Test + "");
+                    root.AppendChild(xe1);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                XmlNode root = xmlDoc.SelectSingleNode("informations");
+                XmlElement xe1 = xmlDoc.CreateElement("warn");
+                XmlElement xeSub1 = xmlDoc.CreateElement("success");
+                xeSub1.InnerText = "false2";
+                xe1.AppendChild(xeSub1);
+                XmlElement xeSub2 = xmlDoc.CreateElement("err_msg");
+                xeSub2.InnerText = "" + ex.Message + "";
+                xe1.AppendChild(xeSub2);
+                root.AppendChild(xe1);
+            }
+
+            httpContext.Response.Write(xmlDoc.InnerXml);
         }
     }
 }

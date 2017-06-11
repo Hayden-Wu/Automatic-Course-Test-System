@@ -56,8 +56,8 @@ namespace Automatic_Course_Test_System
             try
             {
                 Encoding encoding = Encoding.GetEncoding("utf-8");
-                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_InquiryByTest.ashx?action=questionall&specifictest=" + CeYan);
-                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_InquiryByTest.ashx?action=questionall&specifictest=" + CeYan);
+                byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_InquiryByTest.ashx?action=studenttest&specifictest=" + CeYan);
+                HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_InquiryByTest.ashx?action=studenttest&specifictest=" + CeYan);
                 webReq.Method = "post";
                 webReq.ContentType = "text/xml";
 
@@ -153,6 +153,7 @@ namespace Automatic_Course_Test_System
                 comboBox1.DataSource = dt;
             }
         }
+
         private void specifictest(string testvalue)
         {
             string test = testvalue.Trim();
