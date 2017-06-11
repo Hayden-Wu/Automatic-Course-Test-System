@@ -21,6 +21,7 @@ namespace Automatic_Course_Test_System
         private string zhanghao = null;
         private string mima = null;
         private string banji = null;
+        private string name = null;
         private string AdministratorPassword;
 
         string html = "";
@@ -33,8 +34,10 @@ namespace Automatic_Course_Test_System
 
             label5.Hide();
             label6.Hide();
+            label7.Hide();
             comboBox1.Hide();
             textBox4.Hide();
+            textBox5.Hide();
 
             comboBox1.DisplayMember = "";
             comboBox1.ValueMember = "classroom";
@@ -61,12 +64,13 @@ namespace Automatic_Course_Test_System
                 if (radioButton1.Checked)
                 {
                     banji = comboBox1.Text.Trim();
+                    name = textBox5.Text.Trim();
 
                     try
                     {
                         Encoding encoding = Encoding.GetEncoding("utf-8");
-                        byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=registereduser&username=" + zhanghao + "&password=" + mima + "&classroom=" + banji);
-                        HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=registereduser&username=" + zhanghao + "&password=" + mima + "&classroom=" + banji);
+                        byte[] getWeatherUrl = encoding.GetBytes("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=registereduser&username=" + zhanghao + "&password=" + mima + "&classroom=" + banji + "&name=" + name);
+                        HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("http://1725r3a792.iask.in:28445/Server_Sign.ashx?action=registereduser&username=" + zhanghao + "&password=" + mima + "&classroom=" + banji + "&name=" + name);
                         webReq.Method = "post";
                         webReq.ContentType = "text/xml";
 
@@ -289,6 +293,8 @@ namespace Automatic_Course_Test_System
             {
                 label5.Show();
                 comboBox1.Show();
+                label7.Show();
+                textBox5.Show();
                 label6.Hide();
                 textBox4.Hide();
 
@@ -303,6 +309,8 @@ namespace Automatic_Course_Test_System
             textBox4.Show();
             label5.Hide();
             comboBox1.Hide();
+            label7.Hide();
+            textBox5.Hide();
         }
     }
 }

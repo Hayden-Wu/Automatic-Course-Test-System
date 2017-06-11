@@ -32,6 +32,7 @@ namespace Automatic_Course_Test_System_Server
             httpContext.Response.ContentType = "text/plain";
 
             string action = httpContext.Request.QueryString["action"];
+            string test = httpContext.Request.QueryString["test"];
             string specifictest = httpContext.Request.QueryString["specifictest"];
             List<Class_ChangeTest> change = new List<Class_ChangeTest>();
             for(int i = 0; i < 10; i++)
@@ -51,6 +52,8 @@ namespace Automatic_Course_Test_System_Server
 
             if (action == "questionchange")
                 QuestionChange(specifictest, change);
+            else if (action == "add")
+                AddQuestion(test, specifictest, change);
         }
 
         public bool IsReusable
@@ -94,6 +97,60 @@ namespace Automatic_Course_Test_System_Server
                     }
                     SqlCommand SC2 = new SqlCommand(sqlstr2, conn);
                     int mark = SC2.ExecuteNonQuery();
+                }
+
+                conn.Close();
+
+                results = "1";
+
+            }
+            catch (Exception ex)
+            {
+                results = ex.Message + "123";
+            }
+            finally
+            { }
+
+            httpContext.Response.Write(results);
+        }
+
+        private void AddQuestion(string test, string specifictest, List<Class_ChangeTest> change)
+        {
+            string results = "0";
+
+            string constr = "server=.;database=CourseTest;Integrated Security=SSPI";
+
+            try
+            {
+                SqlConnection conn = new SqlConnection(constr);
+                conn.Open();
+
+                string sqlstr = "insert into CourseTestTest(test,specifictest) "
+                    + "values('" + test  + "','" + specifictest + "')";
+
+                SqlCommand SC1 = new SqlCommand(sqlstr, conn);
+                int mark = SC1.ExecuteNonQuery();
+                if (mark > 0)
+                {
+                    for (int i = 0; i < change.Count; ++i)
+                    {
+                        string sqlstr2;
+
+                        sqlstr2 = "insert into CourseTestSpecificTest (specifictest,testnumber,question,type,choiceanswer,choiceanswerA,choiceanswerB,choiceanswerC,choiceanswerD,answer) "
+                        + " values('" + specifictest.Trim() 
+                        + "','" + change[i].Testnumber
+                        + "','" + change[i].Question
+                        + "','" + change[i].Type 
+                        + "','" + change[i].Choiceanswer 
+                        + "','" + change[i].ChoiceanswerA
+                        + "','" + change[i].ChoiceanswerB 
+                        + "','" + change[i].ChoiceanswerC 
+                        + "','" + change[i].ChoiceanswerD 
+                        + "','" + change[i].Answer + "')";
+
+                        SqlCommand SC2 = new SqlCommand(sqlstr2, conn);
+                        int mark2 = SC2.ExecuteNonQuery();
+                    }
                 }
 
                 conn.Close();

@@ -273,5 +273,6 @@ namespace Automatic_Course_Test_System
             this.Close();
             f.Show();
         }
+
     }
 }

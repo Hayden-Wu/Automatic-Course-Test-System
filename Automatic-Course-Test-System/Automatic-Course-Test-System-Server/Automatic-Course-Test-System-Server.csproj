@@ -106,6 +106,7 @@
     <Content Include="Server_ChangeTest.ashx" />
     <Content Include="Server_InquiryByTest.ashx" />
     <Content Include="Sever_Examinee.ashx" />
+    <Content Include="Server_Delete.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -121,6 +122,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server_ChangeTest.ashx.cs">
       <DependentUpon>Server_ChangeTest.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Server_Delete.ashx.cs">
+      <DependentUpon>Server_Delete.ashx</DependentUpon>
     </Compile>
     <Compile Include="Server_Inquire.ashx.cs">
       <DependentUpon>Server_Inquire.ashx</DependentUpon>

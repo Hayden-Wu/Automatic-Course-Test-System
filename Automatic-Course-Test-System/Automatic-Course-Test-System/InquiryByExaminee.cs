@@ -176,5 +176,14 @@ namespace Automatic_Course_Test_System
                 comboBox2.DataSource = dt;
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close = false;
+            Administrator f = new Administrator(FatherForm);
+            f.getmessage(zhanghao);
+            this.Close();
+            f.Show();
+        }
     }
 }
