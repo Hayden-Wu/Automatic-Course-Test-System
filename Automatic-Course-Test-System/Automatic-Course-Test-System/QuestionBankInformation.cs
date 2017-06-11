@@ -164,93 +164,41 @@ namespace Automatic_Course_Test_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //string str = "http://1725r3a792.iask.in:28445/Server_Test.ashx?action=questionin&specifictest=" + CeYan;
-            //for (int i = 0; i < zongshu; i++)
-            //{
-            //    str = str + "&";
-            //    str = str + "testnumber"+i+"=";
-            //    str = str + dt.Rows[i]["testnumber"].ToString();
-            //    str = str + "&";
-            //    str = str + "question=";
-            //    str = str + dt.Rows[i]["question"].ToString();
-            //    str = str + "&";
-            //    str = str + "type=";
-            //    str = str + dt.Rows[i]["type"].ToString();
-            //    str = str + "&";
-            //    str = str + "choiceanswerA=";
-            //    str = str + dt.Rows[i]["choiceanswerA"].ToString();
-            //    str = str + "&";
-            //    str = str + "choiceanswerB=";
-            //    str = str + dt.Rows[i]["choiceanswerB"].ToString();
-            //    str = str + "&";
-            //    str = str + "choiceanswerC=";
-            //    str = str + dt.Rows[i]["choiceanswerC"].ToString();
-            //    str = str + "&";
-            //    str = str + "choiceanswerD=";
-            //    str = str + dt.Rows[i]["choiceanswerD"].ToString();
-            //    str = str + "&";
-            //    str = str + "choiceanswer=";
-            //    if (dt.Rows[i]["type"].ToString() == "1")
-            //        str = str + dt.Rows[i]["answer"].ToString();
-            //    str = str + "&";
-            //    str = str + "answer=";
-            //    if (dt.Rows[i]["type"].ToString() != "1")
-            //        str = str + dt.Rows[i]["answer"].ToString();
-
-            //}
             string html = "-1";
-            XmlDocument xmlDoc = new XmlDocument();
-            XmlDeclaration xmlDeclar;
-            xmlDeclar = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            xmlDoc.AppendChild(xmlDeclar);
-            XmlElement xmlElement = xmlDoc.CreateElement("", "informations", "");
-            xmlDoc.AppendChild(xmlElement);
+            string str = "http://1725r3a792.iask.in:28445/Server_Test.ashx?action=questionin&specifictest=" + CeYan;
+            for (int i = 0; i < zongshu; i++)
+            {
+                str = str + "&";
+                str = str + "testnumber" + i + "=";
+                str = str + dt.Rows[i]["testnumber"].ToString();
+                str = str + "&";
+                str = str + "question" + i + "=";
+                str = str + dt.Rows[i]["question"].ToString();
+                str = str + "&";
+                str = str + "type" + i + "=";
+                str = str + dt.Rows[i]["type"].ToString();
+                str = str + "&";
+                str = str + "choiceanswerA" + i + "=";
+                str = str + dt.Rows[i]["choiceanswerA"].ToString();
+                str = str + "&";
+                str = str + "choiceanswerB" + i + "=";
+                str = str + dt.Rows[i]["choiceanswerB"].ToString();
+                str = str + "&";
+                str = str + "choiceanswerC" + i + "=";
+                str = str + dt.Rows[i]["choiceanswerC"].ToString();
+                str = str + "&";
+                str = str + "choiceanswerD" + i + "=";
+                str = str + dt.Rows[i]["choiceanswerD"].ToString();
+                str = str + "&";
+                str = str + "choiceanswer" + i + "=";
+                if (dt.Rows[i]["type"].ToString() == "1")
+                    str = str + dt.Rows[i]["answer"].ToString();
+                str = str + "&";
+                str = str + "answer" + i + "=";
+                if (dt.Rows[i]["type"].ToString() != "1")
+                    str = str + dt.Rows[i]["answer"].ToString();
 
-            string answer = "";
-
-            Automatic_Course_Test_System.Class_Test model = new Class_Test();
-
-            for (int i = 0; i < zongshu; ++i)
-                {
-                    model.Testnumber = dt.Rows[i]["testnumber"].ToString();
-                    model.Question = dt.Rows[i]["question"].ToString();
-                    model.Type = int.Parse(dt.Rows[i]["type"].ToString());
-                    model.Choice_answerA = dt.Rows[i]["choiceanswerA"].ToString();
-                    model.Choice_answerB = dt.Rows[i]["choiceanswerB"].ToString();
-                    model.Choice_answerC = dt.Rows[i]["choiceanswerC"].ToString();
-                    model.Choice_answerD = dt.Rows[i]["choiceanswerD"].ToString();
-                    answer = dt.Rows[i]["answer"].ToString();
-
-                    XmlNode root = xmlDoc.SelectSingleNode("informations");
-                    XmlElement xe1 = xmlDoc.CreateElement("information");
-                    xe1.SetAttribute("testnumber", "" + model.Testnumber + "");
-                    XmlElement xeSub1 = xmlDoc.CreateElement("question");
-                    xeSub1.InnerText = "" + model.Question.Trim() + "";
-                    xe1.AppendChild(xeSub1);
-                    XmlElement xeSub2 = xmlDoc.CreateElement("type");
-                    xeSub2.InnerText = "" + model.Type + "";
-                    xe1.AppendChild(xeSub2);
-                    XmlElement xeSub3 = xmlDoc.CreateElement("choiceanswerA");
-                    xeSub3.InnerText = "" + model.Choice_answerA.Trim() + "";
-                    xe1.AppendChild(xeSub3);
-                    XmlElement xeSub4 = xmlDoc.CreateElement("choiceanswerB");
-                    xeSub4.InnerText = "" + model.Choice_answerA.Trim() + "";
-                    xe1.AppendChild(xeSub4);
-                    XmlElement xeSub5 = xmlDoc.CreateElement("choiceanswerC");
-                    xeSub5.InnerText = "" + model.Choice_answerA.Trim() + "";
-                    xe1.AppendChild(xeSub5);
-                    XmlElement xeSub6 = xmlDoc.CreateElement("choiceanswerD");
-                    xeSub6.InnerText = "" + model.Choice_answerA.Trim() + "";
-                    xe1.AppendChild(xeSub6);
-                    XmlElement xeSub7 = xmlDoc.CreateElement("answer");
-                    xeSub7.InnerText = "" + answer + "";
-                    xe1.AppendChild(xeSub7);
-                    root.AppendChild(xe1);
             }
-
-            string Xmlstring = ConvertXmlToString(xmlDoc);
-
-            string str = "http://1725r3a792.iask.in:28445/Server_ChangeTest.ashx?action=questionchange&specifictest=" + CeYan + "&xml=" + Xmlstring;
 
             try
             {
@@ -483,18 +431,5 @@ namespace Automatic_Course_Test_System
             zongshu = 20;
         }
 
-        public string ConvertXmlToString(XmlDocument xmlDoc)
-        {
-            MemoryStream stream = new MemoryStream();
-            XmlTextWriter writer = new XmlTextWriter(stream, null);
-            writer.Formatting = Formatting.Indented;
-            xmlDoc.Save(writer);
-            StreamReader sr = new StreamReader(stream, System.Text.Encoding.UTF8);
-            stream.Position = 0;
-            string xmlString = sr.ReadToEnd();
-            sr.Close();
-            stream.Close();
-            return xmlString;
-        }
     }
 }

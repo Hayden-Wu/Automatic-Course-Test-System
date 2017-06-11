@@ -34,6 +34,20 @@ namespace Automatic_Course_Test_System_Server
             string action = httpContext.Request.QueryString["action"];
             string specifictest = httpContext.Request.QueryString["specifictest"];
             string xml = httpContext.Request.QueryString["xml"];
+            List<Class_ChangeTest> change = new List<Class_ChangeTest>();
+            for(int i = 0; i < 20; i++)
+            {
+                Class_ChangeTest item = new Class_ChangeTest();
+                item.Testnumber = int.Parse(httpContext.Request.QueryString["testnumber" + i]);
+                item.Testnumber = int.Parse(httpContext.Request.QueryString["question" + i]);
+                item.Testnumber = int.Parse(httpContext.Request.QueryString["type" + i]);
+                item.Testnumber = int.Parse(httpContext.Request.QueryString["choiceanswerA" + i]);
+                item.Testnumber = int.Parse(httpContext.Request.QueryString["choiceanswerB" + i]);
+                item.Testnumber = int.Parse(httpContext.Request.QueryString["choiceanswerC" + i]);
+                item.Testnumber = int.Parse(httpContext.Request.QueryString["choiceanswerD" + i]);
+                item.Testnumber = int.Parse(httpContext.Request.QueryString["choiceanswer" + i]);
+                item.Testnumber = int.Parse(httpContext.Request.QueryString["answer" + i]);
+            }
 
             if (action == "questionchange")
                 QuestionChange(specifictest, xml);
